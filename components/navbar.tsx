@@ -39,10 +39,10 @@ export function Navbar() {
             Color Picker
           </Link>
           <Link
-            href="/tools"
+            href="/about"
             className="text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
           >
-            Tools
+            About
           </Link>
           <ThemeToggle />
         </div>
