@@ -5,8 +5,30 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { InstantColorPicker } from "@/components/instant-color-picker";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+
+  const colors = [
+    "#e11d48",
+    "#f472b6",
+    "#fb923c",
+    "#facc15",
+    "#84cc16",
+    "#10b981",
+    "#0ea5e9",
+    "#3b82f6",
+    "#8b5cf6",
+    "#a78bfa",
+  ];
+
+  const handleCopy = (color: string) => {
+    navigator.clipboard.writeText(color);
+    setCopiedColor(color);
+    setTimeout(() => setCopiedColor(null), 1200);
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden flex flex-col bg-background dark:bg-slate-950">
       {/* Background */}
@@ -40,6 +62,29 @@ export default function Home() {
               Upload, paste, or enter a URL to extract colors with HEX, RGB, and
               more.
             </p>
+
+            {/* Interactive Color Palette */}
+            <div className="flex justify-center gap-1 mt-6 flex-wrap perspective-[1000px]">
+              {colors.map((color, index) => (
+                <div key={index} className="relative group">
+                  <button
+                    onClick={() => handleCopy(color)}
+                    className="w-8 h-8 sm:w-11 sm:h-11 rounded-md transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.1)] hover:scale-150 hover:z-[50]"
+                    style={{ backgroundColor: color }}
+                  />
+                  {/* Tooltip */}
+                  <span
+                    className={`absolute left-1/2 -translate-x-1/2 bottom-12 translate-y-[-4px] px-2 py-1 rounded-md text-[10px] bg-white dark:bg-slate-800 text-black dark:text-white whitespace-nowrap shadow-md transition-all duration-300 ${
+                      copiedColor === color
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                    }`}
+                  >
+                    {copiedColor === color ? "✅ Copied" : color}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mb-12 sm:mb-16">
@@ -69,19 +114,6 @@ export default function Home() {
       </main>
 
       <Footer />
-    </div>
-  );
-}
-
-function StatCard({ number, label }: { number: string; label: string }) {
-  return (
-    <div className="p-4 sm:p-6 rounded-2xl bg-muted/50 dark:bg-white/5 backdrop-blur-sm border border-border dark:border-white/10 hover:border-primary dark:hover:border-cyan-500/30 transition-all duration-300 hover:scale-105">
-      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-2">
-        {number}
-      </div>
-      <div className="text-xs sm:text-sm text-muted-foreground dark:text-white/60">
-        {label}
-      </div>
     </div>
   );
 }
