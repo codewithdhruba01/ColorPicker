@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function AboutPage() {
   return (
@@ -18,14 +19,26 @@ export default function AboutPage() {
       <div className="absolute w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-3xl top-[20%] left-[60%] animate-pulse"></div>
 
       {/* Main Content */}
-      <main className="relative z-10 flex-1 container mx-auto px-6 pt-32 pb-20 sm:pt-40">
+      <main className="relative z-10 flex-1 container mx-auto px-6 pt-32 pb-32 sm:pt-40">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center space-y-5 mb-20"
+          className="text-center space-y-5 mb-24"
         >
+          {/* 🔹 Added Logo Here */}
+           <div className="flex justify-center mb-4">
+            <Image
+              src="/colorkit.png" // apna logo path yahan rakhna
+              alt="ColorKit Logo"
+              width={95} // same as w-20 (80px)
+              height={95} // same as h-20
+              className="object-contain"
+              priority
+            />
+          </div>
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r text-black dark:text-white bg-clip-text">
             About ColorKit
           </h1>
@@ -36,7 +49,7 @@ export default function AboutPage() {
         </motion.div>
 
         {/* Features Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           <FeatureCard
             icon={<Palette className="w-7 h-7 text-cyan-500" />}
             title="Pick from Image"
@@ -75,7 +88,7 @@ export default function AboutPage() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-24"
         >
           <Card className="max-w-4xl mx-auto backdrop-blur-sm bg-muted/30 border border-muted/50">
             <CardContent className="p-10 text-center space-y-4">
@@ -92,12 +105,13 @@ export default function AboutPage() {
           </Card>
         </motion.div>
 
-        {/* Join the Community Section (Now in a Card) */}
+        {/* Join the Community Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
+          className="mt-24"
         >
           <Card className="max-w-4xl mx-auto backdrop-blur-sm bg-muted/30 border border-muted/50">
             <CardContent className="p-10 text-center space-y-5">
@@ -105,7 +119,7 @@ export default function AboutPage() {
                 Join the Community
               </h3>
               <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                Want to contribute, improve features, or report bugs?  
+                Want to contribute, improve features, or report bugs? <br /> 
                 We welcome open-source contributors and creative minds like you!
               </p>
               <Link
