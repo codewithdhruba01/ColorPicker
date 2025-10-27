@@ -79,7 +79,7 @@ export function InstantColorPicker() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-background/80 dark:bg-black/40 backdrop-blur-xl border-border dark:border-white/20 shadow-2xl">
+    <Card className="w-full max-w-2xl mx-auto bg-background/80 dark:bg-black/40 backdrop-blur-1xl border-border dark:border-white/20 shadow-2xl">
       <div className="p-4 sm:p-6 md:p-8">
         <Tabs defaultValue="image" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
