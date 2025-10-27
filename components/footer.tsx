@@ -1,6 +1,6 @@
 "use client"
 
-import { Github, Twitter, Mail } from "lucide-react"
+import { Github, Twitter, Mail, Globe } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -61,8 +61,9 @@ export function Footer() {
             <h3 className="font-semibold text-foreground dark:text-white">Connect</h3>
             <div className="flex gap-3">
               {[
-                { icon: Github, href: "#" },
-                { icon: Twitter, href: "#" },
+                { icon: Github, href: "https://github.com/codewithdhruba01" },
+                { icon: Twitter, href: "https://x.com/codewithdhruba" },
+                { icon: Globe, href: "https://codewithdhruba.vercel.app/" },
                 { icon: Mail, href: "mailto:example@email.com" },
               ].map(({ icon: Icon, href }, i) => (
                 <a
