@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { ThemeToggle } from "./theme-toggle"
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] sm:w-[80%] md:w-[40%] lg:w-[40%]">
@@ -86,5 +86,5 @@ export function Navbar() {
         </div>
       )}
     </nav>
-  )
+  );
 }
