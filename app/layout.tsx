@@ -8,7 +8,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'ColorKit - Advanced Color Picker & Analyzer',
-  description: 'Pick colors from images, generate palettes, analyze accessibility, and explore color theory',
+  description:
+    'Pick colors from images, generate palettes, analyze accessibility, and explore color theory',
+  icons: {
+    icon: '/colorkit.png',
+  },
 };
 
 export default function RootLayout({
