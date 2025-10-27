@@ -96,8 +96,8 @@ Simulate how colors appear to people with:
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd project
+git clone https://github.com/codewithdhruba01/ColorPicker.git
+cd ColorPicker
 ```
 
 2. Install dependencies:
@@ -153,10 +153,6 @@ Uses scientifically-accurate matrices to simulate:
 - Deuteranopia (6% of males)
 - Tritanopia (rare)
 
-## License
-
-MIT
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -166,3 +162,19 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Lucide](https://lucide.dev/)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+   
+⭐ If you find this project useful, please give it a star!
+
+**Built with ❤️ by [Dhrubaraj Pati](https://codewithdhruba.vercel.app/) for developers**
+
+[Website](https://codewithdhruba.vercel.app/) • [GitHub](https://github.com/codewithdhruba01) • [Twitter](https://x.com/codewithdhruba)
+
+</div>
