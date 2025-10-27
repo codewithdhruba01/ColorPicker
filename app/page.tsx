@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { InstantColorPicker } from "@/components/instant-color-picker"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { InstantColorPicker } from "@/components/instant-color-picker";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,7 +16,6 @@ export default function Home() {
       <Navbar />
 
       <main className="relative z-10 flex-1">
-        {/* Increased top padding to push content below navbar */}
         <div className="container mx-auto px-4 pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 md:pb-20">
           <div className="text-center space-y-6 sm:space-y-8 animate-fade-in-up max-w-5xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/50 backdrop-blur-sm border border-yellow-500/60 mb-4">
@@ -38,7 +37,8 @@ export default function Home() {
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground dark:text-white/60 max-w-3xl mx-auto leading-relaxed px-4">
-              Upload, paste, or enter a URL to extract colors with HEX, RGB, and more.
+              Upload, paste, or enter a URL to extract colors with HEX, RGB, and
+              more.
             </p>
           </div>
 
@@ -70,14 +70,18 @@ export default function Home() {
 
       <Footer />
     </div>
-  )
+  );
 }
 
 function StatCard({ number, label }: { number: string; label: string }) {
   return (
     <div className="p-4 sm:p-6 rounded-2xl bg-muted/50 dark:bg-white/5 backdrop-blur-sm border border-border dark:border-white/10 hover:border-primary dark:hover:border-cyan-500/30 transition-all duration-300 hover:scale-105">
-      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-2">{number}</div>
-      <div className="text-xs sm:text-sm text-muted-foreground dark:text-white/60">{label}</div>
+      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-2">
+        {number}
+      </div>
+      <div className="text-xs sm:text-sm text-muted-foreground dark:text-white/60">
+        {label}
+      </div>
     </div>
-  )
+  );
 }
