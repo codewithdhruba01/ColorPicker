@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
+import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
@@ -28,7 +29,7 @@ export function InstantColorPicker() {
         const imgSrc = event.target?.result as string
         setImage(imgSrc)
 
-        const img = new Image()
+        const img = typeof window !== "undefined" ? new window.Image() : document.createElement("img")
         img.onload = () => {
           const canvas = canvasRef.current
           if (!canvas) return
@@ -121,13 +122,16 @@ export function InstantColorPicker() {
                       ref={canvasRef}
                       className="hidden"
                     />
-                    <img
+                    <Image
                       ref={imageRef}
-                      src={image}
+                      src={image || ""}
                       alt="Uploaded"
                       className="max-w-full h-auto cursor-crosshair mx-auto"
                       style={{ maxHeight: "300px" }}
+                      width={500}
+                      height={300}
                       onClick={handleImageClick}
+                      unoptimized
                     />
                   </div>
 
