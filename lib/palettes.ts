@@ -1,0 +1,158 @@
+export interface ColorPalette {
+  id: string;
+  name: string;
+  colors: string[];
+  category: string;
+  likes: number;
+  timeAgo: string;
+}
+
+export const colorPalettes: ColorPalette[] = [
+  {
+    id: "1",
+    name: "Ocean Breeze",
+    colors: ["#8BA8B7", "#D4CFC0", "#8B7F76", "#6B3E3E"],
+    category: "Pastel",
+    likes: 40,
+    timeAgo: "10 hours",
+  },
+  {
+    id: "2",
+    name: "Autumn Harvest",
+    colors: ["#7A904A", "#F0E68C", "#F4A460", "#8B0000"],
+    category: "Warm",
+    likes: 174,
+    timeAgo: "Yesterday",
+  },
+  {
+    id: "3",
+    name: "Sunset Dreams",
+    colors: ["#E8D5D0", "#F5A582", "#2E8B8B", "#1A4D4D"],
+    category: "Vintage",
+    likes: 180,
+    timeAgo: "2 days",
+  },
+  {
+    id: "4",
+    name: "Golden Fields",
+    colors: ["#FFD700", "#FFEB3B", "#76A56C", "#5B6F32"],
+    category: "Gold",
+    likes: 156,
+    timeAgo: "3 days",
+  },
+  {
+    id: "5",
+    name: "Mint Fresh",
+    colors: ["#E8F5E9", "#A5D6A7", "#81C784", "#66BB6A"],
+    category: "Light",
+    likes: 400,
+    timeAgo: "4 days",
+  },
+  {
+    id: "6",
+    name: "Navy & Pink",
+    colors: ["#1E3A5F", "#FF91A4", "#FFD4BA", "#F5E6D3"],
+    category: "Retro",
+    likes: 346,
+    timeAgo: "5 days",
+  },
+  {
+    id: "7",
+    name: "Candy Pop",
+    colors: ["#FF9EC1", "#FFF5BA", "#B8E1FF", "#D4B5FF"],
+    category: "Pastel",
+    likes: 554,
+    timeAgo: "6 days",
+  },
+  {
+    id: "8",
+    name: "Autumn Night",
+    colors: ["#1A237E", "#FF6F00", "#FF9800", "#C8E6C9"],
+    category: "Dark",
+    likes: 413,
+    timeAgo: "1 week",
+  },
+  {
+    id: "9",
+    name: "Tropical Paradise",
+    colors: ["#00BCD4", "#4DD0E1", "#80DEEA", "#B2EBF2"],
+    category: "Neon",
+    likes: 287,
+    timeAgo: "1 week",
+  },
+  {
+    id: "10",
+    name: "Forest Moss",
+    colors: ["#2E7D32", "#558B2F", "#689F38", "#7CB342"],
+    category: "Cold",
+    likes: 198,
+    timeAgo: "2 weeks",
+  },
+  {
+    id: "11",
+    name: "Cherry Blossom",
+    colors: ["#FFB6C1", "#FFC0CB", "#FFD1DC", "#FFE4E1"],
+    category: "Pastel",
+    likes: 502,
+    timeAgo: "2 weeks",
+  },
+  {
+    id: "12",
+    name: "Desert Sand",
+    colors: ["#EDC9AF", "#DEB887", "#D2B48C", "#BC8F8F"],
+    category: "Warm",
+    likes: 234,
+    timeAgo: "3 weeks",
+  },
+  {
+    id: "13",
+    name: "Arctic Ice",
+    colors: ["#E0F2F7", "#B2EBF2", "#80DEEA", "#4DD0E1"],
+    category: "Cold",
+    likes: 356,
+    timeAgo: "3 weeks",
+  },
+  {
+    id: "14",
+    name: "Vintage Rose",
+    colors: ["#D4A5A5", "#E8C1C1", "#F5E1E1", "#FFF5F5"],
+    category: "Vintage",
+    likes: 445,
+    timeAgo: "1 month",
+  },
+  {
+    id: "15",
+    name: "Neon Lights",
+    colors: ["#FF006E", "#FFBE0B", "#3A86FF", "#8338EC"],
+    category: "Neon",
+    likes: 678,
+    timeAgo: "1 month",
+  },
+  {
+    id: "16",
+    name: "Earth Tones",
+    colors: ["#A0522D", "#8B4513", "#D2691E", "#CD853F"],
+    category: "Retro",
+    likes: 312,
+    timeAgo: "1 month",
+  },
+];
+
+export const categories = [
+  { id: "new", name: "New", icon: "sparkles" },
+  { id: "popular", name: "Popular", icon: "trending" },
+  { id: "random", name: "Random", icon: "shuffle" },
+  { id: "collection", name: "Collection", icon: "heart" },
+  { id: "pastel", name: "Pastel", icon: "" },
+  { id: "vintage", name: "Vintage", icon: "" },
+  { id: "retro", name: "Retro", icon: "" },
+  { id: "neon", name: "Neon", icon: "" },
+  { id: "gold", name: "Gold", icon: "" },
+  { id: "light", name: "Light", icon: "" },
+  { id: "dark", name: "Dark", icon: "" },
+  { id: "warm", name: "Warm", icon: "" },
+  { id: "cold", name: "Cold", icon: "" },
+  { id: "summer", name: "Summer", icon: "" },
+  { id: "fall", name: "Fall", icon: "" },
+  { id: "winter", name: "Winter", icon: "" },
+];

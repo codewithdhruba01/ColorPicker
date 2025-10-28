@@ -41,12 +41,18 @@ export function Navbar() {
             >
               Color Picker
             </Link>
-            
+
             <Link
               href="/contrast-checker"
               className="text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
             >
               Contrast
+            </Link>
+            <Link
+              href="/palettes"
+              className="text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
+            >
+              Palettes
             </Link>
           </div>
 
@@ -70,6 +76,12 @@ export function Navbar() {
           className="absolute right-0 mt-3 w-full bg-background/70 backdrop-blur-lg 
           border border-border/30 rounded-2xl shadow-lg p-4 space-y-3 sm:hidden"
         >
+          <Link
+            href="/palettes"
+            className="text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
+          >
+            Color Palettes
+          </Link>
           <Link
             href="/picker"
             className="block text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
