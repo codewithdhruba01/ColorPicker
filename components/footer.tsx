@@ -50,7 +50,7 @@ export function Footer() {
             <h3 className="font-semibold text-foreground dark:text-white">Resources</h3>
             <ul className="space-y-2 text-sm text-muted-foreground dark:text-white/60">
               <li><Link href="/about" className="hover:text-foreground dark:hover:text-white transition-colors">About</Link></li>
-              <li><Link href="/docs" className="hover:text-foreground dark:hover:text-white transition-colors">Documentation</Link></li>
+              <li><Link href="/privacy" className="hover:text-foreground dark:hover:text-white transition-colors">Privecy Policy</Link></li>
               <li><Link href="/api" className="hover:text-foreground dark:hover:text-white transition-colors">API Reference</Link></li>
               <li><Link href="/color-theory" className="hover:text-foreground dark:hover:text-white transition-colors">Color Theory</Link></li>
             </ul>
