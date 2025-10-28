@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -27,14 +27,14 @@ export default function NotFound() {
         <div className="relative bg-[#c47a34] rounded-lg shadow-lg w-[280px] sm:w-[360px] h-[230px] sm:h-[280px] border-4 border-[#6d4b2c] flex flex-col items-center justify-center">
           {/* TV Antenna */}
           <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-2">
-            <div className="w-[2px] h-10 bg-black rotate-[-25deg] origin-bottom" />
-            <div className="w-[2px] h-10 bg-black rotate-[25deg] origin-bottom" />
+            <div className="w-[2px] h-10 bg-[#c47a34] rotate-[-25deg] origin-bottom" />
+            <div className="w-[2px] h-10 bg-[#c47a34] rotate-[25deg] origin-bottom" />
           </div>
 
           {/* Screen */}
           <div className="w-[90%] h-[70%] bg-black rounded-md overflow-hidden border-2 border-gray-800 relative">
             <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,white_0px,white_1px,black_1px,black_2px)] opacity-90 animate-static" />
-            <p className="absolute inset-0 flex items-center justify-center text-white text-xs sm:text-sm font-mono bg-black/60 z-10">
+            <p className="absolute inset-0 flex items-center justify-center text-white text-xs sm:text-lg font-mono bg-black/60 z-10">
               Coming Soon...
             </p>
           </div>
@@ -44,7 +44,7 @@ export default function NotFound() {
             <div className="w-4 h-4 rounded-full bg-[#7a4a20] border border-black" />
             <div className="w-4 h-4 rounded-full bg-[#7a4a20] border border-black" />
           </div>
-          <div className="absolute right-3 bottom-6 w-10 h-1 bg-[#7a4a20] rounded" />
+          <div className="absolute right-3 bottom-6 w-10 h-1 bg-[#eeeded] rounded" />
         </div>
       </motion.div>
 
@@ -55,13 +55,23 @@ export default function NotFound() {
         transition={{ delay: 0.8 }}
         className="z-10 mt-10"
       >
-        <p className="text-gray-800 text-lg sm:text-xl font-medium">Oops! This page is under construction </p>
+        <p className="text-[#a09f9f] text-lg sm:text-xl font-medium">
+          Oops! This page is under construction{" "}
+        </p>
         <Link
           href="/"
           className="mt-4 inline-block bg-[#c47a34] text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-[#a9672d] transition-all duration-300"
         >
           Go Back Home
         </Link>
+      </motion.div>
+      <motion.div
+        className="absolute bottom-8 text-xs text-muted-foreground/60"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+      >
+        © {new Date().getFullYear()} ColorKit — All Rights Reserved
       </motion.div>
 
       {/* Static animation keyframes */}
@@ -79,5 +89,5 @@ export default function NotFound() {
         }
       `}</style>
     </div>
-  )
+  );
 }
