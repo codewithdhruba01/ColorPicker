@@ -42,7 +42,7 @@ export default function ContrastCheckerPage() {
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 py-6 sm:py-8">
+        <main className="flex-1 container mx-auto px-4 pt-36 sm:pt-40">
           <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
             <div className="text-center space-y-2">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
