@@ -139,9 +139,9 @@ export default function Home() {
             className="flex justify-center mb-10"
             variants={itemVariants}
           >
-            <Link href="/picker">
+            <Link href="/about">
               <button className="relative inline-flex items-center gap-2 px-8 py-4 bg-black text-white font-semibold text-base sm:text-lg border-[3px] border-yellow-400 rounded-[12px] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#facc15] focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                Color Picker
+                About ColorKit
                 <ArrowRight className="w-5 h-5 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
               </button>
             </Link>
