@@ -32,16 +32,11 @@ export function Footer() {
           <div className="space-y-3">
             <h3 className="font-semibold text-foreground dark:text-white">Tools</h3>
             <ul className="space-y-2 text-sm text-muted-foreground dark:text-white/60">
-              {["Color Picker", "Palette Generator", "Contrast Checker", "Color Converter"].map((tool, i) => (
-                <li key={i}>
-                  <Link
-                    href="/picker"
-                    className="hover:text-foreground dark:hover:text-white transition-colors"
-                  >
-                    {tool}
-                  </Link>
-                </li>
-              ))}
+              <li><Link href="/picker" className="hover:text-foreground dark:hover:text-white transition-colors">Color Picker</Link></li>
+              <li><Link href="/palettes" className="hover:text-foreground dark:hover:text-white transition-colors">Palette Generator</Link></li>
+              <li><Link href="/contrast-checker" className="hover:text-foreground dark:hover:text-white transition-colors">Contrast Checker</Link></li>
+              <li><Link href="/terms" className="hover:text-foreground dark:hover:text-white transition-colors">Color Converter</Link></li>
+              <li><Link href="" className="hover:text-foreground dark:hover:text-white transition-colors">Gradient Palette</Link></li>
             </ul>
           </div>
 
