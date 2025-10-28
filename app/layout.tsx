@@ -1,17 +1,17 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/sonner';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ColorKit - Advanced Color Picker & Analyzer',
+  title: "ColorKit - Advanced Color Picker & Analyzer",
   description:
-    'Pick colors from images, generate palettes, analyze accessibility, and explore color theory',
+    "Pick colors from images, generate palettes, analyze accessibility, and explore color theory",
   icons: {
-    icon: '/colorkit.png',
+    icon: "/colorkit.png",
   },
 };
 
