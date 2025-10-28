@@ -153,9 +153,13 @@ export default function PalettesPage() {
                           {palette.colors.map((color, index) => (
                             <div
                               key={index}
-                              className="transition-all group-hover:scale-105"
+                              className="relative group/color"
                               style={{ backgroundColor: color }}
-                            />
+                            >
+                              <span className="absolute bottom-1 left-1 text-[11px] font-mono text-white bg-black/40 px-1.5 py-0.5 rounded opacity-0 group-hover/color:opacity-100 transition-opacity duration-200">
+                                {color.toUpperCase()}
+                              </span>
+                            </div>
                           ))}
                         </div>
                         <div className="p-4 space-y-3">
@@ -207,9 +211,13 @@ export default function PalettesPage() {
                 {selectedPalette.colors.map((color, index) => (
                   <div
                     key={index}
-                    className="transition-all hover:scale-105"
+                    className="relative hover:scale-105 transition-all"
                     style={{ backgroundColor: color }}
-                  />
+                  >
+                    <span className="absolute bottom-1 left-1 text-[11px] font-mono text-white bg-black/40 px-1.5 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity duration-200">
+                      {color.toUpperCase()}
+                    </span>
+                  </div>
                 ))}
               </div>
 
