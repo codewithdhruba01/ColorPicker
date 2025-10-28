@@ -41,11 +41,12 @@ export function Navbar() {
             >
               Color Picker
             </Link>
+            
             <Link
-              href="/about"
+              href="/contrast-checker"
               className="text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
             >
-              About
+              Contrast
             </Link>
           </div>
 
@@ -77,11 +78,11 @@ export function Navbar() {
             Color Picker
           </Link>
           <Link
-            href="/about"
+            href="/contrast-checker"
             className="block text-sm text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white transition-colors"
             onClick={() => setIsOpen(false)}
           >
-            About
+            Contrast Checker
           </Link>
         </div>
       )}
