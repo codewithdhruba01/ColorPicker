@@ -1,80 +1,88 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Heart, Copy, Check, Shuffle, ChevronDown } from "lucide-react"
-import { gradients } from "@/lib/gradients"
-import { toast } from "sonner"
-import Link from "next/link"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Heart, Copy, Check, Shuffle, ChevronDown } from "lucide-react";
+import { gradients } from "@/lib/gradients";
+import { toast } from "sonner";
+import Link from "next/link";
 
 export default function GradientsPage() {
-  const [colors, setColors] = useState(["#EEDDFF", "#9966FF"])
-  const [rotation, setRotation] = useState("135")
-  const [gradientType, setGradientType] = useState("linear")
-  const [copiedCss, setCopiedCss] = useState(false)
+  const [colors, setColors] = useState(["#EEDDFF", "#9966FF"]);
+  const [rotation, setRotation] = useState("135");
+  const [gradientType, setGradientType] = useState("linear");
+  const [copiedCss, setCopiedCss] = useState(false);
 
   const generateGradientCSS = () => {
     const colorStops = colors
       .map((color, index) => {
-        const position = (index / (colors.length - 1)) * 100
-        return `${color} ${position}%`
+        const position = (index / (colors.length - 1)) * 100;
+        return `${color} ${position}%`;
       })
-      .join(", ")
+      .join(", ");
 
     if (gradientType === "radial") {
-      return `radial-gradient(circle, ${colorStops})`
+      return `radial-gradient(circle, ${colorStops})`;
     }
-    return `linear-gradient(${rotation}deg, ${colorStops})`
-  }
+    return `linear-gradient(${rotation}deg, ${colorStops})`;
+  };
 
-  const gradientCSS = generateGradientCSS()
+  const gradientCSS = generateGradientCSS();
 
   const addColor = () => {
-    if (colors.length < 5) {
-      setColors([...colors, "#FF00FF"])
-    }
-  }
+    if (colors.length < 5) setColors([...colors, "#FF00FF"]);
+  };
 
   const removeColor = (index: number) => {
-    if (colors.length > 2) {
-      setColors(colors.filter((_, i) => i !== index))
-    }
-  }
+    if (colors.length > 2) setColors(colors.filter((_, i) => i !== index));
+  };
 
   const updateColor = (index: number, color: string) => {
-    const newColors = [...colors]
-    newColors[index] = color
-    setColors(newColors)
-  }
+    const newColors = [...colors];
+    newColors[index] = color;
+    setColors(newColors);
+  };
 
   const randomizeGradient = () => {
-    const randomGradient = gradients[Math.floor(Math.random() * gradients.length)]
-    setColors(randomGradient.colors)
-    toast.success("Random gradient applied!")
-  }
+    const randomGradient =
+      gradients[Math.floor(Math.random() * gradients.length)];
+    setColors(randomGradient.colors);
+    toast.success("Random gradient applied!");
+  };
 
   const copyCSS = () => {
-    navigator.clipboard.writeText(`background: ${gradientCSS};`)
-    setCopiedCss(true)
-    toast.success("CSS copied to clipboard!")
-    setTimeout(() => setCopiedCss(false), 2000)
-  }
+    navigator.clipboard.writeText(`background: ${gradientCSS};`);
+    setCopiedCss(true);
+    toast.success("CSS copied to clipboard!");
+    setTimeout(() => setCopiedCss(false), 2000);
+  };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      {/* background overlay */}
+    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto pt-28 sm:pt-36 pb-10 px-4 sm:px-6">
+        <motion.main
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex-1 container mx-auto pt-36 sm:pt-40 pb-10 px-4 sm:px-6"
+        >
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Title */}
             <div className="text-center space-y-2">
@@ -86,15 +94,18 @@ export default function GradientsPage() {
               </p>
             </div>
 
-            {/* Main Control Area */}
             <div className="grid lg:grid-cols-2 gap-8 items-start">
-              {/* Left Side */}
               <Card className="p-5 sm:p-8 space-y-6">
                 <div className="space-y-4">
                   <h2 className="text-lg sm:text-xl font-semibold">Colors</h2>
                   {colors.map((color, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-3">
-                      <Label className="text-sm w-full sm:w-20">Color {index + 1}</Label>
+                    <div
+                      key={index}
+                      className="flex flex-col sm:flex-row sm:items-center gap-3"
+                    >
+                      <Label className="text-sm w-full sm:w-20">
+                        Color {index + 1}
+                      </Label>
                       <div className="flex items-center gap-3 w-full">
                         <input
                           type="color"
@@ -105,10 +116,9 @@ export default function GradientsPage() {
                         <Input
                           value={color.toUpperCase()}
                           onChange={(e) => {
-                            const value = e.target.value
-                            if (/^#[0-9A-F]{0,6}$/i.test(value)) {
-                              updateColor(index, value)
-                            }
+                            const value = e.target.value;
+                            if (/^#[0-9A-F]{0,6}$/i.test(value))
+                              updateColor(index, value);
                           }}
                           className="font-mono flex-1"
                         />
@@ -136,7 +146,11 @@ export default function GradientsPage() {
                     </div>
                   ))}
                   {colors.length < 5 && (
-                    <Button variant="outline" onClick={addColor} className="w-full">
+                    <Button
+                      variant="outline"
+                      onClick={addColor}
+                      className="w-full"
+                    >
                       Add Color
                     </Button>
                   )}
@@ -161,7 +175,10 @@ export default function GradientsPage() {
 
                   <div className="space-y-2">
                     <Label>Type</Label>
-                    <Select value={gradientType} onValueChange={setGradientType}>
+                    <Select
+                      value={gradientType}
+                      onValueChange={setGradientType}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Linear" />
                       </SelectTrigger>
@@ -186,20 +203,27 @@ export default function GradientsPage() {
                     onClick={copyCSS}
                     className="flex-1 gap-2 justify-center"
                   >
-                    {copiedCss ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copiedCss ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                     Copy CSS
                   </Button>
                 </div>
               </Card>
 
-              {/* Right Side */}
               <div className="flex flex-col gap-4">
                 <Card
                   className="h-56 sm:h-72 md:h-80 rounded-2xl shadow-2xl relative overflow-hidden"
                   style={{ background: gradientCSS }}
                 >
                   <div className="absolute top-3 right-3 flex gap-2">
-                    <Button size="icon" variant="secondary" className="rounded-full">
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                    >
                       <Heart className="w-4 h-4" />
                     </Button>
                   </div>
@@ -207,7 +231,9 @@ export default function GradientsPage() {
 
                 <Card className="p-4">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs sm:text-sm text-muted-foreground">CSS Code</Label>
+                    <Label className="text-xs sm:text-sm text-muted-foreground">
+                      CSS Code
+                    </Label>
                     <Button
                       size="sm"
                       variant="ghost"
@@ -237,7 +263,9 @@ export default function GradientsPage() {
             {/* Example Gradients */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl sm:text-2xl font-bold">Example Gradients</h2>
+                <h2 className="text-xl sm:text-2xl font-bold">
+                  Example Gradients
+                </h2>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
@@ -245,8 +273,8 @@ export default function GradientsPage() {
                   <button
                     key={gradient.id}
                     onClick={() => {
-                      setColors(gradient.colors)
-                      toast.success(`Applied ${gradient.name}`)
+                      setColors(gradient.colors);
+                      toast.success(`Applied ${gradient.name}`);
                     }}
                     className="group relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
                     style={{ background: gradient.css }}
@@ -270,10 +298,10 @@ export default function GradientsPage() {
               </div>
             </div>
           </div>
-        </main>
+        </motion.main>
 
         <Footer />
       </div>
     </div>
-  )
+  );
 }
