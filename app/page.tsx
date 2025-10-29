@@ -72,7 +72,7 @@ export default function Home() {
             className="text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto mb-12 sm:mb-16"
             variants={itemVariants}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground dark:text-white leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground dark:text-white leading-tight">
               Pick colors from any image:
               <br />
               <span className="text-foreground dark:text-white">
