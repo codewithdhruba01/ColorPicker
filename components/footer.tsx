@@ -61,7 +61,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/terms"
+                  href="/404-error"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
                   Color Converter
@@ -72,7 +72,7 @@ export function Footer() {
                   href="/gradients"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
-                  Gradient Palette
+                  Gradient Maker
                 </Link>
               </li>
             </ul>

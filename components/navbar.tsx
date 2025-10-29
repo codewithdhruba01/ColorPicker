@@ -15,6 +15,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Color Picker", href: "/picker" },
+    { name: "Gradient Maker", href: "/gradients" },
     { name: "Contrast", href: "/contrast-checker" },
     { name: "Palettes", href: "/palettes" },
   ];
@@ -45,7 +46,7 @@ export function Navbar() {
           </Link>
 
           {/* Centered Links with sliding active capsule */}
-          <div className="relative hidden sm:flex items-center justify-center gap-6 mx-auto">
+          <div className="relative hidden sm:flex items-center justify-center gap-1 mx-auto">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const isHovered = hovered === link.href;
