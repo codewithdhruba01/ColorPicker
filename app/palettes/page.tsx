@@ -20,8 +20,9 @@ export default function PalettesPage() {
   const [likedPalettes, setLikedPalettes] = useState<Set<string>>(new Set())
 
   const filteredPalettes = colorPalettes.filter((palette) => {
-    const matchesSearch = palette.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      palette.colors.some(color => color.toLowerCase().includes(searchQuery.toLowerCase()))
+    const matchesSearch =
+      palette.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      palette.colors.some((color) => color.toLowerCase().includes(searchQuery.toLowerCase()))
 
     if (selectedCategory === "new") return matchesSearch
     if (selectedCategory === "popular") return matchesSearch && palette.likes > 300
@@ -39,7 +40,7 @@ export default function PalettesPage() {
   }
 
   const toggleLike = (paletteId: string) => {
-    setLikedPalettes(prev => {
+    setLikedPalettes((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(paletteId)) {
         newSet.delete(paletteId)
@@ -62,13 +63,16 @@ export default function PalettesPage() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
+      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 pt-36 sm:pt-40 pb-10">
+        {/* MAIN CONTENT */}
+        <main className="flex-1 container mx-auto px-4 pt-32 sm:pt-40 pb-10">
           <div className="max-w-7xl mx-auto space-y-6">
+            {/* HEADER */}
             <div className="text-center space-y-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
                 Color Palettes
@@ -77,6 +81,7 @@ export default function PalettesPage() {
                 Explore thousands of beautiful color combinations for your next project
               </p>
 
+              {/* Search bar */}
               <div className="max-w-2xl mx-auto relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
@@ -84,7 +89,7 @@ export default function PalettesPage() {
                   placeholder="Search palettes by name or color..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 text-base"
+                  className="pl-12 h-12 text-base rounded-xl"
                 />
                 {searchQuery && (
                   <Button
@@ -99,7 +104,9 @@ export default function PalettesPage() {
               </div>
             </div>
 
-            <div className="flex gap-4 lg:gap-6">
+            {/* CATEGORY FILTERS */}
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6">
+              {/* Sidebar (Desktop) */}
               <aside className="hidden sm:block w-48 lg:w-56 flex-shrink-0">
                 <Card className="p-4 sticky top-24">
                   <div className="space-y-1">
@@ -121,14 +128,15 @@ export default function PalettesPage() {
                 </Card>
               </aside>
 
-              <div className="sm:hidden flex gap-2 overflow-x-auto pb-4">
-                {categories.slice(0, 6).map((category) => (
+              {/* Mobile Category Tabs */}
+              <div className="sm:hidden flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 no-scrollbar">
+                {categories.map((category) => (
                   <Button
                     key={category.id}
                     variant={selectedCategory === category.id ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedCategory(category.id)}
-                    className="flex-shrink-0 gap-2"
+                    className="flex-shrink-0 gap-2 rounded-full whitespace-nowrap"
                   >
                     {getCategoryIcon(category.id)}
                     {category.name}
@@ -136,13 +144,14 @@ export default function PalettesPage() {
                 ))}
               </div>
 
+              {/* PALETTES GRID */}
               <div className="flex-1">
                 {filteredPalettes.length === 0 ? (
                   <Card className="p-12 text-center">
                     <p className="text-muted-foreground">No palettes found matching your search</p>
                   </Card>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {filteredPalettes.map((palette) => (
                       <Card
                         key={palette.id}
@@ -164,12 +173,14 @@ export default function PalettesPage() {
                         </div>
                         <div className="p-4 space-y-3">
                           <div className="flex items-start justify-between gap-2">
-                            <h3 className="font-semibold text-sm sm:text-base">{palette.name}</h3>
+                            <h3 className="font-semibold text-sm sm:text-base truncate">
+                              {palette.name}
+                            </h3>
                             <Badge variant="secondary" className="text-xs flex-shrink-0">
                               {palette.category}
                             </Badge>
                           </div>
-                          <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation()
@@ -199,22 +210,23 @@ export default function PalettesPage() {
         <Footer />
       </div>
 
+      {/* DIALOG (PALETTE DETAILS) */}
       <Dialog open={!!selectedPalette} onOpenChange={() => setSelectedPalette(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-sm sm:max-w-2xl p-4 sm:p-6">
           <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedPalette?.name}</DialogTitle>
+            <DialogTitle className="text-lg sm:text-2xl">{selectedPalette?.name}</DialogTitle>
           </DialogHeader>
 
           {selectedPalette && (
             <div className="space-y-6">
-              <div className="grid grid-cols-4 h-48 rounded-lg overflow-hidden">
+              <div className="grid grid-cols-4 h-40 sm:h-48 rounded-lg overflow-hidden">
                 {selectedPalette.colors.map((color, index) => (
                   <div
                     key={index}
                     className="relative hover:scale-105 transition-all"
                     style={{ backgroundColor: color }}
                   >
-                    <span className="absolute bottom-1 left-1 text-[11px] font-mono text-white bg-black/40 px-1.5 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity duration-200">
+                    <span className="absolute bottom-1 left-1 text-[10px] sm:text-[11px] font-mono text-white bg-black/40 px-1.5 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity duration-200">
                       {color.toUpperCase()}
                     </span>
                   </div>
@@ -222,28 +234,26 @@ export default function PalettesPage() {
               </div>
 
               <div className="space-y-3">
-                <h3 className="font-semibold">Color Codes</h3>
+                <h3 className="font-semibold text-sm sm:text-base">Color Codes</h3>
                 {selectedPalette.colors.map((color, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors text-sm sm:text-base"
                   >
                     <div
-                      className="w-12 h-12 rounded-lg border-2 border-border flex-shrink-0"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg border-2 border-border flex-shrink-0"
                       style={{ backgroundColor: color }}
                     />
                     <div className="flex-1">
-                      <p className="font-mono font-semibold">{color.toUpperCase()}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="font-mono font-semibold text-xs sm:text-sm">
+                        {color.toUpperCase()}
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-muted-foreground">
                         RGB: {parseInt(color.slice(1, 3), 16)}, {parseInt(color.slice(3, 5), 16)},{" "}
                         {parseInt(color.slice(5, 7), 16)}
                       </p>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => copyToClipboard(color)}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => copyToClipboard(color)}>
                       {copiedColor === color ? (
                         <Check className="w-4 h-4" />
                       ) : (
@@ -254,8 +264,8 @@ export default function PalettesPage() {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t">
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Heart className="w-4 h-4" />
                     {selectedPalette.likes}
@@ -264,6 +274,7 @@ export default function PalettesPage() {
                   <Badge variant="secondary">{selectedPalette.category}</Badge>
                 </div>
                 <Button
+                  className="w-full sm:w-auto"
                   onClick={() => {
                     const allColors = selectedPalette.colors.join(", ")
                     navigator.clipboard.writeText(allColors)
