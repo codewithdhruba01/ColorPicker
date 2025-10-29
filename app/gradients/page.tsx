@@ -20,10 +20,12 @@ export default function GradientsPage() {
   const [copiedCss, setCopiedCss] = useState(false)
 
   const generateGradientCSS = () => {
-    const colorStops = colors.map((color, index) => {
-      const position = (index / (colors.length - 1)) * 100
-      return `${color} ${position}%`
-    }).join(", ")
+    const colorStops = colors
+      .map((color, index) => {
+        const position = (index / (colors.length - 1)) * 100
+        return `${color} ${position}%`
+      })
+      .join(", ")
 
     if (gradientType === "radial") {
       return `radial-gradient(circle, ${colorStops})`
@@ -66,15 +68,17 @@ export default function GradientsPage() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
+      {/* background overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto pt-36 sm:pt-40 pb-10">
-          <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
+        <main className="flex-1 container mx-auto pt-28 sm:pt-36 pb-10 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {/* Title */}
             <div className="text-center space-y-2">
-              <h1 className="text-4xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
                 Gradient Maker
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60">
@@ -82,34 +86,49 @@ export default function GradientsPage() {
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-6">
-              <Card className="p-6 sm:p-8 space-y-6">
+            {/* Main Control Area */}
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left Side */}
+              <Card className="p-5 sm:p-8 space-y-6">
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold">Colors</h2>
+                  <h2 className="text-lg sm:text-xl font-semibold">Colors</h2>
                   {colors.map((color, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <Label className="w-16 text-sm">Color {index + 1}</Label>
-                      <input
-                        type="color"
-                        value={color}
-                        onChange={(e) => updateColor(index, e.target.value)}
-                        className="w-16 h-10 rounded-lg cursor-pointer border"
-                      />
-                      <Input
-                        value={color.toUpperCase()}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          if (/^#[0-9A-F]{0,6}$/i.test(value)) {
-                            updateColor(index, value)
-                          }
-                        }}
-                        className="flex-1 font-mono"
-                      />
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-3">
+                      <Label className="text-sm w-full sm:w-20">Color {index + 1}</Label>
+                      <div className="flex items-center gap-3 w-full">
+                        <input
+                          type="color"
+                          value={color}
+                          onChange={(e) => updateColor(index, e.target.value)}
+                          className="w-12 h-10 rounded-lg cursor-pointer border shrink-0"
+                        />
+                        <Input
+                          value={color.toUpperCase()}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            if (/^#[0-9A-F]{0,6}$/i.test(value)) {
+                              updateColor(index, value)
+                            }
+                          }}
+                          className="font-mono flex-1"
+                        />
+                        {colors.length > 2 && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => removeColor(index)}
+                            className="hidden sm:flex"
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </div>
                       {colors.length > 2 && (
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => removeColor(index)}
+                          className="sm:hidden w-full"
                         >
                           Remove
                         </Button>
@@ -128,17 +147,14 @@ export default function GradientsPage() {
                     <Label>Rotation</Label>
                     <Select value={rotation} onValueChange={setRotation}>
                       <SelectTrigger>
-                        <SelectValue />
+                        <SelectValue placeholder="135°" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0°</SelectItem>
-                        <SelectItem value="45">45°</SelectItem>
-                        <SelectItem value="90">90°</SelectItem>
-                        <SelectItem value="135">135°</SelectItem>
-                        <SelectItem value="180">180°</SelectItem>
-                        <SelectItem value="225">225°</SelectItem>
-                        <SelectItem value="270">270°</SelectItem>
-                        <SelectItem value="315">315°</SelectItem>
+                        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+                          <SelectItem key={deg} value={deg.toString()}>
+                            {deg}°
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -147,7 +163,7 @@ export default function GradientsPage() {
                     <Label>Type</Label>
                     <Select value={gradientType} onValueChange={setGradientType}>
                       <SelectTrigger>
-                        <SelectValue />
+                        <SelectValue placeholder="Linear" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="linear">Linear</SelectItem>
@@ -157,45 +173,74 @@ export default function GradientsPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <Button variant="outline" onClick={randomizeGradient} className="flex-1 gap-2">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={randomizeGradient}
+                    className="flex-1 gap-2 justify-center"
+                  >
                     <Shuffle className="w-4 h-4" />
                     Random
                   </Button>
-                  <Button onClick={copyCSS} className="flex-1 gap-2">
+                  <Button
+                    onClick={copyCSS}
+                    className="flex-1 gap-2 justify-center"
+                  >
                     {copiedCss ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                     Copy CSS
-                    <ChevronDown className="w-4 h-4" />
                   </Button>
                 </div>
               </Card>
 
-              <div className="space-y-4">
+              {/* Right Side */}
+              <div className="flex flex-col gap-4">
                 <Card
-                  className="h-64 sm:h-80 lg:h-full min-h-[320px] rounded-2xl shadow-2xl relative overflow-hidden"
+                  className="h-56 sm:h-72 md:h-80 rounded-2xl shadow-2xl relative overflow-hidden"
                   style={{ background: gradientCSS }}
                 >
-                  <div className="absolute top-4 right-4 flex gap-2">
+                  <div className="absolute top-3 right-3 flex gap-2">
                     <Button size="icon" variant="secondary" className="rounded-full">
                       <Heart className="w-4 h-4" />
                     </Button>
                   </div>
                 </Card>
+
                 <Card className="p-4">
-                  <Label className="text-xs text-muted-foreground">CSS Code</Label>
-                  <code className="text-xs sm:text-sm font-mono block mt-2 p-3 bg-muted rounded-lg overflow-x-auto">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs sm:text-sm text-muted-foreground">CSS Code</Label>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={copyCSS}
+                      className="flex items-center gap-2"
+                    >
+                      {copiedCss ? (
+                        <>
+                          <Check className="w-4 h-4 text-green-500" />
+                          Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          Copy
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                  <code className="text-xs sm:text-sm font-mono block mt-2 p-3 bg-muted rounded-lg overflow-x-auto whitespace-pre-wrap break-words">
                     background: {gradientCSS};
                   </code>
                 </Card>
               </div>
             </div>
 
+            {/* Example Gradients */}
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Example Gradients</h2>
+                <h2 className="text-xl sm:text-2xl font-bold">Example Gradients</h2>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                 {gradients.slice(0, 12).map((gradient) => (
                   <button
                     key={gradient.id}
