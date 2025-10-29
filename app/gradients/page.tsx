@@ -94,15 +94,15 @@ export default function GradientsPage() {
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Title */}
             <div className="text-center space-y-2">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
+              <h1 className="text-4xl sm:text-4xl md:text-5xl font-extrabold text-foreground dark:text-white">
                 Gradient Maker
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60">
+              <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60 pt-1">
                 Create and export beautiful gradients
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <div className="grid lg:grid-cols-2 gap-8 items-start pt-5">
               {/* Left Panel */}
               <Card className="p-5 sm:p-8 space-y-6">
                 <div className="space-y-4">
