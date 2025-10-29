@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Card } from "@/components/ui/card";
@@ -15,7 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Heart, Copy, Check, Shuffle, ChevronDown } from "lucide-react";
+import {
+  Maximize2,
+  X,
+  Copy,
+  Check,
+  Shuffle,
+  ChevronDown,
+} from "lucide-react";
 import { gradients } from "@/lib/gradients";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -25,6 +32,7 @@ export default function GradientsPage() {
   const [rotation, setRotation] = useState("135");
   const [gradientType, setGradientType] = useState("linear");
   const [copiedCss, setCopiedCss] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const generateGradientCSS = () => {
     const colorStops = colors
@@ -95,6 +103,7 @@ export default function GradientsPage() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left Panel */}
               <Card className="p-5 sm:p-8 space-y-6">
                 <div className="space-y-4">
                   <h2 className="text-lg sm:text-xl font-semibold">Colors</h2>
@@ -213,6 +222,7 @@ export default function GradientsPage() {
                 </div>
               </Card>
 
+              {/* Right Gradient Preview */}
               <div className="flex flex-col gap-4">
                 <Card
                   className="h-56 sm:h-72 md:h-80 rounded-2xl shadow-2xl relative overflow-hidden"
@@ -223,8 +233,9 @@ export default function GradientsPage() {
                       size="icon"
                       variant="secondary"
                       className="rounded-full"
+                      onClick={() => setExpanded(true)}
                     >
-                      <Heart className="w-4 h-4" />
+                      <Maximize2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </Card>
@@ -302,6 +313,37 @@ export default function GradientsPage() {
 
         <Footer />
       </div>
+
+      {/* Fullscreen Gradient Popup */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="relative w-[90%] h-[70%] sm:w-[80%] sm:h-[75%] rounded-3xl shadow-2xl overflow-hidden"
+              style={{ background: gradientCSS }}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Button
+                size="icon"
+                variant="secondary"
+                className="absolute top-4 right-4 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/50"
+                onClick={() => setExpanded(false)}
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
