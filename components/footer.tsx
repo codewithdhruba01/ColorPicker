@@ -69,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/404-error"
+                  href="/gradients"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
                   Gradient Palette
