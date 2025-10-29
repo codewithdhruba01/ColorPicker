@@ -45,62 +45,64 @@ export default function AllGradientsPage() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto pt-36 sm:pt-40 pb-10">
-          <div className="max-w-7xl mx-auto space-y-6">
-            <div className="flex items-center gap-4">
-              <Link href="/gradients">
-                <Button variant="outline" size="icon">
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-              </Link>
-              <div className="flex-1">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
+        <main className="flex-1 container mx-auto pt-28 sm:pt-32 pb-10">
+          <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-8">
+
+            {/* Header Section */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-center gap-3">
+                <h1 className="text-4xl sm:text-5xl font-bold text-foreground dark:text-white">
                   All Gradients
                 </h1>
-                <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60 mt-1">
-                  {filteredGradients.length} beautiful gradient combinations
-                </p>
               </div>
+              <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60">
+                {filteredGradients.length} beautiful gradient combinations
+              </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="relative max-w-xl">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Search gradients..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12"
-                />
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </div>
+            {/* Search Bar */}
+            <div className="relative w-full max-w-lg">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search gradients..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-12 h-12 rounded-full shadow-sm"
+              />
             </div>
 
-            {filteredGradients.length === 0 ? (
-              <Card className="p-12 text-center">
-                <p className="text-muted-foreground">No gradients found matching your search</p>
-              </Card>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                {filteredGradients.map((gradient) => (
+            {/* Category Buttons */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  className="rounded-full"
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+
+            {/* Gradients Grid */}
+            <div className="w-full mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+              {filteredGradients.length === 0 ? (
+                <Card className="p-12 text-center col-span-full">
+                  <p className="text-muted-foreground">
+                    No gradients found matching your search
+                  </p>
+                </Card>
+              ) : (
+                filteredGradients.map((gradient) => (
                   <Card
                     key={gradient.id}
                     className="group overflow-hidden hover:shadow-2xl transition-all"
@@ -110,6 +112,7 @@ export default function AllGradientsPage() {
                       style={{ background: gradient.css }}
                       onClick={() => copyGradient(gradient)}
                     >
+                      {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100">
                         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                           {copiedId === gradient.id ? (
@@ -135,6 +138,7 @@ export default function AllGradientsPage() {
                         </div>
                       </div>
 
+                      {/* Like Button */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
@@ -152,6 +156,7 @@ export default function AllGradientsPage() {
                       </button>
                     </div>
 
+                    {/* Gradient Info */}
                     <div className="p-4 space-y-2">
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="font-semibold text-sm sm:text-base">{gradient.name}</h3>
@@ -159,24 +164,22 @@ export default function AllGradientsPage() {
                           {gradient.category}
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         {gradient.colors.map((color, index) => (
                           <div key={index} className="flex items-center gap-1">
                             <div
-                              className="w-6 h-6 rounded border-2 border-border"
+                              className="w-5 h-5 sm:w-6 sm:h-6 rounded border border-border"
                               style={{ backgroundColor: color }}
                             />
-                            <span className="text-xs font-mono text-muted-foreground">
-                              {color}
-                            </span>
+                            <span className="text-xs font-mono text-muted-foreground">{color}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                   </Card>
-                ))}
-              </div>
-            )}
+                ))
+              )}
+            </div>
           </div>
         </main>
 
