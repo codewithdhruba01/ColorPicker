@@ -58,12 +58,12 @@ export default function AllGradientsPage() {
             {/* Header Section */}
             <div className="space-y-2">
               <motion.h1
-                className="text-4xl sm:text-5xl font-bold text-foreground dark:text-white"
+                className="text-5xl sm:text-6xl font-extrabold text-foreground dark:text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                All Gradients
+                Gradients
               </motion.h1>
               <motion.p
                 className="text-sm sm:text-base text-muted-foreground dark:text-white/60"
