@@ -1,65 +1,84 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Search, Heart, Copy, Check, Sparkles, TrendingUp, Shuffle } from "lucide-react"
-import { colorPalettes, categories, type ColorPalette } from "@/lib/palettes"
-import { toast } from "sonner"
+import { useState } from "react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Search,
+  Heart,
+  Copy,
+  Check,
+  Sparkles,
+  TrendingUp,
+  Shuffle,
+} from "lucide-react";
+import { colorPalettes, categories, type ColorPalette } from "@/lib/palettes";
+import { toast } from "sonner";
 
 export default function PalettesPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("new")
-  const [selectedPalette, setSelectedPalette] = useState<ColorPalette | null>(null)
-  const [copiedColor, setCopiedColor] = useState<string | null>(null)
-  const [likedPalettes, setLikedPalettes] = useState<Set<string>>(new Set())
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("new");
+  const [selectedPalette, setSelectedPalette] = useState<ColorPalette | null>(
+    null
+  );
+  const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const [likedPalettes, setLikedPalettes] = useState<Set<string>>(new Set());
 
   const filteredPalettes = colorPalettes.filter((palette) => {
     const matchesSearch =
       palette.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      palette.colors.some((color) => color.toLowerCase().includes(searchQuery.toLowerCase()))
+      palette.colors.some((color) =>
+        color.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
-    if (selectedCategory === "new") return matchesSearch
-    if (selectedCategory === "popular") return matchesSearch && palette.likes > 300
-    if (selectedCategory === "random") return matchesSearch
-    if (selectedCategory === "collection") return matchesSearch && likedPalettes.has(palette.id)
+    if (selectedCategory === "new") return matchesSearch;
+    if (selectedCategory === "popular")
+      return matchesSearch && palette.likes > 300;
+    if (selectedCategory === "random") return matchesSearch;
+    if (selectedCategory === "collection")
+      return matchesSearch && likedPalettes.has(palette.id);
 
-    return matchesSearch && palette.category.toLowerCase() === selectedCategory
-  })
+    return matchesSearch && palette.category.toLowerCase() === selectedCategory;
+  });
 
   const copyToClipboard = (color: string) => {
-    navigator.clipboard.writeText(color)
-    setCopiedColor(color)
-    toast.success(`Copied ${color}`)
-    setTimeout(() => setCopiedColor(null), 2000)
-  }
+    navigator.clipboard.writeText(color);
+    setCopiedColor(color);
+    toast.success(`Copied ${color}`);
+    setTimeout(() => setCopiedColor(null), 2000);
+  };
 
   const toggleLike = (paletteId: string) => {
     setLikedPalettes((prev) => {
-      const newSet = new Set(prev)
+      const newSet = new Set(prev);
       if (newSet.has(paletteId)) {
-        newSet.delete(paletteId)
-        toast.success("Removed from collection")
+        newSet.delete(paletteId);
+        toast.success("Removed from collection");
       } else {
-        newSet.add(paletteId)
-        toast.success("Added to collection")
+        newSet.add(paletteId);
+        toast.success("Added to collection");
       }
-      return newSet
-    })
-  }
+      return newSet;
+    });
+  };
 
   const getCategoryIcon = (categoryId: string) => {
-    if (categoryId === "new") return <Sparkles className="w-4 h-4" />
-    if (categoryId === "popular") return <TrendingUp className="w-4 h-4" />
-    if (categoryId === "random") return <Shuffle className="w-4 h-4" />
-    if (categoryId === "collection") return <Heart className="w-4 h-4" />
-    return null
-  }
+    if (categoryId === "new") return <Sparkles className="w-4 h-4" />;
+    if (categoryId === "popular") return <TrendingUp className="w-4 h-4" />;
+    if (categoryId === "random") return <Shuffle className="w-4 h-4" />;
+    if (categoryId === "collection") return <Heart className="w-4 h-4" />;
+    return null;
+  };
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
@@ -78,7 +97,8 @@ export default function PalettesPage() {
                 Color Palettes
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60 max-w-2xl mx-auto">
-                Explore thousands of beautiful color combinations for your next project
+                Explore thousands of beautiful color combinations for your next
+                project
               </p>
 
               {/* Search bar */}
@@ -133,7 +153,9 @@ export default function PalettesPage() {
                 {categories.map((category) => (
                   <Button
                     key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
+                    variant={
+                      selectedCategory === category.id ? "default" : "outline"
+                    }
                     size="sm"
                     onClick={() => setSelectedCategory(category.id)}
                     className="flex-shrink-0 gap-2 rounded-full whitespace-nowrap"
@@ -148,7 +170,9 @@ export default function PalettesPage() {
               <div className="flex-1">
                 {filteredPalettes.length === 0 ? (
                   <Card className="p-12 text-center">
-                    <p className="text-muted-foreground">No palettes found matching your search</p>
+                    <p className="text-muted-foreground">
+                      No palettes found matching your search
+                    </p>
                   </Card>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -176,24 +200,32 @@ export default function PalettesPage() {
                             <h3 className="font-semibold text-sm sm:text-base truncate">
                               {palette.name}
                             </h3>
-                            <Badge variant="secondary" className="text-xs flex-shrink-0">
+                            <Badge
+                              variant="secondary"
+                              className="text-xs flex-shrink-0"
+                            >
                               {palette.category}
                             </Badge>
                           </div>
                           <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
                             <button
                               onClick={(e) => {
-                                e.stopPropagation()
-                                toggleLike(palette.id)
+                                e.stopPropagation();
+                                toggleLike(palette.id);
                               }}
                               className="flex items-center gap-1 hover:text-red-500 transition-colors"
                             >
                               <Heart
                                 className={`w-4 h-4 ${
-                                  likedPalettes.has(palette.id) ? "fill-red-500 text-red-500" : ""
+                                  likedPalettes.has(palette.id)
+                                    ? "fill-red-500 text-red-500"
+                                    : ""
                                 }`}
                               />
-                              <span>{palette.likes + (likedPalettes.has(palette.id) ? 1 : 0)}</span>
+                              <span>
+                                {palette.likes +
+                                  (likedPalettes.has(palette.id) ? 1 : 0)}
+                              </span>
                             </button>
                             <span className="text-xs">{palette.timeAgo}</span>
                           </div>
@@ -211,10 +243,15 @@ export default function PalettesPage() {
       </div>
 
       {/* DIALOG (PALETTE DETAILS) */}
-      <Dialog open={!!selectedPalette} onOpenChange={() => setSelectedPalette(null)}>
+      <Dialog
+        open={!!selectedPalette}
+        onOpenChange={() => setSelectedPalette(null)}
+      >
         <DialogContent className="max-w-sm sm:max-w-2xl p-4 sm:p-6">
           <DialogHeader>
-            <DialogTitle className="text-lg sm:text-2xl">{selectedPalette?.name}</DialogTitle>
+            <DialogTitle className="text-lg sm:text-2xl">
+              {selectedPalette?.name}
+            </DialogTitle>
           </DialogHeader>
 
           {selectedPalette && (
@@ -234,7 +271,9 @@ export default function PalettesPage() {
               </div>
 
               <div className="space-y-3">
-                <h3 className="font-semibold text-sm sm:text-base">Color Codes</h3>
+                <h3 className="font-semibold text-sm sm:text-base">
+                  Color Codes
+                </h3>
                 {selectedPalette.colors.map((color, index) => (
                   <div
                     key={index}
@@ -249,11 +288,16 @@ export default function PalettesPage() {
                         {color.toUpperCase()}
                       </p>
                       <p className="text-[11px] sm:text-xs text-muted-foreground">
-                        RGB: {parseInt(color.slice(1, 3), 16)}, {parseInt(color.slice(3, 5), 16)},{" "}
+                        RGB: {parseInt(color.slice(1, 3), 16)},{" "}
+                        {parseInt(color.slice(3, 5), 16)},{" "}
                         {parseInt(color.slice(5, 7), 16)}
                       </p>
                     </div>
-                    <Button variant="outline" size="sm" onClick={() => copyToClipboard(color)}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyToClipboard(color)}
+                    >
                       {copiedColor === color ? (
                         <Check className="w-4 h-4" />
                       ) : (
@@ -276,9 +320,9 @@ export default function PalettesPage() {
                 <Button
                   className="w-full sm:w-auto"
                   onClick={() => {
-                    const allColors = selectedPalette.colors.join(", ")
-                    navigator.clipboard.writeText(allColors)
-                    toast.success("All colors copied!")
+                    const allColors = selectedPalette.colors.join(", ");
+                    navigator.clipboard.writeText(allColors);
+                    toast.success("All colors copied!");
                   }}
                 >
                   Copy All Colors
@@ -289,5 +333,5 @@ export default function PalettesPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
