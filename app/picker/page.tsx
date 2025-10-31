@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, Variants } from "framer-motion"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ImageColorPicker from "@/components/color-picker/image-color-picker"
-import ManualColorPicker from "@/components/color-picker/manual-color-picker"
-import ColorAnalysis from "@/components/color-picker/color-analysis"
+import { useState } from "react";
+import { motion, Variants } from "framer-motion";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ImageColorPicker from "@/components/color-picker/image-color-picker";
+import ManualColorPicker from "@/components/color-picker/manual-color-picker";
+import ColorAnalysis from "@/components/color-picker/color-analysis";
 
 export default function PickerPage() {
-  const [selectedColor, setSelectedColor] = useState("#2596be")
+  const [selectedColor, setSelectedColor] = useState("#2596be");
 
-  // ✅ Typed variants (TypeScript-safe)
   const containerVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -24,7 +23,7 @@ export default function PickerPage() {
         staggerChildren: 0.15,
       },
     },
-  }
+  };
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -33,7 +32,7 @@ export default function PickerPage() {
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" },
     },
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
@@ -51,13 +50,16 @@ export default function PickerPage() {
             animate="visible"
             variants={containerVariants}
           >
-            {/* Heading */}
-            <motion.div className="text-center space-y-2" variants={itemVariants}>
+            <motion.div
+              className="text-center space-y-2"
+              variants={itemVariants}
+            >
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground dark:text-white">
                 Color Picker & Analyzer
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60">
-                Extract colors from images or pick manually, then analyze and explore
+                Extract colors from images or pick manually, then analyze and
+                explore
               </p>
             </motion.div>
 
@@ -96,5 +98,5 @@ export default function PickerPage() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
