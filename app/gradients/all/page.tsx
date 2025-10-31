@@ -1,44 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Search, Copy, Check, Heart } from "lucide-react"
-import { gradients, categories } from "@/lib/gradients"
-import { toast } from "sonner"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Search, Copy, Check, Heart } from "lucide-react";
+import { gradients, categories } from "@/lib/gradients";
+import { toast } from "sonner";
 
 export default function AllGradientsPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [copiedId, setCopiedId] = useState<string | null>(null)
-  const [likedGradients, setLikedGradients] = useState<Set<string>>(new Set())
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [likedGradients, setLikedGradients] = useState<Set<string>>(new Set());
 
   const filteredGradients = gradients.filter((gradient) => {
-    const matchesSearch = gradient.name.toLowerCase().includes(searchQuery.toLowerCase())
-    if (selectedCategory === "All") return matchesSearch
-    return matchesSearch && gradient.category === selectedCategory
-  })
+    const matchesSearch = gradient.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    if (selectedCategory === "All") return matchesSearch;
+    return matchesSearch && gradient.category === selectedCategory;
+  });
 
-  const copyGradient = (gradient: typeof gradients[0]) => {
-    navigator.clipboard.writeText(`background: ${gradient.css};`)
-    setCopiedId(gradient.id)
-    toast.success(`Copied ${gradient.name}!`)
-    setTimeout(() => setCopiedId(null), 2000)
-  }
+  const copyGradient = (gradient: (typeof gradients)[0]) => {
+    navigator.clipboard.writeText(`background: ${gradient.css};`);
+    setCopiedId(gradient.id);
+    toast.success(`Copied ${gradient.name}!`);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   const toggleLike = (gradientId: string) => {
-    setLikedGradients(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(gradientId)) newSet.delete(gradientId)
-      else newSet.add(gradientId)
-      return newSet
-    })
-  }
+    setLikedGradients((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(gradientId)) newSet.delete(gradientId);
+      else newSet.add(gradientId);
+      return newSet;
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col overflow-x-hidden">
@@ -102,7 +104,9 @@ export default function AllGradientsPage() {
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
+                  variant={
+                    selectedCategory === category ? "default" : "outline"
+                  }
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
                   className="rounded-full px-4 py-2 text-sm"
@@ -157,14 +161,18 @@ export default function AllGradientsPage() {
                                 <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
                                   <Check className="w-6 h-6 text-white" />
                                 </div>
-                                <p className="text-white font-semibold">Copied!</p>
+                                <p className="text-white font-semibold">
+                                  Copied!
+                                </p>
                               </div>
                             ) : (
                               <div className="flex flex-col items-center gap-3">
                                 <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
                                   <Copy className="w-6 h-6 text-white" />
                                 </div>
-                                <p className="text-white text-xs sm:text-sm font-medium">Click to Copy CSS</p>
+                                <p className="text-white text-xs sm:text-sm font-medium">
+                                  Click to Copy CSS
+                                </p>
 
                                 {/* Fixed Code Box */}
                                 <div className="px-3 py-2 bg-black/50 backdrop-blur-sm rounded-lg border border-white/20 w-[90%] max-w-[270px] overflow-x-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
@@ -180,8 +188,8 @@ export default function AllGradientsPage() {
                         {/* Like Button */}
                         <button
                           onClick={(e) => {
-                            e.stopPropagation()
-                            toggleLike(gradient.id)
+                            e.stopPropagation();
+                            toggleLike(gradient.id);
                           }}
                           className="absolute top-3 right-3 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/30 transition-all z-10"
                         >
@@ -198,19 +206,29 @@ export default function AllGradientsPage() {
                       {/* Gradient Info */}
                       <div className="p-4 space-y-2">
                         <div className="flex items-start justify-between gap-2 flex-wrap">
-                          <h3 className="font-semibold text-sm sm:text-base text-left">{gradient.name}</h3>
-                          <Badge variant="secondary" className="text-xs flex-shrink-0">
+                          <h3 className="font-semibold text-sm sm:text-base text-left">
+                            {gradient.name}
+                          </h3>
+                          <Badge
+                            variant="secondary"
+                            className="text-xs flex-shrink-0"
+                          >
                             {gradient.category}
                           </Badge>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                           {gradient.colors.map((color, index) => (
-                            <div key={index} className="flex items-center gap-1">
+                            <div
+                              key={index}
+                              className="flex items-center gap-1"
+                            >
                               <div
                                 className="w-5 h-5 sm:w-6 sm:h-6 rounded border border-border"
                                 style={{ backgroundColor: color }}
                               />
-                              <span className="text-xs font-mono text-muted-foreground">{color}</span>
+                              <span className="text-xs font-mono text-muted-foreground">
+                                {color}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -226,5 +244,5 @@ export default function AllGradientsPage() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
