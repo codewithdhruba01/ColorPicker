@@ -1,40 +1,40 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { AlertCircle, CheckCircle, Copy, RotateCcw } from "lucide-react"
-import { hexToRgb, getContrastRatio } from "@/lib/color-utils"
-import { toast } from "sonner"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { AlertCircle, CheckCircle, Copy, RotateCcw } from "lucide-react";
+import { hexToRgb, getContrastRatio } from "@/lib/color-utils";
+import { toast } from "sonner";
 
 export default function ContrastCheckerPage() {
-  const [foregroundColor, setForegroundColor] = useState("#000000")
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff")
+  const [foregroundColor, setForegroundColor] = useState("#000000");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
-  const fgRgb = hexToRgb(foregroundColor) || { r: 0, g: 0, b: 0 }
-  const bgRgb = hexToRgb(backgroundColor) || { r: 255, g: 255, b: 255 }
-  const contrastRatio = getContrastRatio(fgRgb, bgRgb)
+  const fgRgb = hexToRgb(foregroundColor) || { r: 0, g: 0, b: 0 };
+  const bgRgb = hexToRgb(backgroundColor) || { r: 255, g: 255, b: 255 };
+  const contrastRatio = getContrastRatio(fgRgb, bgRgb);
 
-  const wcagAANormal = contrastRatio >= 4.5
-  const wcagAALarge = contrastRatio >= 3
-  const wcagAAA = contrastRatio >= 7
+  const wcagAANormal = contrastRatio >= 4.5;
+  const wcagAALarge = contrastRatio >= 3;
+  const wcagAAA = contrastRatio >= 7;
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-    toast.success(`Copied ${text}`)
-  }
+    navigator.clipboard.writeText(text);
+    toast.success(`Copied ${text}`);
+  };
 
   const swapColors = () => {
-    const temp = foregroundColor
-    setForegroundColor(backgroundColor)
-    setBackgroundColor(temp)
-  }
+    const temp = foregroundColor;
+    setForegroundColor(backgroundColor);
+    setBackgroundColor(temp);
+  };
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
@@ -47,7 +47,6 @@ export default function ContrastCheckerPage() {
         {/* Page Content */}
         <main className="flex-1 container mx-auto px-4 pt-36 sm:pt-40">
           <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12">
-
             {/* Header Section */}
             <motion.div
               className="text-center space-y-2"
@@ -60,7 +59,8 @@ export default function ContrastCheckerPage() {
                 Contrast Checker
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60 max-w-2xl mx-auto">
-                Check color contrast ratios and ensure your designs meet WCAG accessibility standards
+                Check color contrast ratios and ensure your designs meet WCAG
+                accessibility standards
               </p>
             </motion.div>
 
@@ -77,7 +77,12 @@ export default function ContrastCheckerPage() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Color Selection</h2>
-                    <Button variant="outline" size="sm" onClick={swapColors} className="gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={swapColors}
+                      className="gap-2"
+                    >
                       <RotateCcw className="w-4 h-4" /> Swap
                     </Button>
                   </div>
@@ -85,7 +90,9 @@ export default function ContrastCheckerPage() {
                   <div className="space-y-4">
                     {/* Foreground Color */}
                     <div className="space-y-2">
-                      <Label htmlFor="foreground">Foreground Color (Text)</Label>
+                      <Label htmlFor="foreground">
+                        Foreground Color (Text)
+                      </Label>
                       <div className="flex gap-3">
                         <input
                           type="color"
@@ -97,12 +104,17 @@ export default function ContrastCheckerPage() {
                           id="foreground"
                           value={foregroundColor.toUpperCase()}
                           onChange={(e) => {
-                            const value = e.target.value
-                            if (/^#[0-9A-F]{0,6}$/i.test(value)) setForegroundColor(value)
+                            const value = e.target.value;
+                            if (/^#[0-9A-F]{0,6}$/i.test(value))
+                              setForegroundColor(value);
                           }}
                           className="flex-1 font-mono"
                         />
-                        <Button variant="outline" size="icon" onClick={() => copyToClipboard(foregroundColor)}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => copyToClipboard(foregroundColor)}
+                        >
                           <Copy className="w-4 h-4" />
                         </Button>
                       </div>
@@ -122,12 +134,17 @@ export default function ContrastCheckerPage() {
                           id="background"
                           value={backgroundColor.toUpperCase()}
                           onChange={(e) => {
-                            const value = e.target.value
-                            if (/^#[0-9A-F]{0,6}$/i.test(value)) setBackgroundColor(value)
+                            const value = e.target.value;
+                            if (/^#[0-9A-F]{0,6}$/i.test(value))
+                              setBackgroundColor(value);
                           }}
                           className="flex-1 font-mono"
                         />
-                        <Button variant="outline" size="icon" onClick={() => copyToClipboard(backgroundColor)}>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => copyToClipboard(backgroundColor)}
+                        >
                           <Copy className="w-4 h-4" />
                         </Button>
                       </div>
@@ -141,7 +158,9 @@ export default function ContrastCheckerPage() {
                     <div className="text-5xl sm:text-6xl font-bold text-foreground dark:text-white mb-2">
                       {contrastRatio.toFixed(2)}:1
                     </div>
-                    <div className="text-sm text-muted-foreground dark:text-white/60">Contrast Ratio</div>
+                    <div className="text-sm text-muted-foreground dark:text-white/60">
+                      Contrast Ratio
+                    </div>
                   </div>
                 </div>
               </Card>
@@ -195,10 +214,30 @@ export default function ContrastCheckerPage() {
               <Card className="p-6 sm:p-8">
                 <h2 className="text-xl font-semibold mb-6">Live Preview</h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <PreviewCard bg={backgroundColor} fg={foregroundColor} title="Normal Text" size="text-base" />
-                  <PreviewCard bg={backgroundColor} fg={foregroundColor} title="Large Text" size="text-2xl" />
-                  <PreviewCard bg={backgroundColor} fg={foregroundColor} title="Bold Text" size="text-base font-bold" />
-                  <PreviewCard bg={backgroundColor} fg={foregroundColor} title="Heading" size="text-3xl font-bold" />
+                  <PreviewCard
+                    bg={backgroundColor}
+                    fg={foregroundColor}
+                    title="Normal Text"
+                    size="text-base"
+                  />
+                  <PreviewCard
+                    bg={backgroundColor}
+                    fg={foregroundColor}
+                    title="Large Text"
+                    size="text-2xl"
+                  />
+                  <PreviewCard
+                    bg={backgroundColor}
+                    fg={foregroundColor}
+                    title="Bold Text"
+                    size="text-base font-bold"
+                  />
+                  <PreviewCard
+                    bg={backgroundColor}
+                    fg={foregroundColor}
+                    title="Heading"
+                    size="text-3xl font-bold"
+                  />
                 </div>
               </Card>
             </motion.div>
@@ -209,9 +248,7 @@ export default function ContrastCheckerPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
-            >
-              
-            </motion.div>
+            ></motion.div>
           </div>
         </main>
 
@@ -219,17 +256,26 @@ export default function ContrastCheckerPage() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
 
-function ComplianceCard({ title, description, ratio, passes, currentRatio }: any) {
+function ComplianceCard({
+  title,
+  description,
+  ratio,
+  passes,
+  currentRatio,
+}: any) {
   return (
     <div className="p-4 rounded-lg border bg-card space-y-2">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
             <h4 className="font-semibold text-sm">{title}</h4>
-            <Badge variant={passes ? "default" : "secondary"} className="text-xs">
+            <Badge
+              variant={passes ? "default" : "secondary"}
+              className="text-xs"
+            >
               {ratio}
             </Badge>
           </div>
@@ -243,11 +289,12 @@ function ComplianceCard({ title, description, ratio, passes, currentRatio }: any
       </div>
       {!passes && (
         <p className="text-xs text-orange-600 dark:text-orange-400">
-          Need {(parseFloat(ratio) - currentRatio).toFixed(2)} more contrast to pass
+          Need {(parseFloat(ratio) - currentRatio).toFixed(2)} more contrast to
+          pass
         </p>
       )}
     </div>
-  )
+  );
 }
 
 function PreviewCard({ bg, fg, title, size }: any) {
@@ -260,5 +307,5 @@ function PreviewCard({ bg, fg, title, size }: any) {
         {title}
       </p>
     </div>
-  )
+  );
 }
