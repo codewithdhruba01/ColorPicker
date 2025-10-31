@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { Card, CardContent } from "@/components/ui/card"
-import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye } from "lucide-react"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Card, CardContent } from "@/components/ui/card";
+import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -28,7 +28,7 @@ export default function AboutPage() {
           className="text-center space-y-5 mb-24"
         >
           {/* 🔹 Added Logo Here */}
-           <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-4">
             <Image
               src="/colorkit.png" // apna logo path yahan rakhna
               alt="ColorKit Logo"
@@ -43,8 +43,9 @@ export default function AboutPage() {
             About ColorKit
           </h1>
           <p className="max-w-2xl mx-auto text-muted-foreground dark:text-white/70 text-sm sm:text-base leading-relaxed">
-            A simple yet powerful platform that helps you explore, extract, and analyze colors 
-            from images or palettes — designed for creators, developers, and artists.
+            A simple yet powerful platform that helps you explore, extract, and
+            analyze colors from images or palettes — designed for creators,
+            developers, and artists.
           </p>
         </motion.div>
 
@@ -76,7 +77,9 @@ export default function AboutPage() {
             description="Explore color variations, tints, shades, and harmonious combinations with one click."
           />
           <FeatureCard
-            icon={<Github className="w-7 h-7 text-gray-600 dark:text-gray-300" />}
+            icon={
+              <Github className="w-7 h-7 text-gray-600 dark:text-gray-300" />
+            }
             title="Open Source"
             description="Built with Next.js, TailwindCSS, and Shadcn/UI — completely open and community-driven."
           />
@@ -96,10 +99,12 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                We aim to make color exploration effortless, beautiful, and intelligent.  
-                Whether you’re designing a website, building a brand, or experimenting with palettes,  
-                <strong> Color Picker & Analyzer </strong> is your creative partner — helping you 
-                visualize, analyze, and perfect your color choices with clarity.
+                We aim to make color exploration effortless, beautiful, and
+                intelligent. Whether you’re designing a website, building a
+                brand, or experimenting with palettes,
+                <strong> Color Picker & Analyzer </strong> is your creative
+                partner — helping you visualize, analyze, and perfect your color
+                choices with clarity.
               </p>
             </CardContent>
           </Card>
@@ -119,7 +124,7 @@ export default function AboutPage() {
                 Join the Community
               </h3>
               <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                Want to contribute, improve features, or report bugs? <br /> 
+                Want to contribute, improve features, or report bugs? <br />
                 We welcome open-source contributors and creative minds like you!
               </p>
               <Link
@@ -137,7 +142,7 @@ export default function AboutPage() {
       {/* Footer */}
       <Footer />
     </div>
-  )
+  );
 }
 
 function FeatureCard({
@@ -145,9 +150,9 @@ function FeatureCard({
   title,
   description,
 }: {
-  icon: React.ReactNode
-  title: string
-  description: string
+  icon: React.ReactNode;
+  title: string;
+  description: string;
 }) {
   return (
     <motion.div
@@ -166,5 +171,5 @@ function FeatureCard({
         </p>
       </Card>
     </motion.div>
-  )
+  );
 }
