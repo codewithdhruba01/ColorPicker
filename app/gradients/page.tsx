@@ -15,14 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Maximize2,
-  X,
-  Copy,
-  Check,
-  Shuffle,
-  ChevronDown,
-} from "lucide-react";
+import { Maximize2, X, Copy, Check, Shuffle, ChevronDown } from "lucide-react";
 import { gradients } from "@/lib/gradients";
 import { toast } from "sonner";
 import Link from "next/link";
