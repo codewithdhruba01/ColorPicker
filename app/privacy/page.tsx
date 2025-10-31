@@ -262,8 +262,8 @@ export default function PrivacyPage() {
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
                   We may update this Privacy Policy from time to time. We will
                   notify you of any changes by posting the new Privacy Policy on
-                  this page and updating the Last updated date. We encourage
-                  you to review this Privacy Policy periodically.
+                  this page and updating the Last updated date. We encourage you
+                  to review this Privacy Policy periodically.
                 </p>
               </section>
 
