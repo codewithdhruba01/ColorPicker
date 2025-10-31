@@ -127,10 +127,7 @@ export default function Home() {
           </motion.div>
 
           {/* Instant Color Picker */}
-          <motion.div
-            className="mb-12 sm:mb-16"
-            variants={itemVariants}
-          >
+          <motion.div className="mb-12 sm:mb-16" variants={itemVariants}>
             <InstantColorPicker />
           </motion.div>
 
@@ -154,9 +151,12 @@ export default function Home() {
           >
             <div className="max-w-md mx-auto border border-gray-700 rounded-xl py-4 px-6 flex items-center justify-center space-x-3 text-gray-300 mb-14">
               <div className="flex space-x-0.3 text-yellow-400">
-                {"⭐".repeat(5).split("").map((star, i) => (
-                  <span key={i}>{star}</span>
-                ))}
+                {"⭐"
+                  .repeat(5)
+                  .split("")
+                  .map((star, i) => (
+                    <span key={i}>{star}</span>
+                  ))}
               </div>
               <p className="text-sm md:text-base text-neutral-700 dark:text-white">
                 Do you like{" "}
@@ -182,12 +182,13 @@ export default function Home() {
                   Click on the image to pick a color...
                 </h3>
                 <p className="text-gray-400 leading-relaxed text-sm md:text-base">
-                  Use the ColorKit image color picker below to explore and extract
-                  beautiful colors from any image in seconds. Instantly get
-                  accurate <strong>HEX</strong>, <strong>RGB</strong>, and{" "}
+                  Use the ColorKit image color picker below to explore and
+                  extract beautiful colors from any image in seconds. Instantly
+                  get accurate <strong>HEX</strong>, <strong>RGB</strong>, and{" "}
                   <strong>HSL</strong> color codes for every pixel you select —
-                  perfect for designers, developers, and digital artists. Upload,
-                  paste, or link an image and start picking colors instantly.
+                  perfect for designers, developers, and digital artists.
+                  Upload, paste, or link an image and start picking colors
+                  instantly.
                 </p>
               </motion.div>
 
