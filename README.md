@@ -147,21 +147,9 @@ Generate harmonious color schemes based on color theory:
 - Triadic (120° apart)
 - Tetradic (90° apart)
 
-### Color Blindness Simulation
-Uses scientifically-accurate matrices to simulate:
-- Protanopia (1% of males)
-- Deuteranopia (6% of males)
-- Tritanopia (rare)
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Acknowledgments
-
-- Built with [Next.js](https://nextjs.org/)
-- UI components from [shadcn/ui](https://ui.shadcn.com/)
-- Icons from [Lucide](https://lucide.dev/)
 
 ## License
 
