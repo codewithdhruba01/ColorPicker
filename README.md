@@ -1,5 +1,7 @@
 # ColorKit - Advanced Color Picker & Analyzer
 
+![Banner](public/colorkit-cover.png)
+
 A professional, feature-rich color picker and analysis tool built with Next.js 13, TypeScript, and Tailwind CSS. Extract colors from images, generate color palettes, analyze accessibility, and explore color theory with an elegant, animated interface.
 
 ## Key Highlights
@@ -50,8 +52,8 @@ A professional, feature-rich color picker and analysis tool built with Next.js 1
 - **Tetradic**: Four evenly-spaced colors (square)
 
 ### Contrast Checker
-- WCAG AA compliance checking (4.5:1 ratio)
-- WCAG AAA compliance checking (7:1 ratio)
+- WCAG AA compliance checking
+- WCAG AAA compliance checking
 - Test text on colored backgrounds
 - Accessibility recommendations
 
@@ -73,7 +75,7 @@ Simulate how colors appear to people with:
 ### Beautiful UI/UX
 - Animated gradient backgrounds
 - Smooth transitions and hover effects
-- Responsive design (mobile, tablet, desktop)
+- Responsive design
 - Modern glassmorphism effects
 - Professional color scheme
 
@@ -97,7 +99,7 @@ Simulate how colors appear to people with:
 1. Clone the repository:
 ```bash
 git clone https://github.com/codewithdhruba01/ColorPicker.git
-cd ColorPicker
+cd colorpicker
 ```
 
 2. Install dependencies:
@@ -142,10 +144,10 @@ Built-in WCAG compliance checker:
 
 ### Color Theory Tools
 Generate harmonious color schemes based on color theory:
-- Complementary (180° apart)
-- Analogous (30° apart)
-- Triadic (120° apart)
-- Tetradic (90° apart)
+- Complementary
+- Analogous
+- Triadic
+- Tetradic
 
 ## Contributing
 
