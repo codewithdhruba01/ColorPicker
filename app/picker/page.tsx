@@ -36,13 +36,10 @@ export default function PickerPage() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20" />
-
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        {/* Main Content Section with animation */}
         <main className="flex-1 container mx-auto px-4 pt-40 pb-10 sm:pt-48">
           <motion.div
             className="max-w-7xl mx-auto space-y-6 sm:space-y-8"
