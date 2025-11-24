@@ -145,10 +145,8 @@ export function Footer() {
 
         {/* COPYRIGHT */}
         <div className="border-t border-border dark:border-white/5 mt-12 pt-8 text-center text-sm text-muted-foreground dark:text-white/40">
-          <p>
-            © 2025 ColorKit. All rights reserved. Built with{" "}
-            <span className="text-white font-medium">Next.js</span> &{" "}
-            <span className="text-white font-medium">Tailwind CSS</span>.
+          <p className="font-sans">
+            © 2025 ColorKit. All rights reserved. <br /> Design & Developed by Dhrubaraj Pati
           </p>
         </div>
       </div>
