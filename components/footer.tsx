@@ -146,8 +146,18 @@ export function Footer() {
         {/* COPYRIGHT */}
         <div className="border-t border-border dark:border-white/5 mt-12 pt-8 text-center text-sm text-muted-foreground dark:text-white/40">
           <p className="font-sans">
-            © 2025 ColorKit. All rights reserved. <br /> Design & Developed by Dhrubaraj Pati
-          </p>
+  © 2025 ColorKit. All rights reserved. <br />
+  Design & Developed by{" "}
+  <a
+    href="https://codewithdhruba.vercel.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-foreground hover:underline dark:text-white hover:text-primary transition-colors"
+  >
+    Dhrubaraj Pati
+  </a>
+</p>
+
         </div>
       </div>
     </footer>
