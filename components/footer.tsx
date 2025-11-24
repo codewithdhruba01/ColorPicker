@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Twitter, Mail, Globe } from "lucide-react";
+import { Github, Twitter, Mail, Globe, Coffee } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -145,19 +145,17 @@ export function Footer() {
 
         {/* COPYRIGHT */}
         <div className="border-t border-border dark:border-white/5 mt-12 pt-8 text-center text-sm text-muted-foreground dark:text-white/40">
-          <p className="font-sans">
-  © 2025 ColorKit. All rights reserved. <br />
+          &copy; {new Date().getFullYear()} ColorKit. All rights reserved. <br />
   Design & Developed by{" "}
+  <Coffee className="w-4 h-4 text-primary inline-block" />
   <a
-    href="https://codewithdhruba.vercel.app/"
+    href="https://dhrubarajpati.in"
     target="_blank"
     rel="noopener noreferrer"
-    className="text-foreground hover:underline dark:text-white hover:text-primary transition-colors"
+    className="text-foreground dark:text-white hover:underline active:no-underline transition-colors"
   >
     Dhrubaraj Pati
   </a>
-</p>
-
         </div>
       </div>
     </footer>
