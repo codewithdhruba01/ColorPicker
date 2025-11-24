@@ -144,18 +144,22 @@ export function Footer() {
         </div>
 
         {/* COPYRIGHT */}
-        <div className="border-t border-border dark:border-white/5 mt-12 pt-8 text-center text-sm text-muted-foreground dark:text-white/40">
-          &copy; {new Date().getFullYear()} ColorKit. All rights reserved. <br />
-  Design & Developed by{" "}
-  <Coffee className="w-4 h-4 text-primary inline-block" />
-  <a
-    href="https://dhrubarajpati.in"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-foreground dark:text-white hover:underline active:no-underline transition-colors"
-  >
-    Dhrubaraj Pati
-  </a>
+        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col  justify-between items-center">
+          <p className="text-neutral-400 text-sm mb-4 md:mb-0 font-satoshi">
+            &copy; {new Date().getFullYear()} ColorKit. All rights reserved.{" "}
+          </p>
+          <p className="text-neutral-400 text-sm flex items-center font-satoshi">
+            Design & Developed by{" "}
+            <Coffee className="w-4 h-4 mx-1 text-[#fcda03]" />
+            <a
+              href="https://codewithdhruba.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground dark:text-white hover:none active:no-underline transition-colors"
+            >
+              Dhrubaraj Pati
+            </a>
+          </p>
         </div>
       </div>
     </footer>
