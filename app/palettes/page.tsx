@@ -22,6 +22,9 @@ import {
   TrendingUp,
   Shuffle,
 } from "lucide-react";
+
+import { motion } from "framer-motion";
+
 import { colorPalettes, categories, type ColorPalette } from "@/lib/palettes";
 import { toast } from "sonner";
 
@@ -82,17 +85,24 @@ export default function PalettesPage() {
 
   return (
     <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        {/* MAIN CONTENT */}
-        <main className="flex-1 container mx-auto px-4 pt-32 sm:pt-40 pb-10">
+        <motion.main
+          className="flex-1 container mx-auto px-4 pt-32 sm:pt-40 pb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="max-w-7xl mx-auto space-y-6">
-            {/* HEADER */}
-            <div className="text-center space-y-4">
+            <motion.div
+              className="text-center space-y-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            >
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
                 Color Palettes
               </h1>
@@ -102,7 +112,12 @@ export default function PalettesPage() {
               </p>
 
               {/* Search bar */}
-              <div className="max-w-2xl mx-auto relative">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="max-w-2xl mx-auto relative"
+              >
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   type="text"
@@ -121,12 +136,12 @@ export default function PalettesPage() {
                     Clear
                   </Button>
                 )}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* CATEGORY FILTERS */}
             <div className="flex flex-col sm:flex-row gap-4 lg:gap-6">
-              {/* Sidebar (Desktop) */}
+              {/* Sidebar */}
               <aside className="hidden sm:block w-48 lg:w-56 flex-shrink-0">
                 <Card className="p-4 sticky top-24">
                   <div className="space-y-1">
@@ -148,7 +163,7 @@ export default function PalettesPage() {
                 </Card>
               </aside>
 
-              {/* Mobile Category Tabs */}
+              {/* Mobile tabs */}
               <div className="sm:hidden flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 no-scrollbar">
                 {categories.map((category) => (
                   <Button
@@ -166,8 +181,12 @@ export default function PalettesPage() {
                 ))}
               </div>
 
-              {/* PALETTES GRID */}
-              <div className="flex-1">
+              <motion.div
+                className="flex-1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
                 {filteredPalettes.length === 0 ? (
                   <Card className="p-12 text-center">
                     <p className="text-muted-foreground">
@@ -195,6 +214,7 @@ export default function PalettesPage() {
                             </div>
                           ))}
                         </div>
+
                         <div className="p-4 space-y-3">
                           <div className="flex items-start justify-between gap-2">
                             <h3 className="font-semibold text-sm sm:text-base truncate">
@@ -207,6 +227,7 @@ export default function PalettesPage() {
                               {palette.category}
                             </Badge>
                           </div>
+
                           <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
                             <button
                               onClick={(e) => {
@@ -227,6 +248,7 @@ export default function PalettesPage() {
                                   (likedPalettes.has(palette.id) ? 1 : 0)}
                               </span>
                             </button>
+
                             <span className="text-xs">{palette.timeAgo}</span>
                           </div>
                         </div>
@@ -234,15 +256,14 @@ export default function PalettesPage() {
                     ))}
                   </div>
                 )}
-              </div>
+              </motion.div>
             </div>
           </div>
-        </main>
-
+        </motion.main>
         <Footer />
       </div>
 
-      {/* DIALOG (PALETTE DETAILS) */}
+      {/* DIALOG */}
       <Dialog
         open={!!selectedPalette}
         onOpenChange={() => setSelectedPalette(null)}
@@ -293,6 +314,7 @@ export default function PalettesPage() {
                         {parseInt(color.slice(5, 7), 16)}
                       </p>
                     </div>
+
                     <Button
                       variant="outline"
                       size="sm"
@@ -317,8 +339,9 @@ export default function PalettesPage() {
                   <span>{selectedPalette.timeAgo}</span>
                   <Badge variant="secondary">{selectedPalette.category}</Badge>
                 </div>
+
                 <Button
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto font-sans"
                   onClick={() => {
                     const allColors = selectedPalette.colors.join(", ");
                     navigator.clipboard.writeText(allColors);
