@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Card } from "@/components/ui/card";
 import { FileText } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function TermsPage() {
   return (
@@ -13,9 +14,19 @@ export default function TermsPage() {
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 pt-36 sm:pt-40">
+        <motion.main
+          className="flex-1 container mx-auto px-4 pt-36 sm:pt-40"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-            <div className="text-center space-y-4">
+            <motion.div
+              className="text-center space-y-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-orange-500 mb-4">
                 <FileText className="w-8 h-8 text-white" />
               </div>
@@ -25,8 +36,7 @@ export default function TermsPage() {
               <p className="text-sm text-muted-foreground dark:text-white/60">
                 Last updated: October 28, 2025
               </p>
-            </div>
-
+            </motion.div>
             <Card className="p-6 sm:p-8 space-y-8">
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">1. Acceptance of Terms</h2>
@@ -66,20 +76,14 @@ export default function TermsPage() {
                     </li>
                     <li>
                       Attempt to gain unauthorized access to the Service or its
-                      related systems
+                      systems
                     </li>
                     <li>Interfere with or disrupt the Service or servers</li>
+                    <li>Use automated systems or bots excessively</li>
                     <li>
-                      Use automated systems or bots to access the Service
-                      excessively
+                      Reverse engineer, decompile, or disassemble any part
                     </li>
-                    <li>
-                      Reverse engineer, decompile, or disassemble any aspect of
-                      the Service
-                    </li>
-                    <li>
-                      Remove or modify any copyright or proprietary notices
-                    </li>
+                    <li>Remove or modify any copyright notices</li>
                   </ul>
                 </div>
               </section>
@@ -93,29 +97,21 @@ export default function TermsPage() {
                   other intellectual property laws.
                 </p>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  Colors generated, extracted, or analyzed through the Service
-                  are not subject to copyright and may be used freely in your
-                  projects. However, the tools, algorithms, and interface design
-                  of ColorKit remain our intellectual property.
+                  Colors generated or analyzed are free to use, but ColorKit’s
+                  algorithms and interface design remain protected.
                 </p>
               </section>
 
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">4. User Content</h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  When you upload images to ColorKit for color extraction:
+                  When you upload images to ColorKit:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>
-                    All processing happens in your browser - images are not
-                    stored on our servers
-                  </li>
-                  <li>You retain all rights to your uploaded content</li>
-                  <li>
-                    You are responsible for ensuring you have the right to use
-                    any images you upload
-                  </li>
-                  <li>We do not claim any ownership of your content</li>
+                  <li>Processing happens locally in your browser</li>
+                  <li>You retain all rights to your content</li>
+                  <li>You must ensure you have rights to uploaded images</li>
+                  <li>We do not claim ownership of your content</li>
                 </ul>
               </section>
 
@@ -124,29 +120,14 @@ export default function TermsPage() {
                   5. Disclaimer of Warranties
                 </h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  The Service is provided on an AS IS and AS AVAILABLE basis
-                  without any warranties of any kind, either express or implied,
-                  including but not limited to:
+                  The Service is provided “AS IS” without warranties of any
+                  kind.
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>
-                    Warranties of merchantability or fitness for a particular
-                    purpose
-                  </li>
-                  <li>
-                    Warranties that the Service will be uninterrupted or
-                    error-free
-                  </li>
-                  <li>
-                    Warranties regarding the accuracy or reliability of color
-                    analysis results
-                  </li>
+                  <li>No guarantees of accuracy or uninterrupted service</li>
+                  <li>No warranty of fitness for a particular purpose</li>
+                  <li>Color analysis accuracy may vary</li>
                 </ul>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed mt-3">
-                  While we strive for accuracy in our accessibility testing and
-                  contrast checking, you should verify critical accessibility
-                  requirements using multiple tools and methods.
-                </p>
               </section>
 
               <section className="space-y-4">
@@ -154,72 +135,55 @@ export default function TermsPage() {
                   6. Limitation of Liability
                 </h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  In no event shall ColorKit, its directors, employees,
-                  partners, agents, suppliers, or affiliates be liable for any
-                  indirect, incidental, special, consequential, or punitive
-                  damages, including without limitation, loss of profits, data,
-                  use, goodwill, or other intangible losses, resulting from:
+                  ColorKit is not liable for any indirect or consequential
+                  damages.
                 </p>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>Your use or inability to use the Service</li>
-                  <li>Any unauthorized access to or use of our servers</li>
-                  <li>Any errors or omissions in any content</li>
-                  <li>
-                    Any reliance on color analysis or accessibility testing
-                    results
-                  </li>
+                  <li>Loss of data or profits</li>
+                  <li>Unauthorized server access</li>
+                  <li>Errors or omissions in content</li>
                 </ul>
               </section>
 
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">7. Changes to Service</h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  We reserve the right to modify or discontinue, temporarily or
-                  permanently, the Service (or any part thereof) with or without
-                  notice. You agree that we shall not be liable to you or any
-                  third party for any modification, suspension, or
-                  discontinuance of the Service.
+                  We may modify or discontinue the Service at any time without
+                  notice.
                 </p>
               </section>
 
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">8. Changes to Terms</h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  We reserve the right to update or modify these Terms of
-                  Service at any time without prior notice. Your continued use
-                  of the Service after any such changes constitutes your
-                  acceptance of the new Terms of Service.
+                  Continued use after updates means you accept the new terms.
                 </p>
               </section>
 
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">9. Governing Law</h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  These Terms shall be governed and construed in accordance with
-                  the laws, without regard to its conflict of law provisions.
-                  Our failure to enforce any right or provision of these Terms
-                  will not be considered a waiver of those rights.
+                  Terms are governed by applicable laws; failure to enforce a
+                  right is not a waiver.
                 </p>
               </section>
 
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold">10. Contact Us</h2>
                 <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  If you have any questions about these Terms of Service, please
-                  contact us through our website.
+                  If you have any questions, contact us through our website.
                 </p>
               </section>
 
               <div className="pt-6 border-t">
                 <p className="text-sm text-muted-foreground dark:text-white/60 text-center">
-                  By using ColorKit, you acknowledge that you have read and
-                  understood these Terms of Service and agree to be bound by
-                  them.
+                  By using ColorKit, you acknowledge that you agree to these
+                  Terms.
                 </p>
               </div>
             </Card>
           </div>
-        </main>
+        </motion.main>
 
         <Footer />
       </div>
