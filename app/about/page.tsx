@@ -11,23 +11,26 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background dark:bg-slate-950 text-foreground relative overflow-hidden">
+      {/* Navbar */}
       <Navbar />
 
+      {/* Decorative Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/10 to-cyan-900/10 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-950/20"></div>
       <div className="absolute w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-3xl top-[20%] left-[60%] animate-pulse"></div>
 
+      {/* Main Content */}
       <main className="relative z-10 flex-1 container mx-auto px-6 pt-32 pb-32 sm:pt-40">
-        
+        {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center space-y-5 mb-24"
         >
-    
+          {/* Logo */}
           <div className="flex justify-center mb-4">
             <Image
-              src="/colorkit.png" 
+              src="/colorkit.png"
               alt="ColorKit Logo"
               width={95}
               height={95}
@@ -36,7 +39,7 @@ export default function AboutPage() {
             />
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r text-black dark:text-white bg-clip-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black dark:text-white bg-clip-text">
             About ColorKit
           </h1>
           <p className="max-w-2xl mx-auto text-muted-foreground dark:text-white/70 text-sm sm:text-base leading-relaxed">
@@ -46,41 +49,63 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24">
           <FeatureCard
-            icon={<Palette className="w-7 h-7 text-cyan-500" />}
+            icon={<Palette className="w-10 h-10" />}
             title="Pick from Image"
-            description="Upload an image and automatically extract its dominant, complementary, and accent colors."
+            description="Upload an image and automatically extract its dominant and accent colors."
+            gradient="bg-gradient-to-br from-cyan-500 to-blue-600"
+            layer1="bg-cyan-200"
+            layer2="bg-cyan-100"
           />
+
           <FeatureCard
-            icon={<PaintBucket className="w-7 h-7 text-pink-500" />}
+            icon={<PaintBucket className="w-10 h-10" />}
             title="Analyze Colors"
-            description="View detailed HEX, RGB, HSL, and CMYK values, along with lightness and saturation info."
+            description="View detailed HEX, RGB, HSL, and CMYK values."
+            gradient="bg-gradient-to-br from-pink-500 to-purple-600"
+            layer1="bg-pink-200"
+            layer2="bg-pink-100"
           />
+
           <FeatureCard
-            icon={<Cpu className="w-7 h-7 text-violet-500" />}
+            icon={<Cpu className="w-10 h-10" />}
             title="AI-Powered Insights"
-            description="Smart detection for mood, warmth, and context-based color suggestions for better design."
+            description="Smart mood and warmth-based color suggestions."
+            gradient="bg-gradient-to-br from-violet-600 to-indigo-700"
+            layer1="bg-violet-200"
+            layer2="bg-violet-100"
           />
+
           <FeatureCard
-            icon={<Eye className="w-7 h-7 text-emerald-500" />}
+            icon={<Eye className="w-10 h-10" />}
             title="Accessibility Ready"
-            description="Simulate color blindness and check contrast ratios to ensure inclusive design."
+            description="Simulate color blindness & check contrast ratios."
+            gradient="bg-gradient-to-br from-emerald-500 to-teal-600"
+            layer1="bg-emerald-200"
+            layer2="bg-emerald-100"
           />
+
           <FeatureCard
-            icon={<Sparkles className="w-7 h-7 text-yellow-500" />}
+            icon={<Sparkles className="w-10 h-10" />}
             title="Dynamic Variations"
-            description="Explore color variations, tints, shades, and harmonious combinations with one click."
+            description="Explore shades, tints, and harmonious combos."
+            gradient="bg-gradient-to-br from-yellow-400 to-orange-500"
+            layer1="bg-yellow-200"
+            layer2="bg-yellow-100"
           />
+
           <FeatureCard
-            icon={
-              <Github className="w-7 h-7 text-gray-600 dark:text-gray-300" />
-            }
+            icon={<Github className="w-10 h-10" />}
             title="Open Source"
-            description="Built with Next.js, TailwindCSS, and Shadcn/UI — completely open and community-driven."
+            description="Built with Next.js, Tailwind and Shadcn/UI."
+            gradient="bg-gradient-to-br from-slate-600 to-gray-700"
+            layer1="bg-gray-300"
+            layer2="bg-gray-200"
           />
         </div>
 
+        {/* Mission Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -98,13 +123,13 @@ export default function AboutPage() {
                 intelligent. Whether you’re designing a website, building a
                 brand, or experimenting with palettes,
                 <strong> Color Picker & Analyzer </strong> is your creative
-                partner — helping you visualize, analyze, and perfect your color
-                choices with clarity.
+                partner — helping you visualize and perfect your color choices.
               </p>
             </CardContent>
           </Card>
         </motion.div>
 
+        {/* Join Community */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -113,14 +138,15 @@ export default function AboutPage() {
           className="mt-24"
         >
           <Card className="max-w-4xl mx-auto backdrop-blur-sm bg-muted/30 border border-muted/50">
-            <CardContent className="p-10 text-center space-y-5">
+            <CardContent className="p-10 text-center space-y-6">
               <h3 className="text-2xl font-semibold text-foreground dark:text-white">
                 Join the Community
               </h3>
               <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                Want to contribute, improve features, or report bugs? <br />
-                We welcome open-source contributors and creative minds like you!
+                Want to contribute, improve features, or report bugs? We welcome
+                open-source contributors and creative minds like you!
               </p>
+
               <Link
                 href="https://github.com/codewithdhruba01/ColorPicker"
                 target="_blank"
@@ -139,14 +165,22 @@ export default function AboutPage() {
   );
 }
 
+/* ===================== NEW LAYERED CARD COMPONENT ===================== */
+
 function FeatureCard({
   icon,
   title,
   description,
+  gradient,
+  layer1,
+  layer2,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
+  gradient: string;
+  layer1: string;
+  layer2: string;
 }) {
   return (
     <motion.div
@@ -155,15 +189,44 @@ function FeatureCard({
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
-      <Card className="p-6 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 bg-muted/40 backdrop-blur-sm border border-muted/50">
-        <div className="flex items-center gap-3 mb-3">
-          {icon}
-          <h3 className="font-semibold text-lg">{title}</h3>
+      <div className="relative group max-w-sm cursor-pointer">
+        {/* Layer 1 */}
+        <div
+          className={`absolute inset-0 rounded-2xl 
+                      -top-[4%] left-1/2 -translate-x-1/2
+                      w-[90%] h-[90%] 
+                      group-hover:rotate-[-8deg] group-hover:top-0
+                      group-hover:w-full group-hover:h-full
+                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
+                      ${layer1}`}
+        />
+
+        {/* Layer 2 */}
+        <div
+          className={`absolute inset-0 rounded-2xl 
+                      -top-[8%] left-1/2 -translate-x-1/2
+                      w-[80%] h-[80%] 
+                      group-hover:rotate-[8deg] group-hover:top-0
+                      group-hover:w-full group-hover:h-full
+                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
+                      ${layer2}`}
+        />
+
+        {/* Main Layer */}
+        <div
+          className={`relative p-8 rounded-2xl text-white
+                      flex flex-col gap-5 font-medium
+                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
+                      group-hover:-translate-y-4
+                      ${gradient}`}
+        >
+          <div>{icon}</div>
+
+          <h3 className="text-xl font-semibold">{title}</h3>
+
+          <p className="text-sm leading-relaxed opacity-90">{description}</p>
         </div>
-        <p className="text-sm text-muted-foreground dark:text-white/60 leading-relaxed">
-          {description}
-        </p>
-      </Card>
+      </div>
     </motion.div>
   );
 }
