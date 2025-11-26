@@ -156,10 +156,7 @@ export default function AboutPage() {
         border 
         shadow-xl
 
-        /* Light Mode Surface */
         bg-white/30 border-white/40 shadow-blue-200
-
-        /* Dark Mode Surface */
         dark:bg-slate-900/40 dark:border-white/10 dark:shadow-xl dark:shadow-blue-900/20
       "
             >
@@ -190,25 +187,82 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="mt-24"
         >
-          <Card className="max-w-4xl mx-auto backdrop-blur-sm bg-muted/30 border border-muted/50">
-            <CardContent className="p-10 text-center space-y-6">
-              <h3 className="text-2xl font-semibold text-foreground dark:text-white">
+          <div className="relative max-w-4xl mx-auto group">
+            {/* --- Layer 1 (Glow L --- */}
+            <div
+              className="
+        absolute inset-0 -top-[4%] left-1/2 -translate-x-1/2
+        w-[92%] h-[92%] rounded-3xl
+        blur-xl opacity-80
+        transition-all duration-500
+        bg-gradient-to-br 
+        from-purple-300/60 to-cyan-400/60 
+        dark:from-purple-700/40 dark:to-cyan-800/40
+        group-hover:translate-y-1
+      "
+            />
+
+            {/* --- Layer 2 (Soft Panel) --- */}
+            <div
+              className="
+        absolute inset-0 -top-[8%] left-1/2 -translate-x-1/2
+        w-[85%] h-[85%] rounded-3xl
+        blur-md opacity-70
+        transition-all duration-500
+        bg-gradient-to-br 
+        from-purple-100/50 to-cyan-100/50 
+        dark:from-slate-800/40 dark:to-slate-900/40
+      "
+            />
+
+            {/* --- Main Card --- */}
+            <div
+              className="
+        relative p-12 rounded-3xl text-center space-y-6
+        backdrop-blur-xl border shadow-xl
+        transition-all duration-500 
+        group-hover:-translate-y-2
+
+        /* Light Mode */
+        bg-white/30 border-white/40 shadow-purple-200
+
+        /* Dark Mode */
+        dark:bg-slate-900/40 dark:border-white/10 
+        dark:shadow-xl dark:shadow-purple-900/20
+      "
+            >
+              <h3 className="text-3xl font-bold text-foreground dark:text-white">
                 Join the Community
               </h3>
-              <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
+
+              <p className="text-muted-foreground dark:text-white/70 leading-relaxed text-lg max-w-2xl mx-auto">
                 Want to contribute, improve features, or report bugs? We welcome
-                open-source contributors and creative minds like you!
+                open-source contributors, designers, and creative minds like
+                you. Be a part of the project and help shape the future of
+                ColorKit.
               </p>
 
+              {/* Button */}
               <Link
                 href="https://github.com/codewithdhruba01/ColorPicker"
                 target="_blank"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-all duration-200"
+                className="
+          inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium
+          transition-all duration-300
+          text-white shadow-md
+
+          /* Light */
+          bg-gradient-to-r from-purple-500 to-cyan-500 hover:shadow-purple-300
+
+          /* Dark */
+          dark:bg-gradient-to-r dark:from-purple-600 dark:to-cyan-600
+          dark:hover:shadow-purple-900/40
+        "
               >
                 <Github className="w-5 h-5" /> View on GitHub
               </Link>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       </main>
 
