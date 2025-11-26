@@ -53,7 +53,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<Palette className="w-10 h-10" />}
             title="Pick from Image"
-            description="Upload an image and automatically extract its dominant and accent colors."
+            description="Upload an image and automatically extract its dominant, complementary, and accent colors."
             gradient="bg-gradient-to-br from-cyan-500 to-blue-600"
             layer1="bg-cyan-200"
             layer2="bg-cyan-100"
@@ -62,7 +62,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<PaintBucket className="w-10 h-10" />}
             title="Analyze Colors"
-            description="View detailed HEX, RGB, HSL, and CMYK values."
+            description="View detailed HEX, RGB, HSL, and CMYK values, along with lightness and saturation info."
             gradient="bg-gradient-to-br from-pink-500 to-purple-600"
             layer1="bg-pink-200"
             layer2="bg-pink-100"
@@ -71,7 +71,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<Cpu className="w-10 h-10" />}
             title="AI-Powered Insights"
-            description="Smart mood and warmth-based color suggestions."
+            description="Smart detection for mood, warmth, and context-based color suggestions for better design."
             gradient="bg-gradient-to-br from-violet-600 to-indigo-700"
             layer1="bg-violet-200"
             layer2="bg-violet-100"
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<Eye className="w-10 h-10" />}
             title="Accessibility Ready"
-            description="Simulate color blindness & check contrast ratios."
+            description="Simulate color blindness and check contrast ratios to ensure inclusive design."
             gradient="bg-gradient-to-br from-emerald-500 to-teal-600"
             layer1="bg-emerald-200"
             layer2="bg-emerald-100"
@@ -89,7 +89,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<Sparkles className="w-10 h-10" />}
             title="Dynamic Variations"
-            description="Explore shades, tints, and harmonious combos."
+            description="Explore color variations, tints, shades, and harmonious combinations with one click."
             gradient="bg-gradient-to-br from-yellow-400 to-orange-500"
             layer1="bg-yellow-200"
             layer2="bg-yellow-100"
@@ -98,7 +98,7 @@ export default function AboutPage() {
           <FeatureCard
             icon={<Github className="w-10 h-10" />}
             title="Open Source"
-            description="Built with Next.js, Tailwind and Shadcn/UI."
+            description="Built with Next.js, TailwindCSS, and Shadcn/UI — completely open and community-driven."
             gradient="bg-gradient-to-br from-slate-600 to-gray-700"
             layer1="bg-gray-300"
             layer2="bg-gray-200"
