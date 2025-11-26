@@ -112,21 +112,21 @@ export default function PalettesPage() {
               </p>
 
               {/* Search bar */}
-             <motion.div
-  initial={{ opacity: 0, y: 10 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, delay: 0.15 }}
-  className="max-w-2xl mx-auto relative"
->
-  <div className="relative group">
-    {/* Input */}
-    <input
-      type="text"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      id="palette_search"
-      placeholder=" "
-      className="
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="max-w-2xl mx-auto relative"
+              >
+                <div className="relative group">
+                  {/* Input */}
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    id="palette_search"
+                    placeholder=" "
+                    className="
         w-full h-[52px] px-4 pr-12 rounded-xl
         text-base bg-white dark:bg-slate-900
         text-slate-900 dark:text-white
@@ -135,12 +135,12 @@ export default function PalettesPage() {
         focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/40
         placeholder-transparent
       "
-    />
+                  />
 
-    {/* Floating Label */}
-    <label
-      htmlFor="palette_search"
-      className="
+                  {/* Floating Label */}
+                  <label
+                    htmlFor="palette_search"
+                    className="
         absolute left-4 top-1/2 -translate-y-1/2
         text-slate-500 dark:text-slate-400
         text-sm pointer-events-none
@@ -155,37 +155,36 @@ export default function PalettesPage() {
         peer-focus:text-cyan-500 peer-focus:text-xs
         peer-focus:-translate-y-5 peer-focus:top-3
       "
-    >
-      Search palettes...
-    </label>
+                  >
+                    Search palettes...
+                  </label>
 
-    {/* Search Icon */}
-    <Search
-      className="
+                  {/* Search Icon */}
+                  <Search
+                    className="
         absolute right-4 top-1/2 -translate-y-1/2
         w-5 h-5 
         text-slate-400 dark:text-slate-500
         transition-all duration-300
         group-focus-within:text-cyan-500
       "
-    />
+                  />
 
-    {/* Clear Button */}
-    {searchQuery && (
-      <button
-        onClick={() => setSearchQuery("")}
-        className="
+                  {/* Clear Button */}
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="
           absolute right-12 top-1/2 -translate-y-1/2
           text-slate-400 hover:text-red-500 dark:hover:text-red-400
           transition-colors
         "
-      >
-        ✕
-      </button>
-    )}
-  </div>
-</motion.div>
-
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* CATEGORY FILTERS */}
