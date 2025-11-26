@@ -247,19 +247,39 @@ export default function AboutPage() {
                 href="https://github.com/codewithdhruba01/ColorPicker"
                 target="_blank"
                 className="
-          inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium
-          transition-all duration-300
-          text-white shadow-md
+    relative inline-flex items-center gap-2 px-7 py-3 rounded-xl 
+    font-medium text-white overflow-hidden group
+    transition-all duration-500
 
-          /* Light */
-          bg-gradient-to-r from-purple-500 to-cyan-500 hover:shadow-purple-300
+    /* Gradient Background */
+    bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500
+    dark:from-purple-600 dark:via-cyan-600 dark:to-blue-700
 
-          /* Dark */
-          dark:bg-gradient-to-r dark:from-purple-600 dark:to-cyan-600
-          dark:hover:shadow-purple-900/40
-        "
+    /* Lift on Hover */
+    hover:-translate-y-1 hover:shadow-2xl 
+    hover:shadow-purple-500/30 dark:hover:shadow-purple-800/30
+  "
               >
-                <Github className="w-5 h-5" /> View on GitHub
+                <span
+                  className="
+      absolute inset-0 rounded-xl 
+      opacity-0 group-hover:opacity-100 
+      transition-opacity duration-500
+      bg-gradient-to-r from-white/40 to-transparent
+      blur-md
+    "
+                />
+
+                <span
+                  className="
+      absolute inset-0 -translate-x-full 
+      bg-gradient-to-r from-transparent via-white/60 to-transparent
+      group-hover:translate-x-full 
+      transition-transform duration-700 ease-out
+    "
+                />
+                <Github className="w-5 h-5 relative z-[2]" />
+                <span className="relative z-[2]">View on GitHub</span>
               </Link>
             </div>
           </div>
