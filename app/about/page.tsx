@@ -113,20 +113,73 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="mb-24"
         >
-          <Card className="max-w-4xl mx-auto backdrop-blur-sm bg-muted/30 border border-muted/50">
-            <CardContent className="p-10 text-center space-y-4">
-              <h2 className="text-2xl font-semibold text-foreground dark:text-white">
+          <div className="relative max-w-4xl mx-auto group">
+            <div
+              className="
+        absolute inset-0 
+        -top-[4%] left-1/2 -translate-x-1/2 
+        w-[92%] h-[92%]
+        rounded-3xl 
+        transition-all duration-500
+        opacity-80 blur-xl
+
+        bg-gradient-to-br 
+        from-cyan-300/60 to-blue-400/60       /* Light Mode */
+        dark:from-cyan-600/40 dark:to-blue-800/40 /* Dark Mode */
+        
+        group-hover:translate-y-1
+      "
+            />
+
+            <div
+              className="
+        absolute inset-0 
+        -top-[8%] left-1/2 -translate-x-1/2 
+        w-[85%] h-[85%]
+        rounded-3xl 
+        transition-all duration-500
+        blur-md opacity-70
+
+        bg-gradient-to-br 
+        from-blue-100/60 to-cyan-100/60          /* Light Mode */
+        dark:from-slate-800/50 dark:to-slate-900/50 /* Dark Mode */
+      "
+            />
+
+            <div
+              className="
+        relative p-12 rounded-3xl
+        transition-all duration-500 
+        group-hover:-translate-y-2
+
+        backdrop-blur-xl
+        border 
+        shadow-xl
+
+        /* Light Mode Surface */
+        bg-white/30 border-white/40 shadow-blue-200
+
+        /* Dark Mode Surface */
+        dark:bg-slate-900/40 dark:border-white/10 dark:shadow-xl dark:shadow-blue-900/20
+      "
+            >
+              <h2 className="text-3xl font-bold text-foreground dark:text-white">
                 Our Mission
               </h2>
-              <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                We aim to make color exploration effortless, beautiful, and
-                intelligent. Whether you’re designing a website, building a
-                brand, or experimenting with palettes,
-                <strong> Color Picker & Analyzer </strong> is your creative
-                partner — helping you visualize and perfect your color choices.
+
+              <p className="text-muted-foreground dark:text-white/70 leading-relaxed text-lg mt-4">
+                Our mission is to make color exploration effortless, beautiful,
+                and intelligent. Whether you're working on UI, graphics,
+                branding, or visual experiments,
+                <span className="text-cyan-600 dark:text-cyan-300 font-semibold">
+                  {" "}
+                  ColorKit{" "}
+                </span>
+                empowers you to visualize, analyze, and perfect every shade with
+                clarity and confidence.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
 
         {/* Join Community */}
