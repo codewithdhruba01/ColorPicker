@@ -11,29 +11,26 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background dark:bg-slate-950 text-foreground relative overflow-hidden">
-      {/* Navbar */}
       <Navbar />
 
-      {/* Decorative Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/10 to-cyan-900/10 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-950/20"></div>
       <div className="absolute w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-3xl top-[20%] left-[60%] animate-pulse"></div>
 
-      {/* Main Content */}
       <main className="relative z-10 flex-1 container mx-auto px-6 pt-32 pb-32 sm:pt-40">
-        {/* Hero Section */}
+        
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center space-y-5 mb-24"
         >
-          {/* 🔹 Added Logo Here */}
+    
           <div className="flex justify-center mb-4">
             <Image
-              src="/colorkit.png" // apna logo path yahan rakhna
+              src="/colorkit.png" 
               alt="ColorKit Logo"
-              width={95} // same as w-20 (80px)
-              height={95} // same as h-20
+              width={95}
+              height={95}
               className="object-contain"
               priority
             />
@@ -49,7 +46,6 @@ export default function AboutPage() {
           </p>
         </motion.div>
 
-        {/* Features Section */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           <FeatureCard
             icon={<Palette className="w-7 h-7 text-cyan-500" />}
@@ -85,7 +81,6 @@ export default function AboutPage() {
           />
         </div>
 
-        {/* Mission Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -110,7 +105,6 @@ export default function AboutPage() {
           </Card>
         </motion.div>
 
-        {/* Join the Community Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
