@@ -13,9 +13,15 @@ A professional, feature-rich color picker and analysis tool built with Next.js 1
   - Upload image mode with auto-extraction
   - Manual color picker mode
   - Real-time HEX and RGB display
-- **Professional Footer**: Comprehensive footer with links, social icons, and branding
-- **Fully Responsive**: Optimized breakpoints for mobile, tablet, and desktop
-- **Dark/Light Mode**: Smooth theme transitions with animated gradients
+ 
+## Tech Stack
+
+- **Framework**: Next.js 13 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI (via shadcn/ui)
+- **Icons**: Lucide React
+- **Notifications**: Sonner
 
 ## Features
 
@@ -28,11 +34,7 @@ A professional, feature-rich color picker and analysis tool built with Next.js 1
 ### Color Conversion Formats
 
 #### Technical Formats
-- HEX
-- RGB
-- HSL
-- HSV
-- CMYK
+ **HEX, RGB, HSL, HSV, CMYK**
 
 #### Practical Formats
 - CSS RGB/HSL
@@ -78,15 +80,6 @@ Simulate how colors appear to people with:
 - Responsive design
 - Modern glassmorphism effects
 - Professional color scheme
-
-## Tech Stack
-
-- **Framework**: Next.js 13 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: Radix UI (via shadcn/ui)
-- **Icons**: Lucide React
-- **Notifications**: Sonner
 
 ## Getting Started
 
