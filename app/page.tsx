@@ -80,21 +80,91 @@ export default function Home() {
               </span>
             </h1>
 
-            {/* Sun + Stars Animation */}
+            {/* Sun + Globe Animation */}
             <div className="relative flex justify-center items-center mt-10 mb-14">
               <div className="sun" />
-              <div className="absolute w-full h-full">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-[3px] h-[3px] bg-white rounded-full animate-twinkle"
-                    style={{
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                      animationDelay: `${i * 0.8}s`,
-                    }}
-                  />
-                ))}
+              <div className="absolute w-full h-full" style={{ left: '3px', top: '-2px', color: 'var(--tw-ring-offset-color)' }}>
+                {/* Globe outline glow */}
+                <div
+                  className="absolute rounded-full"
+                  style={{
+                    width: '320px',
+                    height: '320px',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    border: '1px solid rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 0 60px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.15), inset 0 0 60px rgba(255, 255, 255, 0.1)',
+                    borderRadius: '50%',
+                    pointerEvents: 'none',
+                  }}
+                />
+
+                {/* Globe dots forming continents - grid pattern */}
+                {(() => {
+                  const dots = [];
+                  const centerX = 50; // percentage
+                  const centerY = 50; // percentage
+                  const radius = 14; // percentage
+                  const gridSize = 25; // grid resolution
+
+                  // Create a grid pattern
+                  for (let row = 0; row < gridSize; row++) {
+                    for (let col = 0; col < gridSize; col++) {
+                      const x = (col / gridSize) * 100;
+                      const y = (row / gridSize) * 100;
+
+                      // Calculate distance from center
+                      const distFromCenter = Math.sqrt(
+                        Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
+                      );
+
+                      // Check if point is within globe circle
+                      if (distFromCenter <= radius) {
+                        // Create continent patterns (Asia, Europe, Africa shapes)
+                        const angle = Math.atan2(y - centerY, x - centerX);
+                        const normalizedDist = distFromCenter / radius;
+
+                        // Asia pattern (top-right area)
+                        const isAsia = angle > -Math.PI * 0.3 && angle < Math.PI * 0.4 &&
+                          normalizedDist > 0.3 && normalizedDist < 0.95;
+
+                        // Europe pattern (top area)
+                        const isEurope = angle > -Math.PI * 0.6 && angle < -Math.PI * 0.2 &&
+                          normalizedDist > 0.4 && normalizedDist < 0.85;
+
+                        // Africa pattern (left area)
+                        const isAfrica = angle > Math.PI * 0.5 && angle < Math.PI * 0.9 &&
+                          normalizedDist > 0.35 && normalizedDist < 0.9;
+
+                        // Add some randomness for natural look
+                        const shouldShow = isAsia || isEurope || isAfrica;
+
+                        if (shouldShow && Math.random() > 0.3) {
+                          dots.push({
+                            x: x + (Math.random() - 0.5) * 2,
+                            y: y + (Math.random() - 0.5) * 2,
+                            delay: (row + col) * 0.02,
+                          });
+                        }
+                      }
+                    }
+                  }
+
+                  return dots.map((dot, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-[2.5px] h-[2.5px] rounded-full animate-twinkle"
+                      style={{
+                        top: `${dot.y}%`,
+                        left: `${dot.x}%`,
+                        animationDelay: `${dot.delay % 3}s`,
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        boxShadow: '0 0 3px rgba(255, 255, 255, 0.9)',
+                      }}
+                    />
+                  ));
+                })()}
               </div>
             </div>
 
@@ -112,11 +182,10 @@ export default function Home() {
                       style={{ backgroundColor: color }}
                     />
                     <span
-                      className={`absolute left-1/2 -translate-x-1/2 bottom-12 px-2 py-1 rounded-md text-[10px] bg-white dark:bg-slate-800 text-black dark:text-white shadow-md transition-all duration-300 ${
-                        copiedColor === color
-                          ? "opacity-100 visible"
-                          : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
-                      }`}
+                      className={`absolute left-1/2 -translate-x-1/2 bottom-12 px-2 py-1 rounded-md text-[10px] bg-white dark:bg-slate-800 text-black dark:text-white shadow-md transition-all duration-300 ${copiedColor === color
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                        }`}
                     >
                       {copiedColor === color ? "✅ Copied" : color}
                     </span>

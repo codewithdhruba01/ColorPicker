@@ -23,30 +23,33 @@ export function Navbar() {
   const activeLink = navLinks.find((link) => pathname === link.href);
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] sm:w-[80%] md:w-[40%] lg:w-[40%]">
+    <nav 
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-[85%] md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%]"
+      style={{ left: 'calc(50% + 3px)', top: 'calc(1rem - 2px)' }}
+    >
       <div
-        className="relative flex items-center justify-center px-5 py-3 rounded-full 
+        className="relative flex items-center justify-center px-3 py-2.5 sm:px-4 sm:py-2.5 md:px-5 md:py-3 rounded-full 
         bg-background/60 backdrop-blur-xl border border-border/40 shadow-lg 
         dark:border-white/10 transition-all duration-300"
       >
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full gap-2 sm:gap-3 md:gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             <Image
               src="/colorkit.png"
               alt="ColorKit Logo"
-              width={34}
-              height={34}
-              className="rounded-md"
+              width={28}
+              height={28}
+              className="rounded-md w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
               priority
             />
-            <span className="font-bold text-lg text-foreground dark:text-white tracking-tight">
+            <span className="font-bold text-sm sm:text-base md:text-lg text-foreground dark:text-white tracking-tight whitespace-nowrap">
               ColorKit
             </span>
           </Link>
 
           {/* Centered Links with sliding active capsule */}
-          <div className="relative hidden sm:flex items-center justify-center gap-1 mx-auto">
+          <div className="relative hidden md:flex items-center justify-center gap-0.5 lg:gap-1 mx-auto flex-1 max-w-[500px]">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const isHovered = hovered === link.href;
@@ -54,7 +57,7 @@ export function Navbar() {
               return (
                 <div
                   key={link.href}
-                  className="relative"
+                  className="relative flex-1"
                   onMouseEnter={() => setHovered(link.href)}
                   onMouseLeave={() => setHovered(null)}
                 >
@@ -71,14 +74,14 @@ export function Navbar() {
                   )}
                   <Link
                     href={link.href}
-                    className={`relative text-sm font-medium px-4 py-1.5 rounded-full z-10 transition-colors duration-300
+                    className={`relative text-xs lg:text-sm font-medium px-2 lg:px-4 py-1.5 rounded-full z-10 transition-colors duration-300 block text-center
                       ${
                         isActive
                           ? "text-foreground dark:text-white"
                           : "text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white"
                       }`}
                   >
-                    {link.name}
+                    <span className="whitespace-nowrap">{link.name}</span>
                   </Link>
                 </div>
               );
@@ -86,14 +89,14 @@ export function Navbar() {
           </div>
 
           {/* Theme toggle + mobile button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="sm:hidden text-foreground dark:text-white focus:outline-none"
+              className="md:hidden text-foreground dark:text-white focus:outline-none p-1"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
@@ -101,26 +104,30 @@ export function Navbar() {
 
       {/* Mobile dropdown */}
       {isOpen && (
-        <div
-          className="absolute right-0 mt-3 w-full bg-background/70 backdrop-blur-lg 
-          border border-border/30 rounded-2xl shadow-lg p-4 space-y-3 sm:hidden"
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+          className="absolute right-0 mt-2 sm:mt-3 w-full bg-background/90 backdrop-blur-lg 
+          border border-border/30 rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-4 space-y-2 sm:space-y-3 md:hidden z-50"
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className={`block text-sm px-3 py-2 rounded-lg transition-all duration-300
+              className={`block text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg transition-all duration-300
                 ${
                   pathname === link.href
-                    ? "bg-foreground/10 text-foreground dark:text-white"
+                    ? "bg-foreground/10 text-foreground dark:text-white font-medium"
                     : "text-foreground/80 dark:text-white/80 hover:bg-foreground/10 dark:hover:bg-white/10"
                 }`}
             >
               {link.name}
             </Link>
           ))}
-        </div>
+        </motion.div>
       )}
     </nav>
   );
