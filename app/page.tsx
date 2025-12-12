@@ -268,7 +268,7 @@ export default function Home() {
                   alt="ColorKit Logo"
                   width={335}
                   height={235}
-                  className="object-contain"
+                  className="object-contain animate-[spin_25s_linear_infinite]"
                   priority
                 />
               </motion.div>
