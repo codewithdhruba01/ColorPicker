@@ -9,7 +9,6 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
-// ✅ Animation Variants (Type-safe)
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -60,19 +59,19 @@ export default function Home() {
       variants={containerVariants}
       className="min-h-screen relative overflow-hidden flex flex-col bg-background dark:bg-slate-950"
     >
-      {/* Background Grid */}
+
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
 
       <Navbar />
 
       <main className="relative z-10 flex-1">
         <div className="container mx-auto px-4 pt-44 sm:pt-52 md:pt-60 pb-20">
-          {/* Hero Section */}
+
           <motion.div
             className="text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto mb-12 sm:mb-16"
             variants={itemVariants}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground dark:text-white leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-foreground dark:text-white leading-tight">
               Pick colors from any image:
               <br />
               <span className="text-foreground dark:text-white">
@@ -80,11 +79,11 @@ export default function Home() {
               </span>
             </h1>
 
-            {/* Sun + Globe Animation */}
+
             <div className="relative flex justify-center items-center mt-10 mb-14">
               <div className="sun" />
               <div className="absolute w-full h-full" style={{ left: '3px', top: '-2px', color: 'var(--tw-ring-offset-color)' }}>
-                {/* Globe outline glow */}
+
                 <div
                   className="absolute rounded-full"
                   style={{
@@ -100,44 +99,43 @@ export default function Home() {
                   }}
                 />
 
-                {/* Globe dots forming continents - grid pattern */}
+
                 {(() => {
                   const dots = [];
-                  const centerX = 50; // percentage
-                  const centerY = 50; // percentage
-                  const radius = 14; // percentage
-                  const gridSize = 25; // grid resolution
+                  const centerX = 50;
+                  const centerY = 50;
+                  const radius = 14;
+                  const gridSize = 25;
 
-                  // Create a grid pattern
                   for (let row = 0; row < gridSize; row++) {
                     for (let col = 0; col < gridSize; col++) {
                       const x = (col / gridSize) * 100;
                       const y = (row / gridSize) * 100;
 
-                      // Calculate distance from center
+
                       const distFromCenter = Math.sqrt(
                         Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
                       );
 
-                      // Check if point is within globe circle
+
                       if (distFromCenter <= radius) {
-                        // Create continent patterns (Asia, Europe, Africa shapes)
+
                         const angle = Math.atan2(y - centerY, x - centerX);
                         const normalizedDist = distFromCenter / radius;
 
-                        // Asia pattern (top-right area)
+
                         const isAsia = angle > -Math.PI * 0.3 && angle < Math.PI * 0.4 &&
                           normalizedDist > 0.3 && normalizedDist < 0.95;
 
-                        // Europe pattern (top area)
+
                         const isEurope = angle > -Math.PI * 0.6 && angle < -Math.PI * 0.2 &&
                           normalizedDist > 0.4 && normalizedDist < 0.85;
 
-                        // Africa pattern (left area)
+
                         const isAfrica = angle > Math.PI * 0.5 && angle < Math.PI * 0.9 &&
                           normalizedDist > 0.35 && normalizedDist < 0.9;
 
-                        // Add some randomness for natural look
+
                         const shouldShow = isAsia || isEurope || isAfrica;
 
                         if (shouldShow && Math.random() > 0.3) {
