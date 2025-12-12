@@ -4,6 +4,16 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Card } from "@/components/ui/card";
 import { Shield } from "lucide-react";
+import { motion } from "framer-motion";
+
+const pageVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
 export default function PrivacyPage() {
   return (
@@ -13,7 +23,12 @@ export default function PrivacyPage() {
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 pt-36 sm:pt-40">
+        <motion.main
+          initial="hidden"
+          animate="visible"
+          variants={pageVariants}
+          className="flex-1 container mx-auto px-4 pt-36 sm:pt-40"
+        >
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <div className="text-center space-y-4">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 mb-4">
@@ -292,7 +307,7 @@ export default function PrivacyPage() {
               </div>
             </Card>
           </div>
-        </main>
+        </motion.main>
 
         <Footer />
       </div>
