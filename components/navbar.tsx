@@ -23,7 +23,7 @@ export function Navbar() {
   const activeLink = navLinks.find((link) => pathname === link.href);
 
   return (
-    <nav 
+    <nav
       className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-[85%] md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%]"
       style={{ left: 'calc(50% + 3px)', top: 'calc(1rem - 2px)' }}
     >
@@ -38,9 +38,9 @@ export function Navbar() {
             <Image
               src="/colorkit.png"
               alt="ColorKit Logo"
-              width={28}
-              height={28}
-              className="rounded-md w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
+              width={44}
+              height={44}
+              className="rounded-md w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12"
               priority
             />
             <span className="font-bold text-sm sm:text-base md:text-lg text-foreground dark:text-white tracking-tight whitespace-nowrap">
@@ -75,10 +75,9 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     className={`relative text-xs lg:text-sm font-medium px-2 lg:px-4 py-1.5 rounded-full z-10 transition-colors duration-300 block text-center
-                      ${
-                        isActive
-                          ? "text-foreground dark:text-white"
-                          : "text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white"
+                      ${isActive
+                        ? "text-foreground dark:text-white"
+                        : "text-foreground/80 dark:text-white/80 hover:text-foreground dark:hover:text-white"
                       }`}
                   >
                     <span className="whitespace-nowrap">{link.name}</span>
@@ -118,10 +117,9 @@ export function Navbar() {
               href={link.href}
               onClick={() => setIsOpen(false)}
               className={`block text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg transition-all duration-300
-                ${
-                  pathname === link.href
-                    ? "bg-foreground/10 text-foreground dark:text-white font-medium"
-                    : "text-foreground/80 dark:text-white/80 hover:bg-foreground/10 dark:hover:bg-white/10"
+                ${pathname === link.href
+                  ? "bg-foreground/10 text-foreground dark:text-white font-medium"
+                  : "text-foreground/80 dark:text-white/80 hover:bg-foreground/10 dark:hover:bg-white/10"
                 }`}
             >
               {link.name}
