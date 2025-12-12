@@ -47,7 +47,7 @@ export default function AboutPage() {
               alt="ColorKit Logo"
               width={95}
               height={95}
-              className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[95px] lg:h-[95px]"
+              className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[95px] lg:h-[95px] animate-[spin_25s_linear_infinite]"
               priority
             />
           </div>
