@@ -2,11 +2,19 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+
+const pageVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
 export default function AboutPage() {
   return (
@@ -19,7 +27,12 @@ export default function AboutPage() {
       <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] rounded-full bg-cyan-500/20 blur-3xl top-[10%] sm:top-[15%] md:top-[20%] left-[50%] sm:left-[55%] md:left-[60%] -translate-x-1/2 md:translate-x-0 animate-pulse"></div>
 
       {/* Main Content */}
-      <main className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 lg:px-6 pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
+      <motion.main
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants}
+        className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 lg:px-6 pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32"
+      >
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -279,7 +292,7 @@ export default function AboutPage() {
             </div>
           </div>
         </motion.div>
-      </main>
+      </motion.main>
 
       {/* Footer */}
       <Footer />
