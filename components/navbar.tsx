@@ -43,9 +43,7 @@ export function Navbar() {
               className="rounded-md w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12"
               priority
             />
-            <span className="font-bold text-sm sm:text-base md:text-lg text-foreground dark:text-white tracking-tight whitespace-nowrap">
-              ColorKit
-            </span>
+
           </Link>
 
           {/* Centered Links with sliding active capsule */}
