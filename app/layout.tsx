@@ -40,6 +40,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,301,400,401,500,501,700,701,900,1&f[]=ranade@400,500&f[]=general-sans@300,301,400,401,500,501,600&f[]=cabinet-grotesk@400,500,700,800,900,1&f[]=clash-grotesk@200,300,400,500,600,700,1&f[]=sentient@500,701&f[]=chillax@200,300,400,500,600,700,1&f[]=excon@500,700&f[]=telma@400,500,700&f[]=rosaline@400&f[]=dancing-script@400,700&display=swap" rel="stylesheet" />
+      </head>
       <body className={`${inter.variable} ${poppins.variable} ${spaceGrotesk.variable} font-sans`}>
         <ThemeProvider
           attribute="class"

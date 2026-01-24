@@ -71,10 +71,10 @@ export default function Home() {
             className="text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto mb-12 sm:mb-16"
             variants={itemVariants}
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-foreground dark:text-white leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-chillax tracking-tight text-foreground dark:text-white leading-tight">
               Pick colors from any image:
               <br />
-              <span className="text-foreground dark:text-white">
+              <span className="text-foreground dark:text-gray-300">
                 instantly and 100% free.
               </span>
             </h1>
@@ -225,9 +225,9 @@ export default function Home() {
                     <span key={i}>{star}</span>
                   ))}
               </div>
-              <p className="text-sm md:text-base text-neutral-700 dark:text-white">
+              <p className="text-sm md:text-base text-neutral-700 dark:text-white font-clash-grotesk font-medium">
                 Do you like{" "}
-                <span className="font-medium text-neutral-500 dark:text-white">
+                <span className="font-clash-grotesk font-medium text-neutral-500 dark:text-white">
                   colorkit Website ?
                 </span>
               </p>
@@ -242,13 +242,13 @@ export default function Home() {
                 className="max-w-2xl text-left md:pr-0 md:mr-0"
                 variants={itemVariants}
               >
-                <h2 className="text-3xl md:text-4xl font-semibold text-black dark:text-white mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold font-clash-grotesk text-black dark:text-white mb-4">
                   Color Kit
                 </h2>
-                <h3 className="text-lg text-gray-300 font-medium mb-3">
+                <h3 className="text-lg text-gray-300 font-ranade font-medium mb-3">
                   Click on the image to pick a color...
                 </h3>
-                <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+                <p className="text-gray-400 leading-relaxed text-sm md:text-base font-sentiento">
                   Use the ColorKit image color picker below to explore and
                   extract beautiful colors from any image in seconds. Instantly
                   get accurate <strong>HEX</strong>, <strong>RGB</strong>, and{" "}

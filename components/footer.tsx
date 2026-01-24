@@ -20,7 +20,7 @@ export function Footer() {
                 className="rounded-lg object-contain"
                 priority
               />
-              <span className="font-bold text-lg text-foreground dark:text-white">
+              <span className="font-bold text-lg text-foreground dark:text-white font-clash-grotesk">
                 ColorKit
               </span>
             </div>
