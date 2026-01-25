@@ -30,8 +30,8 @@ const Hero = () => {
                 style={{ backgroundImage: "radial-gradient(#000 0.5px, transparent 0.5px)", backgroundSize: "24px 24px" }}>
             </div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-24 pb-20 md:pt-40 md:pb-48">
-                <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-24 lg:gap-32 items-center">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 pb-20 md:pt-40 md:pb-48">
+                <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-10 md:gap-24 lg:gap-32 items-center">
                     {/* Left Content */}
                     <div className="flex flex-col items-start space-y-8">
                         <motion.div
@@ -40,7 +40,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                             className="relative"
                         >
-                            <h1 className="text-[64px] md:text-[98px] font-[900] font-chillax tracking-[-0.07em] text-black dark:text-white leading-[0.82] flex flex-col gap-2">
+                            <h1 className="text-[50px] sm:text-[64px] md:text-[98px] font-[900] font-chillax tracking-[-0.07em] text-black dark:text-white leading-[0.9] md:leading-[0.82] flex flex-col gap-1 md:gap-2">
                                 <span>The super fast</span>
                                 <span>color palettes</span>
                                 <span>generator!</span>
@@ -50,7 +50,7 @@ const Hero = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
-                                className="absolute right-[10px] md:right-[-5px] bottom-[-20px] md:bottom-[-35px] rotate-[-12deg] z-20"
+                                className="absolute right-[-10px] md:right-[-5px] bottom-[-20px] md:bottom-[-35px] rotate-[-12deg] z-20 origin-center scale-90 md:scale-100"
                             >
                                 <span className="relative z-10 font-cabinet-grotesk font-normal text-[14px] md:text-[18px] text-black dark:text-white uppercase tracking-[0.05em] px-2 py-1 block">
                                     AND MUCH MORE
@@ -76,15 +76,15 @@ const Hero = () => {
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-                            className="flex flex-wrap gap-5 pt-6"
+                            className="flex flex-col md:flex-row gap-3 md:gap-5 pt-0 w-full md:w-auto"
                         >
-                            <Link href="/picker">
-                                <Button size="lg" className="bg-[#2D69F0] hover:bg-[#1a51c9] text-white px-9 py-7 text-[16px] font-bold rounded-[14px] shadow-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                            <Link href="/picker" className="w-full md:w-auto">
+                                <Button size="lg" className="w-full md:w-auto justify-center bg-[#2D69F0] hover:bg-[#1a51c9] text-white px-5 py-3 md:px-9 md:py-7 text-[14px] md:text-[16px] font-bold rounded-[10px] md:rounded-[14px] shadow-none transition-all hover:scale-[1.03] active:scale-[0.97]">
                                     Start the Generator
                                 </Button>
                             </Link>
-                            <Link href="/palettes">
-                                <Button variant="secondary" size="lg" className="px-9 py-7 text-[16px] font-bold rounded-[14px] bg-[#EEF0F3] hover:bg-[#e4e6ea] text-black dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 shadow-none border-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                            <Link href="/palettes" className="w-full md:w-auto">
+                                <Button variant="secondary" size="lg" className="w-full md:w-auto justify-center md:justify-start px-5 py-3 md:px-9 md:py-7 text-[14px] md:text-[16px] font-bold rounded-[10px] md:rounded-[14px] bg-[#EEF0F3] hover:bg-[#e4e6ea] text-black dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 shadow-none border-none transition-all hover:scale-[1.03] active:scale-[0.97]">
                                     Explore Palettes
                                 </Button>
                             </Link>
@@ -92,13 +92,13 @@ const Hero = () => {
                     </div>
 
                     {/* Right Content - Visualization */}
-                    <div className="relative flex justify-center items-center h-[500px] md:h-[600px]">
+                    <div className="relative flex justify-center items-center h-[350px] md:h-[600px]">
                         {/* Background Grid of Palettes */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
-                            className="grid grid-cols-3 gap-4 md:gap-5 translate-x-12"
+                            className="grid grid-cols-3 gap-3 md:gap-5 translate-x-6 md:translate-x-12"
                         >
                             {[
                                 ["#0044cc", "#4da3ff", "#ffff00", "#ffc800", "#ff8a00"], // Row 1 Col 1
@@ -127,7 +127,7 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 120, x: -80, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
                             transition={{ duration: 1.2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
-                            className="absolute bottom-[-2%] left-[-15%] md:left-[-28%] w-[360px] h-[250px] md:w-[480px] md:h-[320px] bg-white rounded-[28px] md:rounded-[40px] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.22)] overflow-hidden flex border-none z-20"
+                            className="absolute bottom-[-15%] md:bottom-[-2%] left-1/2 -translate-x-1/2 md:left-[-28%] md:translate-x-0 w-[260px] h-[170px] md:w-[480px] md:h-[320px] bg-white rounded-[24px] md:rounded-[40px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.22)] md:shadow-[0_60px_120px_-30px_rgba(0,0,0,0.22)] overflow-hidden flex border-none z-20"
                         >
                             {currentColors.map((color, idx) => (
                                 <motion.div
