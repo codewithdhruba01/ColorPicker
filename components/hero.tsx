@@ -127,7 +127,7 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 120, x: -80, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
                             transition={{ duration: 1.2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
-                            className="absolute bottom-[-15%] md:bottom-[-2%] left-1/2 -translate-x-1/2 md:left-[-28%] md:translate-x-0 w-[260px] h-[170px] md:w-[480px] md:h-[320px] bg-white rounded-[24px] md:rounded-[40px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.22)] md:shadow-[0_60px_120px_-30px_rgba(0,0,0,0.22)] overflow-hidden flex border-none z-20"
+                            className="absolute bottom-[-15%] md:bottom-[-2%] left-1/2 -translate-x-1/2 md:left-[-28%] md:translate-x-0 w-[260px] h-[170px] md:w-[480px] md:h-[320px] bg-white rounded-[24px] md:rounded-[40px] overflow-hidden flex border-none z-20"
                         >
                             {currentColors.map((color, idx) => (
                                 <motion.div
