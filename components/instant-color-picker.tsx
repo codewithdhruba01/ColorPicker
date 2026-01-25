@@ -10,9 +10,11 @@ import { toast } from "sonner"
 
 export function InstantColorPicker() {
   const [selectedColor, setSelectedColor] = useState("#2596be");
-  const [image, setImage] = useState<string | null>("/placeholder.jpg"); // Default to a placeholder if available, or handle null
+  const [image, setImage] = useState<string | null>("/image/demo.jpg");
   const [extractedColors, setExtractedColors] = useState<string[]>([]);
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,13 +22,31 @@ export function InstantColorPicker() {
   const rgb = hexToRgb(selectedColor) || { r: 0, g: 0, b: 0 };
   const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
 
-  // Initialize with some default colors for the palette if no image (mocking the screenshot state)
+  // Initialize: Load default image to canvas and extract colors
   useEffect(() => {
-    if (!image) {
-      // Mock colors from screenshot for initial state if desirable, or keep empty
-      setExtractedColors(["#2596be", "#f0f0f0", "#e89643", "#f4b962", "#89c5cc", "#3b2a1e", "#8b4122", "#a6d7e6", "#0f4c81", "#1e5c8a"]);
+    if (image) {
+      const img = new window.Image();
+      img.crossOrigin = "Anonymous"; // In case of external images, though local is fine
+      img.onload = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const colors = extractColorsFromImage(imageData, 10);
+        setExtractedColors(colors);
+        if (colors.length > 0) {
+          setSelectedColor(colors[0]);
+        }
+      };
+      img.src = image;
     }
-  }, []);
+  }, [image]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,26 +55,6 @@ export function InstantColorPicker() {
       reader.onload = (event) => {
         const imgSrc = event.target?.result as string;
         setImage(imgSrc);
-
-        const img = typeof window !== "undefined" ? new window.Image() : document.createElement("img");
-        img.onload = () => {
-          const canvas = canvasRef.current;
-          if (!canvas) return;
-          const ctx = canvas.getContext("2d");
-          if (!ctx) return;
-
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const colors = extractColorsFromImage(imageData, 10);
-          setExtractedColors(colors);
-          if (colors.length > 0) {
-            setSelectedColor(colors[0]);
-          }
-        };
-        img.src = imgSrc;
       };
       reader.readAsDataURL(file);
     }
@@ -115,19 +115,43 @@ export function InstantColorPicker() {
             <h2 className="text-xl font-medium text-neutral-200">Image</h2>
 
             {/* Image Preview Area */}
-            <div className="relative rounded-lg overflow-hidden bg-[#1a1a1a] aspect-video flex items-center justify-center border border-white/5 group">
+            <div
+              className="relative rounded-lg overflow-hidden bg-[#1a1a1a] aspect-video flex items-center justify-center border border-white/5 group"
+              onMouseEnter={() => setShowMagnifier(true)}
+              onMouseLeave={() => setShowMagnifier(false)}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                setCursorPosition({ x, y });
+              }}
+            >
               <canvas ref={canvasRef} className="hidden" />
               {image ? (
-                <Image
-                  ref={imageRef}
-                  src={image}
-                  alt="Uploaded"
-                  className="max-h-full max-w-full object-contain cursor-crosshair"
-                  width={800}
-                  height={600}
-                  onClick={handleImageClick}
-                  unoptimized
-                />
+                <>
+                  <Image
+                    ref={imageRef}
+                    src={image}
+                    alt="Uploaded"
+                    className="max-h-full max-w-full object-contain cursor-crosshair relative z-10"
+                    width={800}
+                    height={600}
+                    onClick={handleImageClick}
+                    unoptimized
+                  />
+                  {/*
+                    Wait, CSS background approach is hard because of `object-contain`.
+                    Alternative: Use a canvas-based magnifier. 
+                    I'll add a separate small canvas for the magnifier.
+                  */}
+                  <CanvasMagnifier
+                    show={showMagnifier}
+                    x={cursorPosition.x}
+                    y={cursorPosition.y}
+                    sourceCanvas={canvasRef.current}
+                    parentRef={imageRef} // passing image ref to get rendered dimensions
+                  />
+                </>
               ) : (
                 <div className="text-neutral-500 flex flex-col items-center gap-2">
                   <Upload className="w-8 h-8 opacity-50" />
@@ -233,10 +257,7 @@ export function InstantColorPicker() {
               </div>
             </div>
 
-            <button className="text-neutral-200 hover:text-white text-sm font-medium flex items-center gap-1 transition-colors group">
-              View color details
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </button>
+
 
             {/* Use Your Own Image Section */}
             <div className="mt-8 pt-4">
@@ -269,5 +290,108 @@ export function InstantColorPicker() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CanvasMagnifier({ show, x, y, sourceCanvas, parentRef }: {
+  show: boolean;
+  x: number;
+  y: number;
+  sourceCanvas: HTMLCanvasElement | null;
+  parentRef: React.RefObject<HTMLImageElement>;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ZOOM_LEVEL = 2;
+  const SIZE = 100;
+
+  useEffect(() => {
+    if (!show || !sourceCanvas || !canvasRef.current || !parentRef.current) return;
+
+    const ctx = canvasRef.current.getContext('2d');
+    if (!ctx) return;
+
+    // Clear previous frame
+    ctx.clearRect(0, 0, SIZE, SIZE);
+
+    const imgElement = parentRef.current;
+    const rect = imgElement.getBoundingClientRect();
+
+    // x, y passed are relative to the container element
+    // we need to find x, y relative to the image element to map to canvas source coords
+
+    // This relies on the container being the offsetParent or handling the calculation upstream.
+    // In the parent component: x = e.clientX - rect.left (container rect).
+
+    // For object-contain, the image might be smaller than container or offset.
+    // Let's assume for simpler "Pick from Image" that the image is somewhat centered or fills?
+    // But if there's black bars (bg-[#1a1a1a]), we need to know exactly where the image is.
+    // BoundingClientRect of the IMAGE element gives the actual rendered image dimensions/pos.
+
+    const containerRect = imgElement.parentElement?.getBoundingClientRect();
+    if (!containerRect) return;
+
+    // Calculate cursor pos relative to the IMAGE ELEMENT
+    // We know x,y are relative to CONTAINER.
+    // We need cursor relative to IMAGE.
+    const cursorScreenX = containerRect.left + x;
+    const cursorScreenY = containerRect.top + y;
+
+    const cursorRelX = cursorScreenX - rect.left;
+    const cursorRelY = cursorScreenY - rect.top;
+
+    // Verify if cursor is within the image (handles black bars)
+    if (cursorRelX < 0 || cursorRelY < 0 || cursorRelX > rect.width || cursorRelY > rect.height) {
+      // Should we hide? or just show edge?
+      // If we are strictly checking source colors, we should probably just clamp or hide.
+      return;
+    }
+
+    // Map to source canvas coordinates
+    const scaleX = sourceCanvas.width / rect.width;
+    const scaleY = sourceCanvas.height / rect.height;
+
+    const sourceX = cursorRelX * scaleX;
+    const sourceY = cursorRelY * scaleY;
+
+    // Draw the zoomed region
+    // We want the cursor to be center of magnifier
+    const zoomWidth = SIZE / ZOOM_LEVEL;
+    const zoomHeight = SIZE / ZOOM_LEVEL;
+
+    ctx.drawImage(
+      sourceCanvas,
+      sourceX - zoomWidth / 2,
+      sourceY - zoomHeight / 2,
+      zoomWidth,
+      zoomHeight,
+      0,
+      0,
+      SIZE,
+      SIZE
+    );
+
+    // Optional: Crosshair
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.beginPath();
+    ctx.moveTo(SIZE / 2, 0); ctx.lineTo(SIZE / 2, SIZE);
+    ctx.moveTo(0, SIZE / 2); ctx.lineTo(SIZE, SIZE / 2);
+    ctx.stroke();
+
+  }, [show, x, y, sourceCanvas, parentRef]);
+
+  if (!show) return null;
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={SIZE}
+      height={SIZE}
+      className="rounded-full border-2 border-white shadow-xl pointer-events-none z-50 absolute"
+      style={{
+        left: x - SIZE / 2,
+        top: y - SIZE / 2,
+        backgroundColor: 'black', // fallback
+      }}
+    />
   );
 }
