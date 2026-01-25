@@ -43,7 +43,7 @@ const Hero = () => {
                             <h1 className="text-[50px] sm:text-[64px] md:text-[98px] font-[900] font-chillax tracking-[-0.07em] text-black dark:text-white leading-[0.9] md:leading-[0.82] flex flex-col gap-1 md:gap-2">
                                 <span>The super fast</span>
                                 <span>color palettes</span>
-                                <span>generator!</span>
+                                <span>generator !</span>
                             </h1>
 
                             <motion.div
@@ -69,22 +69,22 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
                             className="text-[17px] md:text-[20px] text-black/60 dark:text-white/60 max-w-sm md:max-w-md font-general-sans font-medium leading-[1.3] pt-6"
                         >
-                            Create the perfect palette or get inspired by thousands of beautiful color schemes.
+                            Design the perfect color palette or discover endless inspiration from thousands of curated color schemes.
                         </motion.p>
 
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-                            className="flex flex-col md:flex-row gap-3 md:gap-5 pt-0 w-full md:w-auto"
+                            className="flex flex-col md:flex-row gap-3 md:gap-4 pt-0 w-full md:w-auto"
                         >
                             <Link href="/picker" className="w-full md:w-auto">
-                                <Button size="lg" className="w-full md:w-auto justify-center bg-[#2D69F0] hover:bg-[#1a51c9] text-white px-5 py-3 md:px-9 md:py-7 text-[14px] md:text-[16px] font-bold rounded-[10px] md:rounded-[14px] shadow-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                                <Button size="lg" className="w-full md:w-auto justify-center bg-[#7F56D9] hover:bg-[#6941C6] text-white px-5 py-3 md:px-7 md:py-3.5 text-[14px] md:text-[16px] font-semibold rounded-[8px] md:rounded-[10px] shadow-sm transition-all hover:shadow-md active:scale-[0.98]">
                                     Start the Generator
                                 </Button>
                             </Link>
                             <Link href="/palettes" className="w-full md:w-auto">
-                                <Button variant="secondary" size="lg" className="w-full md:w-auto justify-center md:justify-start px-5 py-3 md:px-9 md:py-7 text-[14px] md:text-[16px] font-bold rounded-[10px] md:rounded-[14px] bg-[#EEF0F3] hover:bg-[#e4e6ea] text-black dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 shadow-none border-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                                <Button variant="outline" size="lg" className="w-full md:w-auto justify-center border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 dark:bg-transparent dark:border-white/20 dark:text-white dark:hover:bg-white/10 px-5 py-3 md:px-7 md:py-3.5 text-[14px] md:text-[16px] font-semibold rounded-[8px] md:rounded-[10px] shadow-sm transition-all hover:shadow-md active:scale-[0.98]">
                                     Explore Palettes
                                 </Button>
                             </Link>
