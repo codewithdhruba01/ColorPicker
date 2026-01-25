@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -43,9 +43,9 @@ export default function AllGradientsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col overflow-x-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
+      <div className="absolute inset-0"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />

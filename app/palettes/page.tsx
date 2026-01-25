@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export default function PalettesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("new");
   const [selectedPalette, setSelectedPalette] = useState<ColorPalette | null>(
-    null
+    null,
   );
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [likedPalettes, setLikedPalettes] = useState<Set<string>>(new Set());
@@ -41,7 +41,7 @@ export default function PalettesPage() {
     const matchesSearch =
       palette.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       palette.colors.some((color) =>
-        color.toLowerCase().includes(searchQuery.toLowerCase())
+        color.toLowerCase().includes(searchQuery.toLowerCase()),
       );
 
     if (selectedCategory === "new") return matchesSearch;
@@ -84,8 +84,8 @@ export default function PalettesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20"></div>
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
+      <div className="absolute inset-0"></div>
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
@@ -128,7 +128,7 @@ export default function PalettesPage() {
                     placeholder=" "
                     className="
         w-full h-[52px] px-4 pr-12 rounded-xl
-        text-base bg-white dark:bg-slate-900
+        text-base bg-white dark:bg-stone-950
         text-slate-900 dark:text-white
         border border-slate-300 dark:border-slate-700
         transition-all duration-300

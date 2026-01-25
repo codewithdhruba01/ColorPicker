@@ -1,7 +1,7 @@
 "use client";
 
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { InstantColorPicker } from "@/components/instant-color-picker";
 import Hero from "@/components/hero";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export default function Home() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="min-h-screen relative overflow-hidden flex flex-col bg-background dark:bg-slate-950"
+      className="min-h-screen relative overflow-hidden flex flex-col bg-background dark:bg-stone-950"
     >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
 
@@ -87,13 +87,8 @@ export default function Home() {
                   Click on the image to pick a color...
                 </h3>
                 <p className="text-gray-400 leading-relaxed text-sm md:text-base font-ranade">
-                  Use the ColorKit image color picker below to explore and
-                  extract beautiful colors from any image in seconds. Instantly
-                  get accurate <strong>HEX</strong>, <strong>RGB</strong>, and{" "}
-                  <strong>HSL</strong> color codes for every pixel you select —
-                  perfect for designers, developers, and digital artists.
-                  Upload, paste, or link an image and start picking colors
-                  instantly.
+                  ColorKit is a powerful, easy-to-use color palette generator built for designers, developers, and creative minds. Create stunning color combinations in seconds with a single click, or explore curated palettes crafted for perfect visual balance. Generate colors from images, test contrast and accessibility, and preview palettes on real UI layouts. Save, organize, and manage your palettes effortlessly, then export them in multiple formats for web, mobile apps, and design tools.
+                  Smart. Fast. Creative — now enhanced with AI.
                 </p>
               </motion.div>
 

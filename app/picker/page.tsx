@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ImageColorPicker from "@/components/color-picker/image-color-picker";
 import ManualColorPicker from "@/components/color-picker/manual-color-picker";
@@ -35,8 +35,8 @@ export default function PickerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20" />
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
+      <div className="absolute inset-0" />
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
