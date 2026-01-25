@@ -24,7 +24,7 @@ const Hero = () => {
     const currentColors = PALETTES[currentPaletteIndex];
 
     return (
-        <section className="relative w-full max-w-full overflow-hidden bg-white dark:bg-slate-950">
+        <section className="relative w-full max-w-full overflow-hidden bg-white dark:bg-stone-950">
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
                 style={{ backgroundImage: "radial-gradient(#000 0.5px, transparent 0.5px)", backgroundSize: "24px 24px" }}>
@@ -40,7 +40,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                             className="relative"
                         >
-                            <h1 className="text-[64px] md:text-[98px] font-[900] font-satoshi tracking-[-0.07em] text-black dark:text-white leading-[0.82] flex flex-col gap-2">
+                            <h1 className="text-[64px] md:text-[98px] font-[900] font-chillax tracking-[-0.07em] text-black dark:text-white leading-[0.82] flex flex-col gap-2">
                                 <span>The super fast</span>
                                 <span>color palettes</span>
                                 <span>generator!</span>
@@ -67,7 +67,7 @@ const Hero = () => {
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
-                            className="text-[17px] md:text-[20px] text-black/60 dark:text-white/60 max-w-sm md:max-w-md font-medium leading-[1.3] pt-6"
+                            className="text-[17px] md:text-[20px] text-black/60 dark:text-white/60 max-w-sm md:max-w-md font-general-sans font-medium leading-[1.3] pt-6"
                         >
                             Create the perfect palette or get inspired by thousands of beautiful color schemes.
                         </motion.p>

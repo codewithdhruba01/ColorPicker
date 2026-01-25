@@ -18,13 +18,13 @@ const pageVariants = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-background dark:bg-slate-950 text-foreground relative overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-background dark:bg-stone-950 text-foreground relative overflow-hidden">
       {/* Navbar */}
       <Navbar />
 
       {/* Decorative Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/10 to-cyan-900/10 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-950/20"></div>
-      <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] rounded-full bg-cyan-500/20 blur-3xl top-[10%] sm:top-[15%] md:top-[20%] left-[50%] sm:left-[55%] md:left-[60%] -translate-x-1/2 md:translate-x-0 animate-pulse"></div>
+      <div className="absolute inset-0 dark:from-stone-900 dark:via-stone-950 dark:to-cyan-950/20"></div>
+      <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] rounded-full blur-3xl top-[10%] sm:top-[15%] md:top-[20%] left-[50%] sm:left-[55%] md:left-[60%] -translate-x-1/2 md:translate-x-0 animate-pulse"></div>
 
       {/* Main Content */}
       <motion.main
@@ -179,7 +179,7 @@ export default function AboutPage() {
 
               <p className="text-muted-foreground dark:text-white/70 leading-relaxed text-sm sm:text-base md:text-lg mt-3 sm:mt-4">
                 Our mission is to make color exploration effortless, beautiful,
-                and intelligent. Whether you're working on UI, graphics,
+                and intelligent. Whether you are working on UI, graphics,
                 branding, or visual experiments,
                 <span className="text-cyan-600 dark:text-cyan-300 font-semibold">
                   {" "}

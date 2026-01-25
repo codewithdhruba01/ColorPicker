@@ -35,8 +35,8 @@ export default function PickerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-slate-950 flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20 dark:from-slate-900 dark:via-slate-950 dark:to-cyan-900/20" />
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
+      <div className="absolute inset-0" />
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
