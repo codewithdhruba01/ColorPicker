@@ -205,7 +205,6 @@
   animation: twinkle 3s ease-in-out infinite;
 }
 
-
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out;
 }
@@ -223,4 +222,8 @@ nextjs-portal {
   height: 0px !important;
   pointer-events: none !important;
   z-index: 9999 !important;
+}
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }

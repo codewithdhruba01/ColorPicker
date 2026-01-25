@@ -4,7 +4,9 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { InstantColorPicker } from "@/components/instant-color-picker";
 import Hero from "@/components/hero";
+import { SocialProof } from "@/components/social-proof";
 import Image from "next/image";
+import { RatingBadge } from "@/components/foundations/rating-badge";
 import { motion, Variants } from "framer-motion";
 
 const containerVariants: Variants = {
@@ -42,8 +44,9 @@ export default function Home() {
 
       <main className="relative z-10 flex-1">
         <Hero />
+        <SocialProof />
 
-        <div className="container mx-auto px-4 pb-20">
+        <div className="container mx-auto px-4 pt-12 md:pt-20 pb-20">
           {/* Instant Color Picker */}
           <motion.div className="mb-12 sm:mb-16" variants={itemVariants}>
             <InstantColorPicker />
@@ -54,21 +57,8 @@ export default function Home() {
             className="w-full bg-transparent py-16 md:py-10 px-6 md:px-16 relative z-10"
             variants={itemVariants}
           >
-            <div className="max-w-md mx-auto border border-gray-700 rounded-xl py-4 px-6 flex items-center justify-center space-x-3 text-gray-300 mb-14">
-              <div className="flex space-x-0.3 text-yellow-400">
-                {"⭐"
-                  .repeat(5)
-                  .split("")
-                  .map((star, i) => (
-                    <span key={i}>{star}</span>
-                  ))}
-              </div>
-              <p className="text-sm md:text-base text-neutral-700 dark:text-white font-clash-grotesk font-medium">
-                Do you like{" "}
-                <span className="font-clash-grotesk font-medium text-neutral-500 dark:text-white">
-                  colorkit Website ?
-                </span>
-              </p>
+            <div className="flex justify-center mb-14">
+              <RatingBadge className="scale-125" />
             </div>
 
             {/* Text + Image */}
@@ -83,10 +73,10 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold font-clash-grotesk text-black dark:text-white mb-4">
                   Color Kit
                 </h2>
-                <h3 className="text-lg text-gray-300 font-ranade font-medium mb-3">
+                <h3 className="text-lg text-gray-700 dark:text-gray-300 font-ranade font-medium mb-3">
                   Click on the image to pick a color...
                 </h3>
-                <p className="text-gray-400 leading-relaxed text-sm md:text-base font-ranade">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-base font-ranade">
                   ColorKit is a powerful, easy-to-use color palette generator built for designers, developers, and creative minds. Create stunning color combinations in seconds with a single click, or explore curated palettes crafted for perfect visual balance. Generate colors from images, test contrast and accessibility, and preview palettes on real UI layouts. Save, organize, and manage your palettes effortlessly, then export them in multiple formats for web, mobile apps, and design tools.
                   Smart. Fast. Creative — now enhanced with AI.
                 </p>
