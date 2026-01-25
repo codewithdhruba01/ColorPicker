@@ -1,7 +1,7 @@
 "use client";
 
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { InstantColorPicker } from "@/components/instant-color-picker";
 import Hero from "@/components/hero";
 import Image from "next/image";

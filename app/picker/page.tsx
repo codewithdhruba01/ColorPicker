@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ImageColorPicker from "@/components/color-picker/image-color-picker";
 import ManualColorPicker from "@/components/color-picker/manual-color-picker";
