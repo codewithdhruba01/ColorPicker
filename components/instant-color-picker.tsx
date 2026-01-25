@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Upload, Copy, Maximize2, Minus, Plus, Download, Save, ChevronRight, CheckCircle2 } from "lucide-react"
@@ -93,9 +94,11 @@ export function InstantColorPicker() {
           <button className="pb-3 text-black dark:text-white border-b-2 border-black dark:border-white font-medium">
             Pick color from image
           </button>
-          <button className="pb-3 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors">
-            Color Picker
-          </button>
+          <Link href="/picker">
+            <button className="pb-3 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors">
+              Color Picker
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -282,7 +285,7 @@ export function InstantColorPicker() {
 
                 <div className="flex items-start gap-2 text-xs text-neutral-500 leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
-                  <p>We think data protection is important! <span className="text-blue-400">No data is sent.</span> The magic happens in your browser.</p>
+                  <p>All processing happens locally in your browser.<span className="text-blue-400">Your data never leaves your device.</span> Everything securely inside your browser.</p>
                 </div>
               </div>
             </div>
