@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { InstantColorPicker } from "@/components/instant-color-picker";
 import Hero from "@/components/hero";
+import { SocialProof } from "@/components/social-proof";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
@@ -42,8 +43,9 @@ export default function Home() {
 
       <main className="relative z-10 flex-1">
         <Hero />
+        <SocialProof />
 
-        <div className="container mx-auto px-4 pb-20">
+        <div className="container mx-auto px-4 pt-12 md:pt-20 pb-20">
           {/* Instant Color Picker */}
           <motion.div className="mb-12 sm:mb-16" variants={itemVariants}>
             <InstantColorPicker />

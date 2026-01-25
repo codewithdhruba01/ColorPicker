@@ -30,7 +30,7 @@ const Hero = () => {
                 style={{ backgroundImage: "radial-gradient(#000 0.5px, transparent 0.5px)", backgroundSize: "24px 24px" }}>
             </div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 pb-20 md:pt-40 md:pb-48">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 pb-8 md:pt-40 md:pb-12">
                 <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-10 md:gap-24 lg:gap-32 items-center">
                     {/* Left Content */}
                     <div className="flex flex-col items-start space-y-8">
