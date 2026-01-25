@@ -2,15 +2,13 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const PALETTES = [
-    ["#00008F", "#2D3BA4", "#6A82FB", "#92B4B8", "#CDEAC0"], // Latest Screenshot Blue/Green
-    ["#8A3FFC", "#D84BEF", "#FF7EB6", "#FFF0F3", "#FFE11B"], // Previous Purple/Yellow
-    ["#1A472A", "#478A2D", "#A2D149", "#F5EAD1", "#C53D3D"], // Forest Green/Red
-    ["#000B4F", "#00BACA", "#FFFF00", "#FFC0CB", "#FF1493"], // High Contrast Pink/Blue
-    ["#4C1D3A", "#F43F5E", "#FECDD3", "#FEE2E2", "#FFF9C4"], // Warm Pastel Pink
-    ["#1E3A8A", "#2563EB", "#3B82F6", "#60A5FA", "#93C5FD"], // Deep Ocean Blues
+    ["#7c5cff", "#cd76ff", "#ffc4fd", "#52f2fd", "#c9f992"], // Main Card (Purple, Pink, Light Pink, Cyan, Lime)
+    ["#0055ff", "#4da3ff", "#ffff00", "#ffc0cb", "#ff1493"],
+    ["#1A472A", "#478A2D", "#A2D149", "#F5EAD1", "#C53D3D"],
 ];
 
 const Hero = () => {
@@ -42,7 +40,7 @@ const Hero = () => {
                             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                             className="relative"
                         >
-                            <h1 className="text-[64px] md:text-[98px] font-[900] font-satoshi tracking-[-0.07em] text-black dark:text-white leading-[0.82] flex flex-col">
+                            <h1 className="text-[64px] md:text-[98px] font-[900] font-satoshi tracking-[-0.07em] text-black dark:text-white leading-[0.82] flex flex-col gap-2">
                                 <span>The super fast</span>
                                 <span>color palettes</span>
                                 <span>generator!</span>
@@ -52,13 +50,13 @@ const Hero = () => {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
-                                className="absolute left-[30px] md:left-[50px] bottom-[-20px] md:bottom-[-25px] rotate-[10deg] z-20"
+                                className="absolute right-[10px] md:right-[-5px] bottom-[-20px] md:bottom-[-35px] rotate-[-12deg] z-20"
                             >
-                                <span className="relative z-10 font-telma font-normal text-[14px] md:text-[18px] text-black dark:text-white uppercase tracking-[0.12em] px-2 py-1 block">
+                                <span className="relative z-10 font-cabinet-grotesk font-normal text-[14px] md:text-[18px] text-black dark:text-white uppercase tracking-[0.05em] px-2 py-1 block">
                                     AND MUCH MORE
                                 </span>
-                                <div className="absolute inset-x-0 inset-y-0 translate-x-[-10%] translate-y-[-20%] w-[120%] h-[140%]">
-                                    <svg viewBox="0 0 140 50" className="w-full h-full fill-none stroke-black/70 dark:stroke-white/70 stroke-[1.2]">
+                                <div className="absolute inset-x-0 inset-y-0 translate-x-[-22%] translate-y-[-30%] w-[145%] h-[175%]">
+                                    <svg viewBox="0 0 140 50" className="w-full h-full fill-none stroke-black dark:stroke-white stroke-[0.8]">
                                         <path d="M10,25 C10,12 40,6 80,9 C120,12 135,18 132,28 C129,38 95,43 55,41 C25,39 10,32 10,25 C10,18 30,10 75,8.5" />
                                     </svg>
                                 </div>
@@ -80,12 +78,16 @@ const Hero = () => {
                             transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
                             className="flex flex-wrap gap-5 pt-6"
                         >
-                            <Button size="lg" className="bg-[#2D69F0] hover:bg-[#1a51c9] text-white px-9 py-7 text-[16px] font-bold rounded-[14px] shadow-none transition-all hover:scale-[1.03] active:scale-[0.97]">
-                                Start the Generator
-                            </Button>
-                            <Button variant="secondary" size="lg" className="px-9 py-7 text-[16px] font-bold rounded-[14px] bg-[#EEF0F3] hover:bg-[#e4e6ea] text-black dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 shadow-none border-none transition-all hover:scale-[1.03] active:scale-[0.97]">
-                                Explore 10M+ Palettes
-                            </Button>
+                            <Link href="/picker">
+                                <Button size="lg" className="bg-[#2D69F0] hover:bg-[#1a51c9] text-white px-9 py-7 text-[16px] font-bold rounded-[14px] shadow-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                                    Start the Generator
+                                </Button>
+                            </Link>
+                            <Link href="/palettes">
+                                <Button variant="secondary" size="lg" className="px-9 py-7 text-[16px] font-bold rounded-[14px] bg-[#EEF0F3] hover:bg-[#e4e6ea] text-black dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 shadow-none border-none transition-all hover:scale-[1.03] active:scale-[0.97]">
+                                    Explore Palettes
+                                </Button>
+                            </Link>
                         </motion.div>
                     </div>
 
@@ -99,18 +101,18 @@ const Hero = () => {
                             className="grid grid-cols-3 gap-4 md:gap-5 translate-x-12"
                         >
                             {[
-                                ["#000B4F", "#00BACA", "#FFFF00", "#FFC0CB", "#FF1493"],
-                                ["#FFC0CB", "#FFD700", "#A5F3FC", "#FDE68A", "#0066FF"],
-                                ["#4C1D3A", "#F43F5E", "#FECDD3", "#FEE2E2", "#FFF1F2"],
-                                ["#5ca2b1", "#96d1e4", "#ff6b9a", "#ffc2bf", "#ffe291"],
-                                ["#5e427d", "#8cb1a0", "#c2cad1", "#dfbc9f", "#ff8119"],
-                                ["#0028aa", "#4232ec", "#7c68e3", "#ff9ea3", "#ff69b2"],
-                                ["#cc034c", "#8d861d", "#c1c790", "#ffdfc3", "#ff7f02"],
-                                ["#24336b", "#4b647c", "#6b969c", "#b1ad8e", "#ffce8e"],
-                                ["#ffa500", "#ffd700", "#ffa0c5", "#017cb2", "#00ae57"],
-                                ["#014da2", "#8ec6ff", "#fdf1f3", "#ff8bad", "#ff4b6b"],
-                                ["#cc034c", "#8d861d", "#c1c790", "#ffdfc3", "#ff7f02"],
-                                ["#00f3c3", "#5c2a49", "#ff4b6b", "#ffb7ab", "#ffdfc3"],
+                                ["#0044cc", "#4da3ff", "#ffff00", "#ffc800", "#ff8a00"], // Row 1 Col 1
+                                ["#5b8c76", "#90e090", "#e6cca6", "#d9426f", "#ff8a00"], // Row 1 Col 2
+                                ["#7f7823", "#c0c691", "#ffd8bc", "#ff8a00", "#ff4400"], // Row 1 Col 3
+                                ["#000b4f", "#00baca", "#ffff00", "#ffc0cb", "#ff1493"], // Row 2 Col 1
+                                ["#f04e98", "#ffe4e1", "#f5e6a2", "#00ffcc", "#ffffff"], // Row 2 Col 2
+                                ["#5e2a40", "#ff5c77", "#ffb8bc", "#ffe0d6", "#fff9ed"], // Row 2 Col 3
+                                ["#5b9aa0", "#8cb1de", "#ff8aae", "#ffc2bf", "#ffe3a0"], // Row 3 Col 1
+                                ["#705680", "#94a8b3", "#becad2", "#e3b89e", "#ff7f24"], // Row 3 Col 2
+                                ["#0033cc", "#5c4dff", "#8f79ff", "#ff9ea9", "#ff5c9d"], // Row 3 Col 3
+                                ["#7c5cff", "#cd76ff", "#ffc4fd", "#52f2fd", "#c9f992"], // Row 4 Col 1 (Looks like main)
+                                ["#ffb300", "#ffdb5c", "#ff9ea9", "#0080ff", "#00b359"], // Row 4 Col 2
+                                ["#005761", "#78c7c7", "#f0fbff", "#ffdad6", "#ed8c72"], // Row 4 Col 3
                             ].map((colors, i) => (
                                 <div key={i} className="flex w-[110px] h-[80px] md:w-[140px] md:h-[100px] rounded-[14px] md:rounded-[18px] overflow-hidden shadow-none border border-black/[0.04]">
                                     {colors.map((color, j) => (
@@ -125,7 +127,7 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 120, x: -80, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
                             transition={{ duration: 1.2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
-                            className="absolute bottom-[8%] left-[-10%] md:left-[-20%] w-[360px] h-[250px] md:w-[480px] md:h-[320px] bg-white rounded-[28px] md:rounded-[40px] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.22)] overflow-hidden flex border-none z-20"
+                            className="absolute bottom-[-2%] left-[-15%] md:left-[-28%] w-[360px] h-[250px] md:w-[480px] md:h-[320px] bg-white rounded-[28px] md:rounded-[40px] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.22)] overflow-hidden flex border-none z-20"
                         >
                             {currentColors.map((color, idx) => (
                                 <motion.div
