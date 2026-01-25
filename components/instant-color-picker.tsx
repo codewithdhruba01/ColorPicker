@@ -86,21 +86,21 @@ export function InstantColorPicker() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto font-sans text-neutral-200">
+    <div className="w-full max-w-5xl mx-auto font-sans text-neutral-800 dark:text-neutral-200">
       {/* Top Tabs */}
       <div className="flex justify-center mb-8">
-        <div className="flex space-x-8 border-b border-white/10 pb-1">
-          <button className="pb-3 text-white border-b-2 border-white font-medium">
+        <div className="flex space-x-8 border-b border-neutral-200 dark:border-white/10 pb-1">
+          <button className="pb-3 text-black dark:text-white border-b-2 border-black dark:border-white font-medium">
             Pick color from image
           </button>
-          <button className="pb-3 text-neutral-400 hover:text-neutral-200 transition-colors">
+          <button className="pb-3 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors">
             Color Picker
           </button>
         </div>
       </div>
 
       {/* Main Card */}
-      <div className="bg-[#0a0a0a] rounded-3xl border border-white/10 p-6 md:p-8 relative shadow-2xl overflow-hidden">
+      <div className="bg-white dark:bg-[#0a0a0a] rounded-3xl border border-neutral-200 dark:border-white/10 p-6 md:p-8 relative shadow-xl dark:shadow-2xl overflow-hidden">
         {/* Resize Icon (Visual only based on screenshot) */}
         <div className="absolute top-4 right-4 md:top-6 md:-right-6 translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black shadow-lg cursor-pointer hover:scale-110 transition-transform hidden md:flex">
           <Maximize2 className="w-5 h-5" />
@@ -112,11 +112,11 @@ export function InstantColorPicker() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left Column: Image & Palette */}
           <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-xl font-medium text-neutral-200">Image</h2>
+            <h2 className="text-xl font-medium text-neutral-900 dark:text-neutral-200">Image</h2>
 
             {/* Image Preview Area */}
             <div
-              className="relative rounded-lg overflow-hidden bg-[#1a1a1a] aspect-video flex items-center justify-center border border-white/5 group"
+              className="relative rounded-lg overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a] aspect-video flex items-center justify-center border border-neutral-200 dark:border-white/5 group"
               onMouseEnter={() => setShowMagnifier(true)}
               onMouseLeave={() => setShowMagnifier(false)}
               onMouseMove={(e) => {
@@ -162,13 +162,13 @@ export function InstantColorPicker() {
 
             {/* Color Palette Section */}
             <div className="space-y-3">
-              <h3 className="text-lg font-medium text-neutral-300">Color Palette</h3>
+              <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-300">Color Palette</h3>
               <div className="flex items-center gap-3">
-                <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
-                  <Minus className="w-4 h-4 text-neutral-400" />
+                <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors">
+                  <Minus className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                 </button>
-                <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
-                  <Plus className="w-4 h-4 text-neutral-400" />
+                <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors">
+                  <Plus className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                 </button>
 
                 <div className="flex-1 flex gap-0 overflow-hidden rounded-lg mx-2 h-12">
@@ -191,11 +191,11 @@ export function InstantColorPicker() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors" title="Download Palette">
-                    <Download className="w-4 h-4 text-neutral-400" />
+                  <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Download Palette">
+                    <Download className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                   </button>
-                  <button className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors" title="Save Palette">
-                    <Save className="w-4 h-4 text-neutral-400" />
+                  <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Save Palette">
+                    <Save className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                   </button>
                 </div>
               </div>
@@ -204,16 +204,16 @@ export function InstantColorPicker() {
 
           {/* Right Column: Colors & Details */}
           <div className="space-y-6">
-            <h2 className="text-xl font-medium text-neutral-200">Colors</h2>
+            <h2 className="text-xl font-medium text-neutral-900 dark:text-neutral-200">Colors</h2>
 
             {/* Color Preview Box */}
             <div className="flex gap-4 mb-6">
               <div
-                className="w-24 h-16 rounded-lg shadow-inner"
+                className="w-24 h-16 rounded-lg shadow-inner ring-1 ring-black/5 dark:ring-white/10"
                 style={{ backgroundColor: selectedColor }}
               />
               <div
-                className="w-16 h-16 rounded-lg shadow-inner opacity-80"
+                className="w-16 h-16 rounded-lg shadow-inner opacity-80 ring-1 ring-black/5 dark:ring-white/10"
                 style={{ backgroundColor: generateTints(selectedColor, 2)[1] || selectedColor }}
               />
             </div>
@@ -221,36 +221,36 @@ export function InstantColorPicker() {
             {/* Color Values Inputs */}
             <div className="space-y-4">
               {/* HEX */}
-              <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2 bg-neutral-50 dark:bg-[#0a0a0a] border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2.5">
                 <span className="text-neutral-500 text-sm font-medium w-8">HEX</span>
-                <span className="flex-1 font-mono text-neutral-200">{selectedColor}</span>
+                <span className="flex-1 font-mono text-neutral-900 dark:text-neutral-200">{selectedColor}</span>
                 <button
                   onClick={() => copyToClipboard(selectedColor)}
-                  className="text-neutral-500 hover:text-white transition-colors"
+                  className="text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white transition-colors"
                 >
                   <Copy className="w-4 h-4" />
                 </button>
               </div>
 
               {/* RGB */}
-              <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2 bg-neutral-50 dark:bg-[#0a0a0a] border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2.5">
                 <span className="text-neutral-500 text-sm font-medium w-8">RGB</span>
-                <span className="flex-1 font-mono text-neutral-200">{`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`}</span>
+                <span className="flex-1 font-mono text-neutral-900 dark:text-neutral-200">{`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`}</span>
                 <button
                   onClick={() => copyToClipboard(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`)}
-                  className="text-neutral-500 hover:text-white transition-colors"
+                  className="text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white transition-colors"
                 >
                   <Copy className="w-4 h-4" />
                 </button>
               </div>
 
               {/* HSL */}
-              <div className="flex items-center gap-2 bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2 bg-neutral-50 dark:bg-[#0a0a0a] border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-2.5">
                 <span className="text-neutral-500 text-sm font-medium w-8">HSL</span>
-                <span className="flex-1 font-mono text-neutral-200">{`${hsl.h}, ${hsl.s}%, ${hsl.l}%`}</span>
+                <span className="flex-1 font-mono text-neutral-900 dark:text-neutral-200">{`${hsl.h}, ${hsl.s}%, ${hsl.l}%`}</span>
                 <button
                   onClick={() => copyToClipboard(`${hsl.h}, ${hsl.s}%, ${hsl.l}%`)}
-                  className="text-neutral-500 hover:text-white transition-colors"
+                  className="text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white transition-colors"
                 >
                   <Copy className="w-4 h-4" />
                 </button>
@@ -261,8 +261,8 @@ export function InstantColorPicker() {
 
             {/* Use Your Own Image Section */}
             <div className="mt-8 pt-4">
-              <div className="bg-[#161b22] rounded-xl p-5 border border-white/5 space-y-4">
-                <h3 className="text-neutral-200 font-medium">Use your own image</h3>
+              <div className="bg-neutral-50 dark:bg-[#161b22] rounded-xl p-5 border border-neutral-200 dark:border-white/5 space-y-4">
+                <h3 className="text-neutral-900 dark:text-neutral-200 font-medium">Use your own image</h3>
 
                 <div className="relative">
                   <input
@@ -274,7 +274,7 @@ export function InstantColorPicker() {
                   />
                   <Button
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full bg-white text-black hover:bg-neutral-200 font-medium py-6"
+                    className="w-full bg-neutral-900 hover:bg-neutral-800 text-white dark:bg-white dark:text-black dark:hover:bg-neutral-200 font-medium py-6 transition-colors"
                   >
                     Use your own image
                   </Button>
