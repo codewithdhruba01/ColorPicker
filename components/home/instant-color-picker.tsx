@@ -9,6 +9,7 @@ import { Upload, Copy, Maximize2, Minus, Plus, Download, Save, ChevronRight, Che
 import { hexToRgb, rgbToHex, rgbToHsl, extractColorsFromImage, generateTints } from "@/lib/color-utils"
 import { toast } from "sonner"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { ExportPaletteDialog } from "@/components/home/export-palette-dialog"
 
 export function InstantColorPicker() {
   const [selectedColor, setSelectedColor] = useState("#2596be");
@@ -17,7 +18,9 @@ export function InstantColorPicker() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -203,7 +206,9 @@ export function InstantColorPicker() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Download Palette">
+                  <button
+                    onClick={() => setIsExportOpen(true)}
+                    className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Download Palette">
                     <Download className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                   </button>
                   <button className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Save Palette">
@@ -324,6 +329,12 @@ export function InstantColorPicker() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <ExportPaletteDialog
+        open={isExportOpen}
+        onOpenChange={setIsExportOpen}
+        colors={extractedColors}
+      />
     </div>
   );
 }
