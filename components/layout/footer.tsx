@@ -25,7 +25,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground dark:text-white/60 leading-relaxed">
-              Professional color tools for designers, developers, and creatives.
+              Made for designers and visual creators, Color Kit helps you explore inspiring colors and effortlessly create beautiful, balanced palettes for any project.
             </p>
           </div>
 
@@ -61,7 +61,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/404-error"
+                  href="/coming-soon"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
                   Color Converter
@@ -97,12 +97,12 @@ export function Footer() {
                   href="/privacy"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
-                  Privecy Policy
+                  Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/404-error"
+                  href="/coming-soon"
                   className="hover:text-foreground dark:hover:text-white transition-colors"
                 >
                   API Reference
