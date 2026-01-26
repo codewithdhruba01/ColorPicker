@@ -32,6 +32,9 @@ export function Navbar() {
               height={40}
               className="rounded-md"
             />
+            <span className="font-bold text-lg text-foreground dark:text-white font-clash-grotesk">
+              ColorKit
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

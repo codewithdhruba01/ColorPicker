@@ -2,9 +2,9 @@
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { InstantColorPicker } from "@/components/instant-color-picker";
-import Hero from "@/components/hero";
-import { SocialProof } from "@/components/social-proof";
+import { InstantColorPicker } from "@/components/home/instant-color-picker";
+import Hero from "@/components/home/hero";
+import { SocialProof } from "@/components/home/social-proof";
 import Image from "next/image";
 import { RatingBadge } from "@/components/foundations/rating-badge";
 import { motion, Variants } from "framer-motion";
