@@ -16,7 +16,7 @@ interface ExportPaletteDialogProps {
 type ExportFormat = "css" | "code" | "svg" | "png"
 
 export function ExportPaletteDialog({ open, onOpenChange, colors }: ExportPaletteDialogProps) {
-    const [expandedSection, setExpandedSection] = useState<ExportFormat | null>("css")
+    const [expandedSection, setExpandedSection] = useState<ExportFormat | null>(null)
     const [copied, setCopied] = useState(false)
 
     const toggleSection = (section: ExportFormat) => {
@@ -93,7 +93,7 @@ ${colors.map((c, i) => `  <rect x="${i * 100}" y="0" width="100" height="100" fi
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-xl bg-white dark:bg-[#0a0a0a] border border-neutral-200 dark:border-white/10 rounded-2xl">
+            <DialogContent className="w-[90%] max-w-[350px] md:w-full md:max-w-xl bg-white dark:bg-[#0a0a0a] border border-neutral-200 dark:border-white/10 rounded-2xl duration-300 ease-out data-[state=open]:duration-300 data-[state=open]:zoom-in-95">
                 <DialogHeader>
                     <DialogTitle className="text-center text-xl font-bold">Export Palette</DialogTitle>
                 </DialogHeader>
