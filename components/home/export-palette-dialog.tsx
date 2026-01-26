@@ -4,6 +4,7 @@ import { useState, useRef } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, Copy, Download, Check } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { toast } from "sonner"
 import { getColorName } from "@/lib/color-utils"
 
@@ -109,29 +110,39 @@ ${colors.map((c, i) => `  <rect x="${i * 100}" y="0" width="100" height="100" fi
                             {expandedSection === "css" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
 
-                        {expandedSection === "css" && (
-                            <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
-                                <pre className="text-xs md:text-sm font-mono text-neutral-600 dark:text-neutral-400 overflow-x-auto p-2">
-                                    {cssContent}
-                                </pre>
-                                <div className="flex gap-2">
-                                    <Button
-                                        onClick={() => handleDownload(cssContent, "palette.css", "text/css")}
-                                        variant="outline"
-                                        className="flex-1"
-                                    >
-                                        Download
-                                    </Button>
-                                    <Button
-                                        onClick={() => handleCopy(cssContent)}
-                                        className="flex-1 bg-[#0f172a] text-white hover:bg-[#1e293b]"
-                                    >
-                                        {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                                        Copy
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
+                        <AnimatePresence>
+                            {expandedSection === "css" && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
+                                        <pre className="text-xs md:text-sm font-mono text-neutral-600 dark:text-neutral-400 overflow-x-auto p-2">
+                                            {cssContent}
+                                        </pre>
+                                        <div className="flex gap-2">
+                                            <Button
+                                                onClick={() => handleDownload(cssContent, "palette.css", "text/css")}
+                                                variant="outline"
+                                                className="flex-1"
+                                            >
+                                                Download
+                                            </Button>
+                                            <Button
+                                                onClick={() => handleCopy(cssContent)}
+                                                className="flex-1 bg-[#0f172a] text-white hover:bg-[#1e293b]"
+                                            >
+                                                {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                                                Copy
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     {/* Code Section */}
@@ -144,29 +155,39 @@ ${colors.map((c, i) => `  <rect x="${i * 100}" y="0" width="100" height="100" fi
                             {expandedSection === "code" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
 
-                        {expandedSection === "code" && (
-                            <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
-                                <pre className="text-xs md:text-sm font-mono text-neutral-600 dark:text-neutral-400 overflow-x-auto p-2">
-                                    {jsonContent}
-                                </pre>
-                                <div className="flex gap-2">
-                                    <Button
-                                        onClick={() => handleDownload(jsonContent, "palette.json", "application/json")}
-                                        variant="outline"
-                                        className="flex-1"
-                                    >
-                                        Download
-                                    </Button>
-                                    <Button
-                                        onClick={() => handleCopy(jsonContent)}
-                                        className="flex-1 bg-[#0f172a] text-white hover:bg-[#1e293b]"
-                                    >
-                                        {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                                        Copy
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
+                        <AnimatePresence>
+                            {expandedSection === "code" && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
+                                        <pre className="text-xs md:text-sm font-mono text-neutral-600 dark:text-neutral-400 overflow-x-auto p-2">
+                                            {jsonContent}
+                                        </pre>
+                                        <div className="flex gap-2">
+                                            <Button
+                                                onClick={() => handleDownload(jsonContent, "palette.json", "application/json")}
+                                                variant="outline"
+                                                className="flex-1"
+                                            >
+                                                Download
+                                            </Button>
+                                            <Button
+                                                onClick={() => handleCopy(jsonContent)}
+                                                className="flex-1 bg-[#0f172a] text-white hover:bg-[#1e293b]"
+                                            >
+                                                {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
+                                                Copy
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     {/* SVG Section */}
@@ -179,22 +200,32 @@ ${colors.map((c, i) => `  <rect x="${i * 100}" y="0" width="100" height="100" fi
                             {expandedSection === "svg" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
 
-                        {expandedSection === "svg" && (
-                            <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
-                                <div className="flex items-center justify-center h-16 rounded overflow-hidden">
-                                    {colors.map((c, i) => (
-                                        <div key={i} className="flex-1 h-full" style={{ backgroundColor: c }} />
-                                    ))}
-                                </div>
-                                <Button
-                                    onClick={handleDownloadSVG}
-                                    variant="outline"
-                                    className="w-full"
+                        <AnimatePresence>
+                            {expandedSection === "svg" && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="overflow-hidden"
                                 >
-                                    Download
-                                </Button>
-                            </div>
-                        )}
+                                    <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
+                                        <div className="flex items-center justify-center h-16 rounded overflow-hidden">
+                                            {colors.map((c, i) => (
+                                                <div key={i} className="flex-1 h-full" style={{ backgroundColor: c }} />
+                                            ))}
+                                        </div>
+                                        <Button
+                                            onClick={handleDownloadSVG}
+                                            variant="outline"
+                                            className="w-full"
+                                        >
+                                            Download
+                                        </Button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                     {/* PNG Section */}
@@ -207,22 +238,32 @@ ${colors.map((c, i) => `  <rect x="${i * 100}" y="0" width="100" height="100" fi
                             {expandedSection === "png" ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
 
-                        {expandedSection === "png" && (
-                            <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
-                                <div className="flex items-center justify-center h-16 rounded overflow-hidden">
-                                    {colors.map((c, i) => (
-                                        <div key={i} className="flex-1 h-full" style={{ backgroundColor: c }} />
-                                    ))}
-                                </div>
-                                <Button
-                                    onClick={handleDownloadPNG}
-                                    variant="outline"
-                                    className="w-full"
+                        <AnimatePresence>
+                            {expandedSection === "png" && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="overflow-hidden"
                                 >
-                                    Download
-                                </Button>
-                            </div>
-                        )}
+                                    <div className="p-4 bg-neutral-50 dark:bg-[#111] rounded-xl mt-2 space-y-4">
+                                        <div className="flex items-center justify-center h-16 rounded overflow-hidden">
+                                            {colors.map((c, i) => (
+                                                <div key={i} className="flex-1 h-full" style={{ backgroundColor: c }} />
+                                            ))}
+                                        </div>
+                                        <Button
+                                            onClick={handleDownloadPNG}
+                                            variant="outline"
+                                            className="w-full"
+                                        >
+                                            Download
+                                        </Button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
                 </div>
