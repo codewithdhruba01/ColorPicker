@@ -10,8 +10,11 @@ import { hexToRgb, rgbToHex, rgbToHsl, extractColorsFromImage, generateTints } f
 import { toast } from "sonner"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { ExportPaletteDialog } from "@/components/home/export-palette-dialog"
+import { useUser, useClerk } from "@clerk/nextjs"
 
 export function InstantColorPicker() {
+  const { isSignedIn } = useUser()
+  const clerk = useClerk()
   const [selectedColor, setSelectedColor] = useState("#2596be");
   const [image, setImage] = useState<string | null>("/image/demo.jpg");
   const [extractedColors, setExtractedColors] = useState<string[]>([]);
@@ -207,7 +210,13 @@ export function InstantColorPicker() {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setIsExportOpen(true)}
+                    onClick={() => {
+                      if (!isSignedIn) {
+                        clerk.openSignIn()
+                        return
+                      }
+                      setIsExportOpen(true)
+                    }}
                     className="w-10 h-10 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors" title="Download Palette">
                     <Download className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                   </button>
