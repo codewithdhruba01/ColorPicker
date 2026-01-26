@@ -6,6 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "../theme-toggle";
+import {
+  SignInButton,
+  SignUpButton,
+  UserButton,
+  SignedOut,
+  SignedIn,
+} from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,9 +68,31 @@ export function Navbar() {
 
           {/* Right side actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-
-
             <ThemeToggle />
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button variant="outline" size="sm" className="hidden sm:flex rounded-full">
+                  Sign In
+                </Button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button size="sm" className="rounded-full bg-[#df7709] hover:bg-[#c66a08] text-white border-0">
+                  Sign Up
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-9 h-9",
+                  },
+                }}
+              />
+            </SignedIn>
 
             {/* Mobile menu button */}
             <button
@@ -98,6 +128,16 @@ export function Navbar() {
                 {link.text}
               </Link>
             ))}
+            {/* Mobile Auth Buttons */}
+            <div className="px-4 py-2 flex flex-col gap-2 sm:hidden">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="outline" className="w-full justify-center rounded-full">
+                    Sign In
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+            </div>
           </div>
         </div>
       </div>

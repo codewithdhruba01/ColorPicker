@@ -5,9 +5,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Upload, Copy, Maximize2, Minus, Plus, Download, Save, ChevronRight, CheckCircle2 } from "lucide-react"
+import { Upload, Copy, Maximize2, Minus, Plus, Download, Save, ChevronRight, CheckCircle2, X } from "lucide-react"
 import { hexToRgb, rgbToHex, rgbToHsl, extractColorsFromImage, generateTints } from "@/lib/color-utils"
 import { toast } from "sonner"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 export function InstantColorPicker() {
   const [selectedColor, setSelectedColor] = useState("#2596be");
@@ -16,6 +17,7 @@ export function InstantColorPicker() {
   const [copiedColor, setCopiedColor] = useState<string | null>(null);
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -105,12 +107,19 @@ export function InstantColorPicker() {
       {/* Main Card */}
       <div className="bg-white dark:bg-[#0a0a0a] rounded-3xl border border-neutral-200 dark:border-white/10 p-6 md:p-8 relative shadow-xl dark:shadow-2xl overflow-hidden">
         {/* Resize Icon (Visual only based on screenshot) */}
-        <div className="absolute top-4 right-4 md:top-6 md:-right-6 translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black shadow-lg cursor-pointer hover:scale-110 transition-transform hidden md:flex">
+        {/* Resize Icon */}
+        <button
+          onClick={() => setIsFullScreen(true)}
+          className="absolute top-4 right-4 md:top-6 md:-right-6 translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center text-black shadow-lg cursor-pointer hover:scale-110 transition-transform hidden md:flex"
+        >
           <Maximize2 className="w-5 h-5" />
-        </div>
-        <div className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-black shadow-lg cursor-pointer hover:scale-110 transition-transform md:hidden">
+        </button>
+        <button
+          onClick={() => setIsFullScreen(true)}
+          className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-black shadow-lg cursor-pointer hover:scale-110 transition-transform md:hidden"
+        >
           <Maximize2 className="w-4 h-4" />
-        </div>
+        </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Left Column: Image & Palette */}
@@ -292,6 +301,29 @@ export function InstantColorPicker() {
           </div>
         </div>
       </div>
+
+      <Dialog open={isFullScreen} onOpenChange={setIsFullScreen}>
+        <DialogContent className="max-w-[95vw] md:max-w-5xl h-[60vh] md:h-[85vh] w-full p-0 bg-black/95 border-none rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl [&>button]:hidden duration-500 data-[state=open]:duration-500 data-[state=closed]:duration-500">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <button
+              onClick={() => setIsFullScreen(false)}
+              className="absolute top-3 right-3 md:top-4 md:right-4 z-50 p-1.5 md:p-2 bg-white/10 text-white rounded-full hover:bg-white/20 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {image && (
+              <Image
+                src={image}
+                alt="Full screen preview"
+                className="max-w-full max-h-full object-contain pointer-events-none select-none"
+                width={1920}
+                height={1080}
+                unoptimized
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
