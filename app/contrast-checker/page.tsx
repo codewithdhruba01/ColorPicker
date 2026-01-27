@@ -46,7 +46,7 @@ export default function ContrastCheckerPage() {
         <Navbar />
 
         {/* Page Content */}
-        <main className="flex-1 container mx-auto px-4 pt-32 sm:pt-40 pb-20">
+        <main className="flex-1 container mx-auto px-4 pt-24 sm:pt-32 pb-20">
           <div className="max-w-6xl mx-auto space-y-12">
             {/* Header Section */}
             <motion.div

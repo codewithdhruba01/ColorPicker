@@ -43,7 +43,7 @@ export default function PickerPage() {
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 pt-32 pb-20 sm:pt-40">
+        <main className="flex-1 container mx-auto px-4 pt-24 pb-20 sm:pt-32">
           <motion.div
             className="max-w-6xl mx-auto space-y-12"
             initial="hidden"

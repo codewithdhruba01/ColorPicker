@@ -82,7 +82,7 @@ export default function GradientsPage() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex-1 container mx-auto pt-36 sm:pt-40 pb-10 px-4 sm:px-6"
+          className="flex-1 container mx-auto pt-24 sm:pt-32 pb-10 px-4 sm:px-6"
         >
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Title */}
