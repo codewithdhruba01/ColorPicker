@@ -77,7 +77,7 @@ export default function ContrastCheckerPage() {
                 <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8 space-y-8 h-full flex flex-col">
 
                   <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold font-clash-grotesk tracking-wide flex items-center gap-2">
+                    <h2 className="text-xl font-semibold font-general-sans tracking-wide flex items-center gap-2">
                       <span className="w-2 h-6 bg-primary rounded-full inline-block" />
                       Color Selection
                     </h2>
@@ -183,7 +183,7 @@ export default function ContrastCheckerPage() {
               {/* WCAG Compliance Card */}
               <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden order-2 lg:order-none">
                 <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8 space-y-8 h-full">
-                  <h2 className="text-xl font-semibold font-clash-grotesk tracking-wide flex items-center gap-2">
+                  <h2 className="text-xl font-semibold font-general-sans tracking-wide flex items-center gap-2">
                     <span className="w-2 h-6 bg-primary rounded-full inline-block" />
                     WCAG Compliance
                   </h2>
@@ -213,8 +213,8 @@ export default function ContrastCheckerPage() {
                   </div>
 
                   <div className="pt-6 border-t border-border/10">
-                    <h3 className="font-semibold mb-3 font-clash-grotesk">Quick Reference</h3>
-                    <div className="space-y-2 text-sm text-muted-foreground dark:text-white/60 font-ranade">
+                    <h3 className="font-semibold mb-3 font-general-sans">Quick Reference</h3>
+                    <div className="space-y-2 text-sm text-muted-foreground dark:text-white/60 font-poppins">
                       <p className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary/50" />AA is the industry standard for most accessibility requirements.</p>
                       <p className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary/50" />AAA provides the highest level of accessibility.</p>
                       <p className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary/50" />Higher ratios generally improve readability for everyone.</p>
@@ -233,7 +233,7 @@ export default function ContrastCheckerPage() {
             >
               <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
                 <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8">
-                  <h2 className="text-xl font-semibold mb-8 font-clash-grotesk tracking-wide flex items-center gap-2">
+                  <h2 className="text-xl font-semibold mb-8 font-general-sans tracking-wide flex items-center gap-2">
                     <span className="w-2 h-6 bg-primary rounded-full inline-block" />
                     Live Preview
                   </h2>
@@ -300,7 +300,7 @@ function ComplianceCard({
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1.5">
-            <h4 className="font-semibold text-sm font-clash-grotesk">{title}</h4>
+            <h4 className="font-bold text-sm font-inter">{title}</h4>
             <Badge
               variant={passes ? "default" : "destructive"}
               className="text-[10px] px-1.5 py-0 h-5"
