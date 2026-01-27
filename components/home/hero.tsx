@@ -129,14 +129,13 @@ const Hero = () => {
                             transition={{ duration: 1.2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
                             className="absolute bottom-[-15%] md:bottom-[-2%] left-1/2 -translate-x-1/2 md:left-[-28%] md:translate-x-0 w-[260px] h-[170px] md:w-[480px] md:h-[320px] bg-white rounded-[24px] md:rounded-[40px] overflow-hidden flex border-none z-20"
                         >
-                            {currentColors.map((color, idx) => (
+                            {Array.from({ length: 5 }).map((_, idx) => (
                                 <motion.div
-                                    key={`${currentPaletteIndex}-${idx}`}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 1 }}
+                                    key={idx}
+                                    initial={false}
+                                    animate={{ backgroundColor: currentColors[idx] }}
+                                    transition={{ duration: 0.8 }}
                                     className="flex-1"
-                                    style={{ backgroundColor: color }}
                                 ></motion.div>
                             ))}
                         </motion.div>
