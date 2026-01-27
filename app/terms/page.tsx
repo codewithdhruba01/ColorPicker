@@ -3,190 +3,168 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Card } from "@/components/ui/card";
-import { FileText } from "lucide-react";
+import { FileText, Scale, Check, AlertCircle, Lock, Server, Globe, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Separator } from "@/components/ui/separator";
+
+const pageVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
-      <div className="absolute inset-0"></div>
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col font-sans selection:bg-primary/20 relative overflow-hidden">
+      <Navbar />
 
-      <div className="relative z-10 flex-1 flex flex-col">
-        <Navbar />
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
-        <motion.main
-          className="flex-1 container mx-auto px-4 pt-36 sm:pt-40"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-            <motion.div
-              className="text-center space-y-4"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-orange-500 mb-4">
-                <FileText className="w-8 h-8 text-white" />
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
+      <motion.main
+        className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 pt-24 sm:pt-32 pb-16 sm:pb-24"
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants}
+      >
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Header */}
+          <motion.div variants={itemVariants} className="text-center space-y-6 mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-cyan-500/10 text-cyan-500 mb-4 backdrop-blur-xl border border-cyan-500/20 shadow-xl shadow-cyan-500/10">
+              <FileText className="w-10 h-10" />
+            </div>
+
+            <div className="space-y-4 max-w-2xl mx-auto">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk tracking-tight">
                 Terms of Service
               </h1>
-              <p className="text-sm text-muted-foreground dark:text-white/60">
-                Last updated: October 28, 2025
+              <p className="text-lg text-muted-foreground font-ranade">
+                Last updated: <span className="text-foreground font-medium">October 28, 2025</span>
               </p>
-            </motion.div>
-            <Card className="p-6 sm:p-8 space-y-8">
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">1. Acceptance of Terms</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  By accessing and using ColorKit (the Service), you accept and
-                  agree to be bound by the terms and provisions of this
-                  agreement. If you do not agree to these terms, please do not
-                  use the Service.
-                </p>
-              </section>
+            </div>
+          </motion.div>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">2. Use of Service</h2>
-                <div className="space-y-3 text-muted-foreground dark:text-white/70">
-                  <h3 className="text-lg font-semibold text-foreground dark:text-white">
-                    2.1 Permitted Use
-                  </h3>
-                  <p className="leading-relaxed">
-                    ColorKit is provided as a free tool for color exploration,
-                    analysis, and accessibility testing. You may use the Service
-                    for:
-                  </p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>Personal and commercial design projects</li>
-                    <li>Educational purposes</li>
-                    <li>Accessibility testing and compliance checking</li>
-                    <li>Color palette creation and management</li>
-                  </ul>
+          <Card className="p-8 sm:p-12 bg-background/40 backdrop-blur-3xl border border-white/5 rounded-[2rem] shadow-xl space-y-12">
 
-                  <h3 className="text-lg font-semibold text-foreground dark:text-white mt-4">
-                    2.2 Prohibited Use
-                  </h3>
-                  <p className="leading-relaxed">You agree not to:</p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>
-                      Use the Service for any illegal or unauthorized purpose
-                    </li>
-                    <li>
-                      Attempt to gain unauthorized access to the Service or its
-                      systems
-                    </li>
-                    <li>Interfere with or disrupt the Service or servers</li>
-                    <li>Use automated systems or bots excessively</li>
-                    <li>
-                      Reverse engineer, decompile, or disassemble any part
-                    </li>
-                    <li>Remove or modify any copyright notices</li>
-                  </ul>
+            {/* Introduction */}
+            <section className="space-y-4 text-center max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold font-clash-grotesk flex items-center justify-center gap-2">
+                <Scale className="w-6 h-6 text-primary" /> Acceptance of Terms
+              </h2>
+              <p className="text-lg text-muted-foreground font-ranade leading-relaxed">
+                By accessing and using ColorKit, you accept and agree to be bound by these terms. If you do not agree, please do not use our service.
+              </p>
+            </section>
+
+            <Separator className="bg-white/10" />
+
+            {/* Sections Grid */}
+            <div className="space-y-12">
+              <section className="space-y-6">
+                <h3 className="text-2xl font-bold font-clash-grotesk flex items-center gap-3">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold">1</span>
+                  Use of Service
+                </h3>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
+                    <h4 className="font-semibold text-lg flex items-center gap-2 text-green-500">
+                      <Check className="w-5 h-5" /> Permitted Use
+                    </h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Personal & commercial projects</li>
+                      <li>• Educational purposes</li>
+                      <li>• Accessibility testing</li>
+                      <li>• Color palette management</li>
+                    </ul>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
+                    <h4 className="font-semibold text-lg flex items-center gap-2 text-red-500">
+                      <AlertCircle className="w-5 h-5" /> Prohibited Use
+                    </h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Illegal or unauthorized activities</li>
+                      <li>• Reverse engineering the platform</li>
+                      <li>• Excessive automated requests</li>
+                      <li>• Interfering with service integrity</li>
+                    </ul>
+                  </div>
                 </div>
               </section>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">3. Intellectual Property</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  The Service and its original content, features, and
-                  functionality are owned by ColorKit and are protected by
-                  international copyright, trademark, patent, trade secret, and
-                  other intellectual property laws.
-                </p>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  Colors generated or analyzed are free to use, but ColorKit’s
-                  algorithms and interface design remain protected.
-                </p>
-              </section>
+              <section className="space-y-6">
+                <h3 className="text-2xl font-bold font-clash-grotesk flex items-center gap-3">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold">2</span>
+                  Key Provisions
+                </h3>
+                <div className="grid sm:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-2">
+                      <Lock className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold">Intellectual Property</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Content generated is yours. The platform design and code are ours.
+                    </p>
+                  </div>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">4. User Content</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  When you upload images to ColorKit:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>Processing happens locally in your browser</li>
-                  <li>You retain all rights to your content</li>
-                  <li>You must ensure you have rights to uploaded images</li>
-                  <li>We do not claim ownership of your content</li>
-                </ul>
-              </section>
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-2">
+                      <Server className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold">User Content</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Images processed locally. We don't claim ownership of your uploads.
+                    </p>
+                  </div>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  5. Disclaimer of Warranties
-                </h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  The Service is provided “AS IS” without warranties of any
-                  kind.
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>No guarantees of accuracy or uninterrupted service</li>
-                  <li>No warranty of fitness for a particular purpose</li>
-                  <li>Color analysis accuracy may vary</li>
-                </ul>
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-2">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold">Disclaimer</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Service provided "AS IS". No warranties of any kind included.
+                    </p>
+                  </div>
+                </div>
               </section>
+            </div>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  6. Limitation of Liability
-                </h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  ColorKit is not liable for any indirect or consequential
-                  damages.
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>Loss of data or profits</li>
-                  <li>Unauthorized server access</li>
-                  <li>Errors or omissions in content</li>
-                </ul>
-              </section>
+            <Separator className="bg-white/10" />
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">7. Changes to Service</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  We may modify or discontinue the Service at any time without
-                  notice.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">8. Changes to Terms</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  Continued use after updates means you accept the new terms.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">9. Governing Law</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  Terms are governed by applicable laws; failure to enforce a
-                  right is not a waiver.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">10. Contact Us</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  If you have any questions, contact us through our website.
-                </p>
-              </section>
-
-              <div className="pt-6 border-t">
-                <p className="text-sm text-muted-foreground dark:text-white/60 text-center">
-                  By using ColorKit, you acknowledge that you agree to these
-                  Terms.
-                </p>
+            {/* Contact */}
+            <div className="bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-transparent rounded-2xl p-8 border border-cyan-500/10">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold font-clash-grotesk">Questions about Terms?</h3>
+                  <p className="text-muted-foreground text-sm">Our support team is here to help clarify any points.</p>
+                </div>
+                <a href="mailto:legal@colorkit.com" className="px-6 py-3 rounded-xl bg-foreground text-background font-medium hover:opacity-90 transition-opacity flex items-center gap-2 whitespace-nowrap">
+                  <Mail className="w-4 h-4" /> Contact Legal
+                </a>
               </div>
-            </Card>
-          </div>
-        </motion.main>
+            </div>
 
-        <Footer />
-      </div>
+          </Card>
+
+          <p className="text-center text-sm text-muted-foreground font-ranade">
+            By using ColorKit, you acknowledge that you have read and agreed to these Terms.
+          </p>
+        </div>
+      </motion.main>
+
+      <Footer />
     </div>
   );
 }
