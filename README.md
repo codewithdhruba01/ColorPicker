@@ -1,4 +1,4 @@
-# ColorKit - Advanced Color Picker & Analyzer
+# 🎨 ColorKit - Advanced Color Picker & Analyzer
 
 ![Banner](public/colorkit-cover.png)
 
