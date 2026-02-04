@@ -7,6 +7,7 @@ import Hero from "@/components/home/hero";
 import { SocialProof } from "@/components/home/social-proof";
 import Image from "next/image";
 import { RatingBadge } from "@/components/foundations/rating-badge";
+import { Testimonials } from "@/components/home/testimonials";
 import { motion, Variants } from "framer-motion";
 
 const containerVariants: Variants = {
@@ -98,6 +99,8 @@ export default function Home() {
             </motion.div>
           </motion.section>
         </div>
+
+        <Testimonials />
       </main>
 
       <Footer />

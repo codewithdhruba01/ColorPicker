@@ -13,70 +13,83 @@ export default function PickerPage() {
   const [selectedColor, setSelectedColor] = useState("#2596be");
 
   const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      y: 0,
       transition: {
-        duration: 0.6,
+        staggerChildren: 0.1,
+        duration: 0.8,
         ease: "easeOut",
-        staggerChildren: 0.15,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      filter: "blur(0px)",
+      transition: { duration: 0.6, ease: "circOut" },
     },
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
-      <div className="absolute inset-0" />
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col font-sans selection:bg-primary/20">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
-        <main className="flex-1 container mx-auto px-4 pt-40 pb-10 sm:pt-38">
+        <main className="flex-1 container mx-auto px-4 pt-24 pb-20 sm:pt-32">
           <motion.div
-            className="max-w-7xl mx-auto space-y-6 sm:space-y-8"
+            className="max-w-6xl mx-auto space-y-12"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
           >
+            {/* Header Section */}
             <motion.div
-              className="text-center space-y-2"
+              className="text-center space-y-4 max-w-2xl mx-auto"
               variants={itemVariants}
             >
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground dark:text-white">
-                Color Picker & Analyzer
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk tracking-tight text-foreground dark:text-white">
+                Color Picker <span className="text-muted-foreground">&</span> Analyzer
               </h2>
-              <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60">
-                Extract colors from images or pick manually, then analyze and
-                explore
+              <p className="text-base sm:text-lg text-muted-foreground font-ranade dark:text-white/60 leading-relaxed">
+                Extract colors from images or pick manually, then analyze and explore palettes with our professional-grade tools.
               </p>
             </motion.div>
 
-            {/* Tabs Section */}
-            <motion.div variants={itemVariants}>
-              <Tabs defaultValue="image" className="w-full">
-                <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-                  <TabsTrigger value="image" className="text-xs sm:text-sm">
-                    Pick from Image
-                  </TabsTrigger>
-                  <TabsTrigger value="manual" className="text-xs sm:text-sm">
-                    Color Picker
-                  </TabsTrigger>
-                </TabsList>
+            {/* Main Interactive Section */}
+            <motion.div variants={itemVariants} className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-3xl blur-2xl -z-10 opacity-50" />
 
-                <TabsContent value="image" className="space-y-6 mt-6">
+              <Tabs defaultValue="image" className="w-full">
+                <div className="flex justify-center mb-10">
+                  <TabsList className="bg-muted/50 dark:bg-white/5 backdrop-blur-xl border border-border/50 p-1.5 rounded-full">
+                    <TabsTrigger
+                      value="image"
+                      className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                    >
+                      Pick from Image
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="manual"
+                      className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                    >
+                      Manual Picker
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+
+                <TabsContent value="image" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
                   <ImageColorPicker onColorSelect={setSelectedColor} />
                 </TabsContent>
 
-                <TabsContent value="manual" className="space-y-6 mt-6">
+                <TabsContent value="manual" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
                   <ManualColorPicker
                     color={selectedColor}
                     onChange={setSelectedColor}
@@ -85,7 +98,7 @@ export default function PickerPage() {
               </Tabs>
             </motion.div>
 
-            {/* Color Analysis */}
+            {/* Analysis Section */}
             <motion.div variants={itemVariants}>
               <ColorAnalysis color={selectedColor} />
             </motion.div>
