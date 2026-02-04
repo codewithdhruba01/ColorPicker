@@ -2,367 +2,194 @@
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye } from "lucide-react";
+import { Palette, Cpu, Sparkles, PaintBucket, Github, Eye, ArrowRight, CheckCircle2, Heart } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, staggerChildren: 0.1 },
   },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-background dark:bg-stone-950 text-foreground relative overflow-hidden">
-      {/* Navbar */}
+    <div className="min-h-screen flex flex-col bg-background dark:bg-stone-950 text-foreground relative overflow-hidden font-sans selection:bg-primary/20">
       <Navbar />
 
       {/* Decorative Background */}
-      <div className="absolute inset-0 dark:from-stone-900 dark:via-stone-950 dark:to-cyan-950/20"></div>
-      <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] rounded-full blur-3xl top-[10%] sm:top-[15%] md:top-[20%] left-[50%] sm:left-[55%] md:left-[60%] -translate-x-1/2 md:translate-x-0 animate-pulse"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
-      {/* Main Content */}
       <motion.main
         initial="hidden"
         animate="visible"
         variants={pageVariants}
-        className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 lg:px-6 pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32"
+        className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 pt-24 sm:pt-32 pb-16 sm:pb-24"
       >
-        {/* Hero Section */}
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center space-y-4 sm:space-y-5 mb-12 sm:mb-16 md:mb-20 lg:mb-24"
+          variants={itemVariants}
+          className="text-center space-y-6 mb-16"
         >
-          {/* Logo */}
-          <div className="flex justify-center mb-3 sm:mb-4">
-            <Image
-              src="/colorkit.png"
-              alt="ColorKit Logo"
-              width={95}
-              height={95}
-              className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-[95px] lg:h-[95px] animate-[spin_25s_linear_infinite]"
-              priority
-            />
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
+              <Image
+                src="/colorkit.png"
+                alt="ColorKit Logo"
+                width={100}
+                height={100}
+                className="relative object-contain w-20 h-20 sm:w-24 sm:h-24 animate-[spin_30s_linear_infinite]"
+                priority
+              />
+            </div>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white bg-clip-text px-2">
-            About ColorKit
-          </h1>
-          <p className="max-w-2xl mx-auto text-muted-foreground dark:text-white/70 text-xs sm:text-sm md:text-base leading-relaxed px-2">
-            A simple yet powerful platform that helps you explore, extract, and
-            analyze colors from images or palettes — designed for creators,
-            developers, and artists.
-          </p>
+          <div className="space-y-4 max-w-3xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk tracking-tight text-foreground dark:text-white">
+              About <span className="text-primary">ColorKit</span>
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground font-satoshi leading-relaxed max-w-2xl mx-auto">
+              A simple yet powerful platform that helps you explore, extract, and analyze colors from images or palettes.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-12 sm:mb-16 md:mb-20 lg:mb-24">
-          <FeatureCard
-            icon={<Palette className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="Pick from Image"
-            description="Upload an image and automatically extract its dominant, complementary, and accent colors."
-            gradient="bg-gradient-to-br from-cyan-500 to-blue-600"
-            layer1="bg-cyan-200"
-            layer2="bg-cyan-100"
-          />
+        {/* Main Unified Card */}
+        <motion.div variants={itemVariants} className="max-w-5xl mx-auto">
+          <Card className="p-8 sm:p-12 bg-background/40 backdrop-blur-3xl border border-white/5 rounded-[2rem] shadow-xl space-y-12">
 
-          <FeatureCard
-            icon={<PaintBucket className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="Analyze Colors"
-            description="View detailed HEX, RGB, HSL, and CMYK values, along with lightness and saturation info."
-            gradient="bg-gradient-to-br from-pink-500 to-purple-600"
-            layer1="bg-pink-200"
-            layer2="bg-pink-100"
-          />
-
-          <FeatureCard
-            icon={<Cpu className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="AI-Powered Insights"
-            description="Smart detection for mood, warmth, and context-based color suggestions for better design."
-            gradient="bg-gradient-to-br from-violet-600 to-indigo-700"
-            layer1="bg-violet-200"
-            layer2="bg-violet-100"
-          />
-
-          <FeatureCard
-            icon={<Eye className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="Accessibility Ready"
-            description="Simulate color blindness and check contrast ratios to ensure inclusive design."
-            gradient="bg-gradient-to-br from-emerald-500 to-teal-600"
-            layer1="bg-emerald-200"
-            layer2="bg-emerald-100"
-          />
-
-          <FeatureCard
-            icon={<Sparkles className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="Dynamic Variations"
-            description="Explore color variations, tints, shades, and harmonious combinations with one click."
-            gradient="bg-gradient-to-br from-yellow-400 to-orange-500"
-            layer1="bg-yellow-200"
-            layer2="bg-yellow-100"
-          />
-
-          <FeatureCard
-            icon={<Github className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />}
-            title="Open Source"
-            description="Built with Next.js, TailwindCSS, and Shadcn/UI — completely open and community-driven."
-            gradient="bg-gradient-to-br from-slate-600 to-gray-700"
-            layer1="bg-gray-300"
-            layer2="bg-gray-200"
-          />
-        </div>
-
-        {/* Mission Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-12 sm:mb-16 md:mb-20 lg:mb-24 px-2 sm:px-0"
-        >
-          <div className="relative max-w-4xl mx-auto group">
-            <div
-              className="
-        absolute inset-0 
-        -top-[4%] left-1/2 -translate-x-1/2 
-        w-[92%] h-[92%]
-        rounded-2xl sm:rounded-3xl
-        transition-all duration-500
-        opacity-80 blur-xl
-
-        bg-gradient-to-br 
-        from-cyan-300/60 to-blue-400/60
-        dark:from-cyan-600/40 dark:to-blue-800/40
-        
-        group-hover:translate-y-1
-      "
-            />
-
-            <div
-              className="
-        absolute inset-0 
-        -top-[8%] left-1/2 -translate-x-1/2 
-        w-[85%] h-[85%]
-        rounded-2xl sm:rounded-3xl
-        transition-all duration-500
-        blur-md opacity-70
-
-        bg-gradient-to-br 
-        from-blue-100/60 to-cyan-100/60
-        dark:from-slate-800/50 dark:to-slate-900/50
-      "
-            />
-
-            <div
-              className="
-        relative p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl sm:rounded-3xl
-        transition-all duration-500 
-        group-hover:-translate-y-2
-
-        backdrop-blur-xl
-        border 
-        shadow-xl
-
-        bg-white/30 border-white/40 shadow-blue-200
-        dark:bg-slate-900/40 dark:border-white/10 dark:shadow-xl dark:shadow-blue-900/20
-      "
-            >
-              <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-foreground dark:text-white">
-                Our Mission
+            {/* Intro Story */}
+            <section className="text-center max-w-3xl mx-auto space-y-6">
+              <h2 className="text-2xl sm:text-3xl font-bold font-clash-grotesk ">
+                More Than Just a Picker
               </h2>
-
-              <p className="text-muted-foreground dark:text-white/70 leading-relaxed text-sm sm:text-base md:text-lg mt-3 sm:mt-4">
-                Our mission is to make color exploration effortless, beautiful,
-                and intelligent. Whether you are working on UI, graphics,
-                branding, or visual experiments,
-                <span className="text-cyan-600 dark:text-cyan-300 font-semibold">
-                  {" "}
-                  ColorKit{" "}
-                </span>
-                empowers you to visualize, analyze, and perfect every shade with
-                clarity and confidence.
+              <p className="text-lg text-muted-foreground leading-relaxed font-display">
+                ColorKit was born from the need for a modern, fast, and privacy-focused color tool.
+                We noticed that most color pickers were either cluttered with ads or lacked precision.
+                So, we built something better—a tool designed for creators, developers, and artists who care about aesthetics and accessibility.
               </p>
+            </section>
+
+            <Separator className="bg-white/10" />
+
+            {/* Features List (Clean Layout) */}
+            <section className="space-y-8">
+              <div className="text-center">
+                <h2 className="text-2xl font-clash-grotesk  mb-2">Whats Inside</h2>
+                <p className="text-muted-foreground">Everything you need to master your color palette.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                <div className="space-y-6">
+                  <FeatureRow
+                    icon={<Palette className="w-5 h-5 text-blue-500" />}
+                    title="Smart Extraction"
+                    description="Upload an image and automatically extract its dominant, complementary, and accent colors."
+                  />
+                  <FeatureRow
+                    icon={<PaintBucket className="w-5 h-5 text-purple-500" />}
+                    title="Detailed Analysis"
+                    description="View HEX, RGB, HSL, and CMYK values instantly."
+                  />
+                  <FeatureRow
+                    icon={<Cpu className="w-5 h-5 text-orange-500" />}
+                    title="AI-Powered Insights"
+                    description="Get context-based color suggestions and mood analysis."
+                  />
+                </div>
+                <div className="space-y-6">
+                  <FeatureRow
+                    icon={<Eye className="w-5 h-5 text-green-500" />}
+                    title="Accessibility Checks"
+                    description="Simulate color blindness and check contrast ratios (WCAG)."
+                  />
+                  <FeatureRow
+                    icon={<Sparkles className="w-5 h-5 text-yellow-500" />}
+                    title="Dynamic Variations"
+                    description="Explore tints, shades, and harmonious combinations."
+                  />
+                  <FeatureRow
+                    icon={<Github className="w-5 h-5 text-foreground" />}
+                    title="Open Source"
+                    description="Transparent, community-driven, and free forever."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <Separator className="bg-white/10" />
+
+            {/* Mission & Community Combined */}
+            <div className="grid md:grid-cols-2 gap-12 pt-4">
+              <section className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-2">
+                  <Heart className="w-6 h-6" />
+                </div>
+                <h2 className="text-2xl font-bold font-clash-grotesk">Our Mission</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  To make color exploration effortless and intelligent. We believe that the right tools should get out of your way and let your creativity flow.
+                  <span className="text-foreground font-semibold"> ColorKit</span> empowers you to visualize and perfect every shade with confidence.
+                </p>
+              </section>
+
+              <section className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-foreground/5 flex items-center justify-center text-foreground mb-2">
+                  <Github className="w-6 h-6" />
+                </div>
+                <h2 className="text-2xl font-bold font-clash-grotesk">Join the Community</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  We welcome contributors! Whether its reporting a bug, suggesting a feature, or fixing a typo, your help makes ColorKit better for everyone.
+                </p>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-full border-white/10 hover:bg-foreground/5"
+                >
+                  <Link
+                    href="https://github.com/codewithdhruba01/ColorPicker"
+                    target="_blank"
+                    className="gap-2"
+                  >
+                    <Github className="w-4 h-4" /> View on GitHub <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
+              </section>
             </div>
-          </div>
+
+          </Card>
         </motion.div>
 
-        {/* Join Community */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-12 sm:mt-16 md:mt-20 lg:mt-24 px-2 sm:px-0"
-        >
-          <div className="relative max-w-4xl mx-auto group">
-            {/* --- Layer 1 (Glow L --- */}
-            <div
-              className="
-        absolute inset-0 -top-[4%] left-1/2 -translate-x-1/2
-        w-[92%] h-[92%] rounded-2xl sm:rounded-3xl
-        blur-xl opacity-80
-        transition-all duration-500
-        bg-gradient-to-br 
-        from-purple-300/60 to-cyan-400/60 
-        dark:from-purple-700/40 dark:to-cyan-800/40
-        group-hover:translate-y-1
-      "
-            />
-
-            {/* --- Layer 2 (Soft Panel) --- */}
-            <div
-              className="
-        absolute inset-0 -top-[8%] left-1/2 -translate-x-1/2
-        w-[85%] h-[85%] rounded-2xl sm:rounded-3xl
-        blur-md opacity-70
-        transition-all duration-500
-        bg-gradient-to-br 
-        from-purple-100/50 to-cyan-100/50 
-        dark:from-slate-800/40 dark:to-slate-900/40
-      "
-            />
-
-            {/* --- Main Card --- */}
-            <div
-              className="
-        relative p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl sm:rounded-3xl text-center space-y-4 sm:space-y-5 md:space-y-6
-        backdrop-blur-xl border shadow-xl
-        transition-all duration-500 
-        group-hover:-translate-y-2
-
-        bg-white/30 border-white/40 shadow-purple-200
-        dark:bg-slate-900/40 dark:border-white/10 
-        dark:shadow-xl dark:shadow-purple-900/20
-      "
-            >
-              <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-foreground dark:text-white px-2">
-                Join the Community
-              </h3>
-
-              <p className="text-muted-foreground dark:text-white/70 leading-relaxed text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
-                Want to contribute, improve features, or report bugs? We welcome
-                open-source contributors, designers, and creative minds like
-                you. Be a part of the project and help shape the future of
-                ColorKit.
-              </p>
-
-              {/* Button */}
-              <Link
-                href="https://github.com/codewithdhruba01/ColorPicker"
-                target="_blank"
-                className="
-    relative inline-flex items-center gap-2 px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-lg sm:rounded-xl 
-    font-medium text-sm sm:text-base text-white overflow-hidden group
-    transition-all duration-500
-
-    bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500
-    dark:from-purple-600 dark:via-cyan-600 dark:to-blue-700
-
-    hover:-translate-y-1 hover:shadow-2xl 
-    hover:shadow-purple-500/30 dark:hover:shadow-purple-800/30
-  "
-              >
-                <span
-                  className="
-      absolute inset-0 rounded-lg sm:rounded-xl
-      opacity-0 group-hover:opacity-100 
-      transition-opacity duration-500
-      bg-gradient-to-r from-white/40 to-transparent
-      blur-md
-    "
-                />
-
-                <span
-                  className="
-      absolute inset-0 -translate-x-full 
-      bg-gradient-to-r from-transparent via-white/60 to-transparent
-      group-hover:translate-x-full 
-      transition-transform duration-700 ease-out
-    "
-                />
-                <Github className="w-4 h-4 sm:w-5 sm:h-5 relative z-[2]" />
-                <span className="relative z-[2]">View on GitHub</span>
-              </Link>
-            </div>
-          </div>
-        </motion.div>
       </motion.main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
 }
 
-/* ===================== NEW LAYERED CARD COMPONENT ===================== */
-
-function FeatureCard({
-  icon,
-  title,
-  description,
-  gradient,
-  layer1,
-  layer2,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  gradient: string;
-  layer1: string;
-  layer2: string;
-}) {
+function FeatureRow({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="w-full"
-    >
-      <div className="relative group max-w-sm mx-auto sm:mx-0 cursor-pointer">
-        {/* Layer 1 */}
-        <div
-          className={`absolute inset-0 rounded-xl sm:rounded-2xl
-                      -top-[4%] left-1/2 -translate-x-1/2
-                      w-[90%] h-[90%] 
-                      group-hover:rotate-[-8deg] group-hover:top-0
-                      group-hover:w-full group-hover:h-full
-                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
-                      ${layer1}`}
-        />
-
-        {/* Layer 2 */}
-        <div
-          className={`absolute inset-0 rounded-xl sm:rounded-2xl
-                      -top-[8%] left-1/2 -translate-x-1/2
-                      w-[80%] h-[80%] 
-                      group-hover:rotate-[8deg] group-hover:top-0
-                      group-hover:w-full group-hover:h-full
-                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
-                      ${layer2}`}
-        />
-
-        {/* Main Layer */}
-        <div
-          className={`relative p-5 sm:p-6 md:p-7 lg:p-8 rounded-xl sm:rounded-2xl text-white
-                      flex flex-col gap-3 sm:gap-4 md:gap-5 font-medium
-                      transition-all duration-500 ease-[cubic-bezier(.23,1,.32,1)]
-                      group-hover:-translate-y-2 sm:group-hover:-translate-y-3 md:group-hover:-translate-y-4
-                      ${gradient}`}
-        >
-          <div className="flex items-center">{icon}</div>
-
-          <h3 className="text-lg sm:text-xl font-semibold">{title}</h3>
-
-          <p className="text-xs sm:text-sm leading-relaxed opacity-90">{description}</p>
-        </div>
+    <div className="flex gap-4 items-start group">
+      <div className="mt-1 p-2 rounded-lg bg-white/5 border border-white/5 group-hover:border-white/10 transition-colors">
+        {icon}
       </div>
-    </motion.div>
-  );
+      <div>
+        <h3 className="font-semibold text-foreground mb-1">{title}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  )
 }

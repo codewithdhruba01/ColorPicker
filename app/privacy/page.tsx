@@ -2,315 +2,179 @@
 
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { Card } from "@/components/ui/card";
-import { Shield } from "lucide-react";
+import { Shield, Lock, Eye, Server, Globe, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const pageVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, staggerChildren: 0.1 },
   },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col">
-      <div className="absolute inset-0"></div>
+    <div className="min-h-screen flex flex-col bg-background dark:bg-stone-950 text-foreground relative overflow-hidden font-sans selection:bg-primary/20">
+      <Navbar />
 
-      <div className="relative z-10 flex-1 flex flex-col">
-        <Navbar />
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
-        <motion.main
-          initial="hidden"
-          animate="visible"
-          variants={pageVariants}
-          className="flex-1 container mx-auto px-4 pt-36 sm:pt-40"
-        >
-          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-            <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 mb-4">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground dark:text-white">
-                Privacy Policy
-              </h1>
-              <p className="text-sm text-muted-foreground dark:text-white/60">
-                Last updated: October 28, 2025
-              </p>
-            </div>
+      <motion.main
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants}
+        className="relative z-10 flex-1 container mx-auto px-4 sm:px-6 md:px-8 pt-24 sm:pt-32 pb-16 sm:pb-24"
+      >
+        {/* Header */}
+        <motion.div variants={itemVariants} className="text-center space-y-6 mb-16">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-green-500/10 text-green-500 mb-4 backdrop-blur-xl border border-green-500/20 shadow-xl shadow-green-500/10">
+            <Shield className="w-10 h-10" />
+          </div>
 
-            <Card className="p-6 sm:p-8 bg-gradient-to-br from-green-500/5 to-emerald-500/5 border-2">
-              <div className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold">
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk tracking-tight">
+              Privacy Policy
+            </h1>
+            <p className="text-lg text-muted-foreground font-ranade">
+              Last updated: <span className="text-foreground font-medium">October 28, 2025</span>
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Commitment Card */}
+          <motion.div variants={itemVariants}>
+            <Card className="p-8 sm:p-10 bg-background/50 backdrop-blur-3xl border-green-500/20 shadow-2xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 transition-all duration-500 group-hover:from-green-500/10 group-hover:to-emerald-500/10" />
+              <div className="relative">
+                <h2 className="text-2xl font-bold font-clash-grotesk mb-4 flex items-center gap-3">
+                  <Lock className="w-6 h-6 text-green-500" />
                   Our Privacy Commitment
                 </h2>
-                <p className="text-base sm:text-lg text-muted-foreground dark:text-white/70 leading-relaxed">
-                  At ColorKit, we take your privacy seriously. We believe in
-                  transparency and giving you control over your data. This
-                  policy explains what information we collect (spoiler: very
-                  little) and how we use it.
+                <p className="text-lg text-muted-foreground font-ranade leading-relaxed">
+                  At ColorKit, we take your privacy seriously. We believe in transparency and giving you control over your data.
+                  Unlike many other tools, <span className="text-foreground font-medium">we don't collect or store your personal data.</span>
+                  Your creativity stays yours.
                 </p>
               </div>
             </Card>
+          </motion.div>
 
-            <Card className="p-6 sm:p-8 space-y-8">
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  1. Information We Collect
-                </h2>
-                <div className="space-y-4 text-muted-foreground dark:text-white/70">
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground dark:text-white mb-2">
-                      1.1 Information You Provide
-                    </h3>
-                    <p className="leading-relaxed">
-                      ColorKit is designed to work entirely in your browser.
-                      When you use our color picker or upload images:
-                    </p>
-                    <ul className="list-disc pl-6 space-y-2 mt-2">
-                      <li>Images are processed locally in your browser</li>
-                      <li>
-                        No images are uploaded to or stored on our servers
-                      </li>
-                      <li>Color data remains on your device</li>
-                      <li>
-                        We do not require or collect personal information like
-                        names or email addresses
-                      </li>
-                    </ul>
-                  </div>
+          {/* Main Content */}
+          <motion.div variants={itemVariants} className="bg-background/40 backdrop-blur-3xl border border-white/5 rounded-[2rem] p-8 sm:p-12 shadow-xl space-y-12">
 
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground dark:text-white mb-2">
-                      1.2 Automatically Collected Information
-                    </h3>
-                    <p className="leading-relaxed">
-                      Like most websites, we automatically collect certain
-                      information when you visit:
-                    </p>
-                    <ul className="list-disc pl-6 space-y-2 mt-2">
-                      <li>Browser type and version</li>
-                      <li>Operating system</li>
-                      <li>Page visit timestamps</li>
-                      <li>Referring website addresses</li>
-                      <li>IP address (anonymized)</li>
-                    </ul>
-                    <p className="leading-relaxed mt-2">
-                      This information helps us understand how people use
-                      ColorKit and improve the service.
-                    </p>
-                  </div>
+            {/* Section 1 */}
+            <section className="space-y-6">
+              <h2 className="text-2xl sm:text-3xl font-bold font-clash-grotesk flex items-center gap-3">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold">1</span>
+                Information We Collect
+              </h2>
 
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground dark:text-white mb-2">
-                      1.3 Cookies and Local Storage
-                    </h3>
-                    <p className="leading-relaxed">
-                      We use minimal cookies and browser local storage for:
-                    </p>
-                    <ul className="list-disc pl-6 space-y-2 mt-2">
-                      <li>
-                        Remembering your theme preference (dark/light mode)
-                      </li>
-                      <li>Saving your recently used colors (stored locally)</li>
-                      <li>Maintaining your session</li>
-                    </ul>
-                    <p className="leading-relaxed mt-2">
-                      All saved preferences remain on your device and are never
-                      transmitted to our servers.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  2. How We Use Your Information
-                </h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  We use the minimal information we collect to:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>Provide and maintain the Service</li>
-                  <li>Improve and optimize the user experience</li>
-                  <li>Monitor usage patterns and identify technical issues</li>
-                  <li>
-                    Protect against misuse and ensure service availability
-                  </li>
-                  <li>Comply with legal obligations</li>
-                </ul>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed mt-4">
-                  We do not sell, rent, or share your information with third
-                  parties for marketing purposes.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  3. Data Storage and Security
-                </h2>
-                <div className="space-y-3 text-muted-foreground dark:text-white/70">
-                  <h3 className="text-lg font-semibold text-foreground dark:text-white">
-                    3.1 Where Your Data Lives
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <Eye className="w-5 h-5 text-blue-400" /> Information You Provide
                   </h3>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>Color analysis happens entirely in your browser</li>
-                    <li>Uploaded images never leave your device</li>
-                    <li>
-                      Saved colors and preferences are stored locally on your
-                      device
-                    </li>
-                    <li>
-                      Basic analytics data is stored securely on our servers
-                      with industry-standard encryption
-                    </li>
-                  </ul>
-
-                  <h3 className="text-lg font-semibold text-foreground dark:text-white mt-4">
-                    3.2 Security Measures
-                  </h3>
-                  <p className="leading-relaxed">
-                    We implement appropriate technical and organizational
-                    security measures to protect your information, including:
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    ColorKit works entirely in your browser. When you upload an image, it is processed locally on your device. It is <strong className="text-foreground">never</strong> uploaded to our servers.
                   </p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>HTTPS encryption for all data transmission</li>
-                    <li>Regular security audits and updates</li>
-                    <li>Restricted access to any collected data</li>
-                    <li>Secure hosting infrastructure</li>
-                  </ul>
                 </div>
-              </section>
 
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">4. Third-Party Services</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  ColorKit may use third-party services for:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Analytics:
-                    </strong>{" "}
-                    To understand how users interact with the service
-                    (anonymized data only)
-                  </li>
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Hosting:
-                    </strong>{" "}
-                    To deliver the service reliably and quickly
-                  </li>
-                </ul>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed mt-3">
-                  These third-party services have their own privacy policies and
-                  we encourage you to review them.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  5. Your Rights and Choices
-                </h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  You have the right to:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground dark:text-white/70">
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Access:
-                    </strong>{" "}
-                    Request information about data we may have collected
-                  </li>
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Delete:
-                    </strong>{" "}
-                    Clear your local storage and cookies at any time through
-                    your browser settings
-                  </li>
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Opt-Out:
-                    </strong>{" "}
-                    Disable cookies through your browser settings (may affect
-                    functionality)
-                  </li>
-                  <li>
-                    <strong className="text-foreground dark:text-white">
-                      Update:
-                    </strong>{" "}
-                    Modify any saved preferences directly in the application
-                  </li>
-                </ul>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">6. Childrens Privacy</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  ColorKit is suitable for all ages and does not knowingly
-                  collect personal information from anyone, including children
-                  under 13. Since we dont require registration or collect
-                  personal data, the service can be used safely by people of all
-                  ages.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">7. International Users</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  ColorKit is accessible worldwide. If you access the service
-                  from outside your region, please be aware that your
-                  information may be transferred to, stored, and processed in
-                  regions where our servers are located. We ensure appropriate
-                  safeguards are in place to protect your information.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">
-                  8. Changes to This Policy
-                </h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  We may update this Privacy Policy from time to time. We will
-                  notify you of any changes by posting the new Privacy Policy on
-                  this page and updating the Last updated date. We encourage you
-                  to review this Privacy Policy periodically.
-                </p>
-              </section>
-
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">9. Contact Us</h2>
-                <p className="text-muted-foreground dark:text-white/70 leading-relaxed">
-                  If you have any questions about this Privacy Policy or our
-                  privacy practices, please contact us through our website.
-                </p>
-              </section>
-
-              <div className="pt-6 border-t">
-                <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-lg p-4 sm:p-6">
-                  <h3 className="font-semibold text-lg mb-2">
-                    Privacy Summary
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <Server className="w-5 h-5 text-purple-400" /> Auto-Collected Data
                   </h3>
-                  <ul className="space-y-2 text-sm text-muted-foreground dark:text-white/70">
-                    <li>✓ Your images never leave your device</li>
-                    <li>✓ We dont collect personal information</li>
-                    <li>✓ No account or registration required</li>
-                    <li>✓ Minimal cookies and local storage only</li>
-                    <li>✓ No selling or sharing of data</li>
-                    <li>✓ Complete transparency about our practices</li>
-                  </ul>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We collect anonymous usage data (like browser type, device type) to help us improve performance and fix bugs. This data is never linked to your identity.
+                  </p>
                 </div>
               </div>
-            </Card>
-          </div>
-        </motion.main>
+            </section>
 
-        <Footer />
-      </div>
+            <Separator className="bg-white/10" />
+
+            {/* Section 2 */}
+            <section className="space-y-6">
+              <h2 className="text-2xl sm:text-3xl font-bold font-clash-grotesk flex items-center gap-3">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold">2</span>
+                How We Use Data
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-muted-foreground font-ranade leading-relaxed">
+                <p>
+                  We strictly use the minimal data we collect to provide and maintain the service. We do not sell, rent, or trade your personal information with any third parties.
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2 mt-4 list-none pl-0">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" /> Improve user experience
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" /> Fix technical issues
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" /> Monitor usage patterns
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" /> Ensure security
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <Separator className="bg-white/10" />
+
+            {/* Section 3 & 4 */}
+            <div className="grid md:grid-cols-2 gap-12">
+              <section className="space-y-4">
+                <h2 className="text-xl font-bold font-clash-grotesk flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-muted-foreground" /> Third-Party Services
+                </h2>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  We may use trusted third-party services for analytics (like Google Analytics) and hosting (like Vercel). These providers have their own privacy policies and adhering to high security standards.
+                </p>
+              </section>
+
+              <section className="space-y-4">
+                <h2 className="text-xl font-bold font-clash-grotesk flex items-center gap-2">
+                  <Lock className="w-5 h-5 text-muted-foreground" /> Your Rights
+                </h2>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  You have the right to access, update, or delete your local preferences at any time. Since we don't store personal accounts, simply clearing your browser cache removes all local data.
+                </p>
+              </section>
+            </div>
+
+            {/* Contact */}
+            <div className="pt-8">
+              <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-2xl p-8 border border-primary/10">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold font-clash-grotesk">Still have questions?</h3>
+                    <p className="text-muted-foreground text-sm">We're happy to answer any questions about our privacy practices.</p>
+                  </div>
+                  <a href="mailto:support@colorkit.com" className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 whitespace-nowrap">
+                    <Mail className="w-4 h-4" /> Contact Support
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </motion.div>
+
+        </div>
+      </motion.main>
+
+      <Footer />
     </div>
   );
 }

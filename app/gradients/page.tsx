@@ -15,10 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Maximize2, X, Copy, Check, Shuffle, ChevronDown } from "lucide-react";
+import { Maximize2, X, Copy, Check, Shuffle, ChevronDown, Plus, Trash2, Github } from "lucide-react";
 import { gradients } from "@/lib/gradients";
 import { toast } from "sonner";
 import Link from "next/link";
+import { PopoverPicker } from "@/components/color-picker/popover-picker";
 
 export default function GradientsPage() {
   const [colors, setColors] = useState(["#EEDDFF", "#9966FF"]);
@@ -72,231 +73,222 @@ export default function GradientsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col overflow-hidden">
-      <div className="absolute inset-0"></div>
+    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col overflow-hidden font-sans selection:bg-primary/20">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col">
         <Navbar />
 
         <motion.main
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex-1 container mx-auto pt-36 sm:pt-40 pb-10 px-4 sm:px-6"
+          className="flex-1 container mx-auto pt-24 sm:pt-32 pb-10 px-4 sm:px-6"
         >
-          <div className="max-w-7xl mx-auto space-y-8">
+          <div className="max-w-7xl mx-auto space-y-12">
             {/* Title */}
-            <div className="text-center space-y-2">
-              <h1 className="text-4xl sm:text-4xl md:text-5xl font-extrabold text-foreground dark:text-white">
+            <div className="text-center space-y-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk text-foreground dark:text-white tracking-tight">
                 Gradient Maker
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground dark:text-white/60 pt-1">
-                Create and export beautiful gradients
+              <p className="text-base sm:text-lg text-muted-foreground font-ranade dark:text-white/60 max-w-2xl mx-auto leading-relaxed">
+                Create multiple color commands and export beautiful gradients for your next project.
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 items-start pt-5">
-              {/* Left Panel */}
-              <Card className="p-5 sm:p-8 space-y-6">
-                <div className="space-y-4">
-                  <h2 className="text-lg sm:text-xl font-semibold">Colors</h2>
-                  {colors.map((color, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col sm:flex-row sm:items-center gap-3"
-                    >
-                      <Label className="text-sm w-full sm:w-20">
-                        Color {index + 1}
-                      </Label>
-                      <div className="flex items-center gap-3 w-full">
-                        <input
-                          type="color"
-                          value={color}
-                          onChange={(e) => updateColor(index, e.target.value)}
-                          className="w-12 h-10 rounded-lg cursor-pointer border shrink-0"
-                        />
-                        <Input
-                          value={color.toUpperCase()}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (/^#[0-9A-F]{0,6}$/i.test(value))
-                              updateColor(index, value);
-                          }}
-                          className="font-mono flex-1"
-                        />
-                        {colors.length > 2 && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => removeColor(index)}
-                            className="hidden sm:flex"
-                          >
-                            Remove
-                          </Button>
-                        )}
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left Panel: Controls */}
+              <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
+                <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8 space-y-8 h-full">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold font-clash-grotesk tracking-wide flex items-center gap-2">
+                      <span className="w-2 h-6 bg-primary rounded-full inline-block" />
+                      Configuration
+                    </h2>
+                    <Button variant="ghost" size="sm" onClick={randomizeGradient} className="gap-2 hover:bg-auto text-muted-foreground hover:text-primary">
+                      <Shuffle className="w-4 h-4" /> Randomize
+                    </Button>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Colors</Label>
+                        <span className="text-xs text-muted-foreground">{colors.length}/5</span>
                       </div>
-                      {colors.length > 2 && (
+
+                      <div className="space-y-3">
+                        {colors.map((color, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-3 p-2 rounded-xl bg-background/40 border border-white/5 hover:border-white/10 transition-colors group"
+                          >
+                            <div className="flex items-center gap-3 flex-1">
+                              <span className="text-xs font-mono text-muted-foreground w-4 text-center">{index + 1}</span>
+                              <div className="h-8 w-px bg-white/10" />
+
+                              <PopoverPicker
+                                color={color}
+                                onChange={(val) => updateColor(index, val)}
+                                trigger={
+                                  <button className="w-10 h-10 rounded-lg border border-white/10 shadow-sm cursor-pointer hover:scale-105 transition-transform" style={{ backgroundColor: color }} />
+                                }
+                              />
+
+                              <Input
+                                value={color.toUpperCase()}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  if (/^#[0-9A-F]{0,6}$/i.test(value))
+                                    updateColor(index, value);
+                                }}
+                                className="font-mono bg-transparent border-none w-24 focus-visible:ring-0 px-0"
+                              />
+                            </div>
+
+                            {colors.length > 2 && (
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => removeColor(index)}
+                                className="text-muted-foreground hover:text-red-500 hover:bg-red-500/10"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {colors.length < 5 && (
                         <Button
                           variant="outline"
-                          size="sm"
-                          onClick={() => removeColor(index)}
-                          className="sm:hidden w-full"
+                          onClick={addColor}
+                          className="w-full border-dashed border-white/20 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all rounded-xl h-12"
                         >
-                          Remove
+                          <Plus className="w-4 h-4 mr-2" /> Add Color Stop
                         </Button>
                       )}
                     </div>
-                  ))}
-                  {colors.length < 5 && (
-                    <Button
-                      variant="outline"
-                      onClick={addColor}
-                      className="w-full"
-                    >
-                      Add Color
-                    </Button>
-                  )}
-                </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Rotation</Label>
-                    <Select value={rotation} onValueChange={setRotation}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="135°" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-                          <SelectItem key={deg} value={deg.toString()}>
-                            {deg}°
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="grid sm:grid-cols-2 gap-6 pt-4 border-t border-white/5">
+                      <div className="space-y-3">
+                        <Label className="text-sm font-medium text-muted-foreground">Type</Label>
+                        <Select
+                          value={gradientType}
+                          onValueChange={setGradientType}
+                        >
+                          <SelectTrigger className="h-11 bg-background/40 border-white/10 rounded-xl">
+                            <SelectValue placeholder="Linear" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="linear">Linear</SelectItem>
+                            <SelectItem value="radial">Radial</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-3">
+                        <Label className="text-sm font-medium text-muted-foreground">Rotation ({rotation}°)</Label>
+                        <Select value={rotation} onValueChange={setRotation} disabled={gradientType === "radial"}>
+                          <SelectTrigger className="h-11 bg-background/40 border-white/10 rounded-xl">
+                            <SelectValue placeholder="135°" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+                              <SelectItem key={deg} value={deg.toString()}>
+                                {deg}°
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label>Type</Label>
-                    <Select
-                      value={gradientType}
-                      onValueChange={setGradientType}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Linear" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="linear">Linear</SelectItem>
-                        <SelectItem value="radial">Radial</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={randomizeGradient}
-                    className="flex-1 gap-2 justify-center"
-                  >
-                    <Shuffle className="w-4 h-4" />
-                    Random
-                  </Button>
-                  <Button
-                    onClick={copyCSS}
-                    className="flex-1 gap-2 justify-center"
-                  >
-                    {copiedCss ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                    Copy CSS
-                  </Button>
                 </div>
               </Card>
 
-              {/* Right Gradient Preview */}
-              <div className="flex flex-col gap-4">
+              {/* Right Panel: Preview */}
+              <div className="flex flex-col gap-6 sticky top-28">
                 <Card
-                  className="h-56 sm:h-72 md:h-80 rounded-2xl shadow-2xl relative overflow-hidden"
+                  className="h-64 sm:h-80 md:h-96 rounded-[2rem] shadow-2xl relative overflow-hidden group border-white/10 cursor-pointer"
                   style={{ background: gradientCSS }}
+                  onClick={() => setExpanded(true)}
                 >
-                  <div className="absolute top-3 right-3 flex gap-2">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
                     <Button
                       size="icon"
                       variant="secondary"
-                      className="rounded-full"
-                      onClick={() => setExpanded(true)}
+                      className="rounded-full bg-black/20 backdrop-blur-md hover:bg-black/40 text-white border border-white/10"
                     >
                       <Maximize2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </Card>
 
-                <Card className="p-4">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-xs sm:text-sm text-muted-foreground">
-                      CSS Code
-                    </Label>
+                <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-lg rounded-[1.5rem] overflow-hidden">
+                  <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.3rem] p-5 flex items-center justify-between gap-4">
+                    <div className="flex-1 font-mono text-xs sm:text-sm text-muted-foreground truncate px-2">
+                      background: {gradientCSS};
+                    </div>
                     <Button
                       size="sm"
-                      variant="ghost"
                       onClick={copyCSS}
-                      className="flex items-center gap-2"
+                      className={`rounded-full px-6 transition-all ${copiedCss ? "bg-green-500 hover:bg-green-600 text-white" : ""
+                        }`}
                     >
                       {copiedCss ? (
                         <>
-                          <Check className="w-4 h-4 text-green-500" />
-                          Copied
+                          <Check className="w-4 h-4 mr-2" /> Copied
                         </>
                       ) : (
                         <>
-                          <Copy className="w-4 h-4" />
-                          Copy
+                          <Copy className="w-4 h-4 mr-2" /> Copy CSS
                         </>
                       )}
                     </Button>
                   </div>
-                  <code className="text-xs sm:text-sm font-mono block mt-2 p-3 bg-muted rounded-lg overflow-x-auto whitespace-pre-wrap break-words">
-                    background: {gradientCSS};
-                  </code>
                 </Card>
               </div>
             </div>
 
             {/* Example Gradients */}
-            <div className="space-y-6">
+            <div className="space-y-8 pt-12 border-t border-white/5">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl sm:text-2xl font-bold">
-                  Example Gradients
+                <h2 className="text-2xl sm:text-3xl font-bold font-clash-grotesk">
+                  Curated Presets
                 </h2>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
                 {gradients.slice(0, 12).map((gradient) => (
-                  <button
+                  <motion.button
                     key={gradient.id}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => {
                       setColors(gradient.colors);
                       toast.success(`Applied ${gradient.name}`);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="group relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
+                    className="group relative aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-primary/20 transition-shadow"
                     style={{ background: gradient.css }}
                   >
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-end p-3">
-                      <p className="text-white text-xs sm:text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <p className="text-white text-sm font-medium font-clash-grotesk tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         {gradient.name}
                       </p>
                     </div>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
 
-              <div className="text-center pt-4">
+              <div className="text-center pt-8">
                 <Link href="/gradients/all">
-                  <Button size="lg" className="gap-2">
-                    View All Gradients
-                    <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+                  <Button size="lg" className="rounded-full px-8 h-12 gap-2 text-base shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow">
+                    View Library <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
                   </Button>
                 </Link>
               </div>
@@ -311,28 +303,36 @@ export default function GradientsPage() {
       <AnimatePresence>
         {expanded && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            onClick={() => setExpanded(false)}
           >
             <motion.div
-              className="relative w-[90%] h-[70%] sm:w-[80%] sm:h-[75%] rounded-3xl shadow-2xl overflow-hidden"
+              className="relative w-full max-w-5xl aspect-video rounded-[2rem] shadow-2xl overflow-hidden border border-white/10"
               style={{ background: gradientCSS }}
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <Button
                 size="icon"
                 variant="secondary"
-                className="absolute top-4 right-4 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white/50"
+                className="absolute top-6 right-6 rounded-full bg-black/20 backdrop-blur-md hover:bg-black/40 text-white border border-white/10"
                 onClick={() => setExpanded(false)}
               >
                 <X className="w-5 h-5" />
               </Button>
+
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity">
+                <Button onClick={copyCSS} className="rounded-full shadow-lg bg-black/30 backdrop-blur-md border border-white/10 hover:bg-black/50">
+                  {copiedCss ? "Copied!" : "Copy CSS"}
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         )}

@@ -59,7 +59,7 @@ export default function ImageColorPicker({
 
         const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
         if (imageData) {
-          const colors = extractColorsFromImage(imageData, 8);
+          const colors = extractColorsFromImage(imageData, 10);
           setExtractedColors(colors);
           if (colors.length > 0) {
             onColorSelect(colors[0]);
@@ -81,6 +81,7 @@ export default function ImageColorPicker({
   }, [image, onColorSelect]);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    // ... logic same as before ...
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
@@ -131,9 +132,11 @@ export default function ImageColorPicker({
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="p-6">
-        <div className="space-y-4">
+    <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
+      <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
+        <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8 space-y-8">
+
+          {/* Upload / Image Area */}
           <div className="flex items-center justify-center">
             <input
               ref={fileInputRef}
@@ -142,89 +145,122 @@ export default function ImageColorPicker({
               onChange={handleImageUpload}
               className="hidden"
             />
-            <Button
-              onClick={() => fileInputRef.current?.click()}
-              size="lg"
-              className="gap-2"
-            >
-              <Upload className="w-5 h-5" />
-              {image ? "Change Image" : "Upload Image"}
-            </Button>
-          </div>
 
-          {image && (
-            <div className="space-y-4">
-              <div className="relative rounded-lg overflow-hidden border bg-muted/50">
-                <canvas
-                  ref={canvasRef}
-                  onClick={handleCanvasClick}
-                  className="max-w-full h-auto cursor-crosshair"
-                  style={{ display: "none" }}
-                />
-                <img
-                  ref={imageRef}
-                  src={image}
-                  alt="Uploaded"
-                  className="max-w-full h-auto cursor-crosshair"
-                  onClick={handleImageClick}
-                />
-                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-              </div>
-
-              <div className="space-y-3">
-                <h3 className="font-semibold">Extracted Color Palette</h3>
-                <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-                  {extractedColors.length === 0 ? (
-                    <div className="col-span-full text-sm text-muted-foreground">
-                      No colors extracted — try another image.
-                    </div>
-                  ) : (
-                    extractedColors.map((color, index) => (
-                      <div
-                        key={index}
-                        className="space-y-2"
-                        onMouseEnter={() => setHoveredColor(color)}
-                        onMouseLeave={() => setHoveredColor(null)}
-                      >
-                        <button
-                          onClick={() => {
-                            onColorSelect(color);
-                            toast.success(`Color ${color} selected`);
-                          }}
-                          className="w-full aspect-square rounded-lg border-2 border-border hover:border-primary transition-all duration-200 hover:scale-110 color-preview-shadow"
-                          style={{ backgroundColor: color }}
-                          aria-label={`Select ${color}`}
-                        />
-                        <div className="text-center space-y-1">
-                          <p className="text-xs font-mono">{color}</p>
-                          <button
-                            onClick={() => copyToClipboard(color)}
-                            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            {copiedColor === color ? (
-                              <Check className="w-3 h-3 mx-auto" />
-                            ) : (
-                              <Copy className="w-3 h-3 mx-auto" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    ))
-                  )}
+            {!image ? (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full relative group cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 rounded-2xl -z-10 group-hover:opacity-100 opacity-0 transition-opacity duration-500" />
+                <div className="border-2 border-dashed border-muted-foreground/20 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300 rounded-2xl p-16 text-center space-y-4">
+                  <div className="w-16 h-16 rounded-full bg-background shadow-lg flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <Upload className="w-7 h-7 text-primary/80" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-semibold text-foreground">Upload an Image</h3>
+                    <p className="text-muted-foreground text-sm max-w-xs mx-auto">
+                      Drag and drop or click to browse. We support JPG, PNG, and WebP.
+                    </p>
+                  </div>
                 </div>
               </div>
+            ) : (
+              <div className="w-full space-y-6">
+                <div className="flex justify-between items-center px-1">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <span className="w-2 h-8 bg-primary rounded-full inline-block" />
+                    Source Image
+                  </h3>
+                  <Button
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    size="sm"
+                    className="gap-2 rounded-full hover:bg-muted/50"
+                  >
+                    <Upload className="w-4 h-4" />
+                    Change Image
+                  </Button>
+                </div>
+
+                <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/20 group">
+                  <canvas
+                    ref={canvasRef}
+                    onClick={handleCanvasClick}
+                    className="hidden"
+                  />
+                  {/* 
+                           Note: The canvas click logic was duplicated in original code on both canvas and img. 
+                           The canvas is hidden, so we rely on img onClick. 
+                        */}
+                  <img
+                    ref={imageRef}
+                    src={image}
+                    alt="Uploaded"
+                    className="w-full h-auto max-h-[500px] object-contain bg-[url('/checkboard.svg')] bg-repeat cursor-crosshair transition-transform duration-500"
+                    onClick={handleImageClick}
+                  />
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    Click anywhere to pick color
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Extracted Colors Grid */}
+          {image && (
+            <div className="space-y-4 animate-in slide-in-from-bottom-4 duration-700 delay-100">
+              <div className="flex items-end justify-between px-1">
+                <h3 className="font-semibold text-lg flex items-center gap-2">
+                  <span className="w-2 h-8 bg-primary rounded-full inline-block" />
+                  Extracted Palette
+                </h3>
+                <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium">
+                  {extractedColors.length} Colors Found
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-4">
+                {extractedColors.length === 0 ? (
+                  <div className="col-span-full py-8 text-center text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border/50">
+                    No distinct colors found. Try an image with more variety.
+                  </div>
+                ) : (
+                  extractedColors.map((color, index) => (
+                    <div
+                      key={index}
+                      className="group relative flex flex-col items-center gap-2"
+                      onMouseEnter={() => setHoveredColor(color)}
+                      onMouseLeave={() => setHoveredColor(null)}
+                    >
+                      <button
+                        onClick={() => {
+                          onColorSelect(color);
+                          toast.success(`Color ${color} selected`);
+                        }}
+                        className="w-full aspect-square rounded-full shadow-sm hover:shadow-lg hover:shadow-black/10 transition-all duration-300 hover:scale-110 active:scale-95 ring-2 ring-transparent hover:ring-offset-2 hover:ring-primary/20 dark:ring-offset-background"
+                        style={{ backgroundColor: color }}
+                        aria-label={`Select ${color}`}
+                      />
+
+                      <div className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 z-10">
+                        <div className="bg-popover text-popover-foreground text-[10px] sm:text-xs font-mono py-1 px-2 rounded-md shadow-md border border-border whitespace-nowrap flex items-center gap-1.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            copyToClipboard(color);
+                          }}
+                        >
+                          {color}
+                          {copiedColor === color ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3 opacity-50" />}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           )}
 
-          {!image && (
-            <div className="border-2 border-dashed rounded-lg p-12 text-center text-muted-foreground">
-              <Upload className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>Upload an image to extract colors</p>
-              <p className="text-sm mt-2">
-                Click on the image to pick specific colors
-              </p>
-            </div>
-          )}
         </div>
       </Card>
     </div>
