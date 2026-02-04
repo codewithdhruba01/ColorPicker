@@ -128,7 +128,7 @@ Comprehensive color format conversion including:
 - Accurate conversion algorithms
 - Copy-to-clipboard functionality
 
-### Accessibility Testing
+### Accessibilit## Contributiny Testing
 Built-in WCAG compliance checker:
 - Calculates contrast ratios
 - Tests against AA (4.5:1) and AAA (7:1) standards
@@ -142,9 +142,9 @@ Generate harmonious color schemes based on color theory:
 - Triadic
 - Tetradic
 
-## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+
+
 
 ## License
 
