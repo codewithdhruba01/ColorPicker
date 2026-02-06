@@ -1,146 +1,218 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ArrowRight, Check, Copy } from "lucide-react";
 import { useState, useEffect } from "react";
-
-const PALETTES = [
-    ["#7c5cff", "#cd76ff", "#ffc4fd", "#52f2fd", "#c9f992"], // Main Card (Purple, Pink, Light Pink, Cyan, Lime)
-    ["#0055ff", "#4da3ff", "#ffff00", "#ffc0cb", "#ff1493"],
-    ["#1A472A", "#478A2D", "#A2D149", "#F5EAD1", "#C53D3D"],
-];
+import { toast } from "sonner";
 
 const Hero = () => {
-    const [currentPaletteIndex, setCurrentPaletteIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentPaletteIndex((prev) => (prev + 1) % PALETTES.length);
-        }, 3000);
-        return () => clearInterval(timer);
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    const currentColors = PALETTES[currentPaletteIndex];
-
     return (
-        <section className="relative w-full max-w-full overflow-hidden bg-white dark:bg-stone-950">
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-                style={{ backgroundImage: "radial-gradient(#000 0.5px, transparent 0.5px)", backgroundSize: "24px 24px" }}>
+        <section className="relative w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white min-h-screen flex flex-col items-center pt-24 md:pt-32 pb-20 transition-colors duration-300">
+            {/* Background Gradients/Glows - Adjusted for both modes */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-[-10%] left-[20%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-500/10 dark:bg-purple-900/20 rounded-full blur-[80px] md:blur-[120px] mix-blend-multiply dark:mix-blend-screen" />
+                <div className="absolute bottom-[-10%] right-[10%] w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-blue-500/10 dark:bg-blue-900/10 rounded-full blur-[60px] md:blur-[100px] mix-blend-multiply dark:mix-blend-screen" />
             </div>
 
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-20">
-                <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-10 md:gap-24 lg:gap-32 items-center">
-                    {/* Left Content */}
-                    <div className="flex flex-col items-start space-y-8">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                            className="relative"
-                        >
-                            <h1 className="text-[50px] sm:text-[64px] md:text-[98px] font-[900] font-chillax tracking-[-0.07em] text-black dark:text-white leading-[0.9] md:leading-[0.82] flex flex-col gap-1 md:gap-2">
-                                <span>The super fast</span>
-                                <span>color palettes</span>
-                                <span>generator !</span>
-                            </h1>
+            <div className="container relative z-10 px-4 flex flex-col items-center text-center">
 
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                                className="absolute right-[-10px] md:right-[-5px] bottom-[-20px] md:bottom-[-35px] rotate-[-12deg] z-20 origin-center scale-90 md:scale-100"
-                            >
-                                <span className="relative z-10 font-cabinet-grotesk font-normal text-[14px] md:text-[18px] text-black dark:text-white uppercase tracking-[0.05em] px-2 py-1 block">
-                                    AND MUCH MORE
-                                </span>
-                                <div className="absolute inset-x-0 inset-y-0 translate-x-[-22%] translate-y-[-30%] w-[145%] h-[175%]">
-                                    <svg viewBox="0 0 140 50" className="w-full h-full fill-none stroke-black dark:stroke-white stroke-[0.8]">
-                                        <path d="M10,25 C10,12 40,6 80,9 C120,12 135,18 132,28 C129,38 95,43 55,41 C25,39 10,32 10,25 C10,18 30,10 75,8.5" />
-                                    </svg>
-                                </div>
-                            </motion.div>
-                        </motion.div>
+                {/* Badge */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="mb-6 md:mb-8"
+                >
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-xs font-medium text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/10 transition-colors cursor-default">
+                        New version v2.6.0
+                        <span className="text-orange-500 dark:text-orange-400">🔥</span>
+                        <ArrowRight className="w-3 h-3 text-black/50 dark:text-white/50" />
+                    </span>
+                </motion.div>
 
-                        <motion.p
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.15, ease: [0.19, 1, 0.22, 1] }}
-                            className="text-[17px] md:text-[20px] text-black/60 dark:text-white/60 max-w-sm md:max-w-md font-general-sans font-medium leading-[1.3] pt-6"
-                        >
-                            Design the perfect color palette or discover endless inspiration from thousands of curated color schemes.
-                        </motion.p>
+                {/* Headline */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+                    className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl mx-auto leading-[1.1] text-neutral-950 dark:text-white"
+                >
+                    Make beautiful websites regardless of your color experience
+                </motion.h1>
 
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
-                            className="flex flex-col md:flex-row gap-3 md:gap-4 pt-0 w-full md:w-auto"
-                        >
-                            <Link href="/picker" className="w-full md:w-auto">
-                                <Button size="lg" className="w-full md:w-auto justify-center bg-[#7F56D9] hover:bg-[#6941C6] text-white px-5 py-3 md:px-7 md:py-3.5 text-[14px] md:text-[16px] font-semibold rounded-[8px] md:rounded-[10px] shadow-sm transition-all hover:shadow-md active:scale-[0.98]">
-                                    Start the Generator
-                                </Button>
-                            </Link>
-                            <Link href="/palettes" className="w-full md:w-auto">
-                                <Button variant="outline" size="lg" className="w-full md:w-auto justify-center border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 dark:bg-transparent dark:border-white/20 dark:text-white dark:hover:bg-white/10 px-5 py-3 md:px-7 md:py-3.5 text-[14px] md:text-[16px] font-semibold rounded-[8px] md:rounded-[10px] shadow-sm transition-all hover:shadow-md active:scale-[0.98]">
-                                    Explore Palettes
-                                </Button>
-                            </Link>
-                        </motion.div>
-                    </div>
+                {/* Subheadline */}
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+                    className="text-base md:text-xl text-neutral-600 dark:text-white/60 max-w-2xl mx-auto mb-10 px-4"
+                >
+                    Design the perfect color palette or discover endless inspiration from thousands of curated color schemes.
+                </motion.p>
 
-                    {/* Right Content - Visualization */}
-                    <div className="relative flex justify-center items-center h-[350px] md:h-[600px]">
-                        {/* Background Grid of Palettes */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
-                            className="grid grid-cols-3 gap-3 md:gap-5 translate-x-6 md:translate-x-12"
+                {/* Action Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                    className="flex flex-col sm:flex-row items-center gap-4 mb-20 md:mb-24"
+                >
+                    <Link href="/picker">
+                        <Button
+                            className="h-12 px-16 sm:h-12 sm:px-8 rounded-full bg-black dark:bg-white text-white dark:text-black hover:bg-black/80 dark:hover:bg-white/90 font-medium text-sm sm:text-base transition-all active:scale-95 shadow-lg shadow-black/20 dark:shadow-white/5"
                         >
-                            {[
-                                ["#0044cc", "#4da3ff", "#ffff00", "#ffc800", "#ff8a00"], // Row 1 Col 1
-                                ["#5b8c76", "#90e090", "#e6cca6", "#d9426f", "#ff8a00"], // Row 1 Col 2
-                                ["#7f7823", "#c0c691", "#ffd8bc", "#ff8a00", "#ff4400"], // Row 1 Col 3
-                                ["#000b4f", "#00baca", "#ffff00", "#ffc0cb", "#ff1493"], // Row 2 Col 1
-                                ["#f04e98", "#ffe4e1", "#f5e6a2", "#00ffcc", "#ffffff"], // Row 2 Col 2
-                                ["#5e2a40", "#ff5c77", "#ffb8bc", "#ffe0d6", "#fff9ed"], // Row 2 Col 3
-                                ["#5b9aa0", "#8cb1de", "#ff8aae", "#ffc2bf", "#ffe3a0"], // Row 3 Col 1
-                                ["#705680", "#94a8b3", "#becad2", "#e3b89e", "#ff7f24"], // Row 3 Col 2
-                                ["#0033cc", "#5c4dff", "#8f79ff", "#ff9ea9", "#ff5c9d"], // Row 3 Col 3
-                                ["#7c5cff", "#cd76ff", "#ffc4fd", "#52f2fd", "#c9f992"], // Row 4 Col 1 (Looks like main)
-                                ["#ffb300", "#ffdb5c", "#ff9ea9", "#0080ff", "#00b359"], // Row 4 Col 2
-                                ["#005761", "#78c7c7", "#f0fbff", "#ffdad6", "#ed8c72"], // Row 4 Col 3
-                            ].map((colors, i) => (
-                                <div key={i} className="flex w-[110px] h-[80px] md:w-[140px] md:h-[100px] rounded-[14px] md:rounded-[18px] overflow-hidden shadow-none border border-black/[0.04]">
-                                    {colors.map((color, j) => (
-                                        <div key={j} className="flex-1" style={{ backgroundColor: color }}></div>
-                                    ))}
-                                </div>
-                            ))}
-                        </motion.div>
+                            Get Started <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                    </Link>
 
-                        {/* Foreground Main Palette Card (Pixel Perfect Match & Dynamic Size) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 120, x: -80, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-                            transition={{ duration: 1.2, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
-                            className="absolute bottom-[-15%] md:bottom-[-2%] left-1/2 -translate-x-1/2 md:left-[-28%] md:translate-x-0 w-[260px] h-[170px] md:w-[480px] md:h-[320px] bg-white rounded-[24px] md:rounded-[40px] overflow-hidden flex border-none z-20"
+                    <Link href="/about">
+                        <Button
+                            className="h-12 px-12 sm:h-12 sm:px-8 rounded-full bg-white dark:bg-black text-black dark:text-white border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 font-medium text-sm sm:text-base transition-all active:scale-95"
                         >
-                            {Array.from({ length: 5 }).map((_, idx) => (
+                            About
+                        </Button>
+                    </Link>
+                </motion.div>
+
+                {/* Hero Visual - Fanned Cards */}
+                <div className="relative w-full h-[320px] md:h-[400px] mt-4 md:mt-20 flex flex-col justify-center items-center select-none perspective-1000">
+                    <div className="relative w-full h-full flex justify-center items-center">
+                        {[0, 1, 2, 3, 4].map((i) => {
+                            const offset = i - 2; // -2, -1, 0, 1, 2
+
+                            // Generate palette rows based on activeIndex to simulate changing content
+                            // We use the index + activeIndex to shift colors
+                            const basePalettes = [
+                                ["#FF5733", "#FFC300", "#DAF7A6", "#C70039"], // Warm
+                                ["#900C3F", "#581845", "#FFC300", "#FF5733"], // Rich
+                                ["#33FF57", "#33FFBD", "#3375FF", "#7D33FF"], // Cool
+                                ["#FF33A8", "#FF3361", "#FF3333", "#FF8633"], // Pink/Orange
+                                ["#005761", "#00baca", "#f0fbff", "#ffdad6"], // Teal/Cyan
+                            ];
+
+                            // Shift palettes based on activeIndex and card position
+                            const cardPalettes = Array.from({ length: 4 }).map((_, idx) => {
+                                const paletteIdx = (i + activeIndex + idx) % basePalettes.length;
+                                return basePalettes[paletteIdx];
+                            });
+
+                            // Only the center card (offset 0) is interactive "active"
+                            const isCenterCard = offset === 0;
+
+                            const handlePrev = (e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                setActiveIndex((prev) => (prev - 1 + 5) % 5);
+                            };
+
+                            const handleNext = (e: React.MouseEvent) => {
+                                e.stopPropagation();
+                                setActiveIndex((prev) => (prev + 1) % 5);
+                            };
+
+                            return (
                                 <motion.div
-                                    key={idx}
-                                    initial={false}
-                                    animate={{ backgroundColor: currentColors[idx] }}
-                                    transition={{ duration: 0.8 }}
-                                    className="flex-1"
-                                ></motion.div>
-                            ))}
-                        </motion.div>
+                                    key={`${i}-${activeIndex}`} // Force re-render animation on change if desired, or keep key=i for smooth transition
+                                    initial={{ opacity: 0, y: 100, rotate: 0 }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: Math.abs(offset) * (isMobile ? 8 : 15),
+                                        rotate: offset * (isMobile ? 8 : 12),
+                                        x: offset * (isMobile ? 35 : 60),
+                                        scale: isCenterCard ? 1.05 : 1, // Slight scale up for center
+                                        zIndex: 10 - Math.abs(offset)
+                                    }}
+                                    transition={{
+                                        duration: 0.8,
+                                        delay: 0.5 + (Math.abs(offset) * 0.1),
+                                        type: "spring",
+                                        stiffness: 50
+                                    }}
+                                    className={`absolute w-[160px] h-[240px] md:w-[240px] md:h-[360px] bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-xl md:rounded-2xl shadow-2xl origin-bottom overflow-hidden flex flex-col ${isCenterCard ? 'pointer-events-auto cursor-default' : ''}`}
+                                >
+                                    {/* Card Header */}
+                                    <div className="h-8 border-b border-neutral-100 dark:border-white/5 bg-neutral-50 dark:bg-white/5 flex items-center px-3 gap-1.5 z-20 relative">
+                                        <button
+                                            onClick={handlePrev}
+                                            className="w-2.5 h-2.5 rounded-full bg-red-500/80 dark:bg-red-500/90 hover:scale-125 transition-transform active:scale-90 cursor-pointer"
+                                            aria-label="Previous Card"
+                                        />
+                                        <button
+                                            onClick={handleNext}
+                                            className="w-2.5 h-2.5 rounded-full bg-green-500/80 dark:bg-green-500/90 hover:scale-125 transition-transform active:scale-90 cursor-pointer"
+                                            aria-label="Next Card"
+                                        />
+                                    </div>
+
+                                    {/* Multiple Mini Palettes inside the card */}
+                                    <div className="p-3 space-y-3 flex-1 overflow-hidden">
+                                        {cardPalettes.map((colors, pIdx) => (
+                                            <div key={pIdx} className="space-y-1.5">
+                                                {/* Mini Palette Strip */}
+                                                <div className="h-10 w-full rounded-lg flex overflow-hidden ring-1 ring-black/5 dark:ring-white/5">
+                                                    {colors.map((c, cIdx) => (
+                                                        <div
+                                                            key={cIdx}
+                                                            className="h-full flex-1 relative group"
+                                                            style={{ backgroundColor: c }}
+                                                        >
+                                                            {isCenterCard && (
+                                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/20 backdrop-blur-[1px]">
+                                                                    <span className="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow-md transform scale-90 group-hover:scale-100 transition-transform duration-200">
+                                                                        {c}
+                                                                    </span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                {/* Fake Text Lines */}
+                                                <div className="flex gap-2 px-1">
+                                                    <div className="h-1.5 w-1/3 rounded-full bg-neutral-100 dark:bg-white/10" />
+                                                    <div className="h-1.5 w-1/4 rounded-full bg-neutral-100 dark:bg-white/10" />
+                                                </div>
+                                            </div>
+                                        ))}
+                                        {/* Fade out at bottom */}
+                                        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white dark:from-neutral-900 to-transparent pointer-events-none" />
+                                    </div>
+                                </motion.div>
+                            )
+                        })}
                     </div>
+
+                    {/* Navigation Dots - New Feature */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1, duration: 0.5 }}
+                        className="relative z-20 mt-24 flex items-center justify-center gap-3 px-4 py-2 rounded-full bg-white/10 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-md"
+                    >
+                        {[0, 1, 2, 3, 4].map((index) => (
+                            <button
+                                key={index}
+                                onClick={() => setActiveIndex(index)}
+                                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeIndex === index
+                                    ? "bg-black dark:bg-white scale-125"
+                                    : "bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40"
+                                    }`}
+                                aria-label={`Go to slide ${index + 1}`}
+                            />
+                        ))}
+                    </motion.div>
                 </div>
+
             </div>
         </section>
     );
