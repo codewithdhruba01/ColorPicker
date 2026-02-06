@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Check, Copy } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import InteractiveHoverText from "./interactive-hover-text";
+import InteractiveHoverText from "@/components/ui/interactive-hover-text";
 
 interface HeroCardProps {
     index: number;
