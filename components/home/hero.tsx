@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Check, Copy } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+import InteractiveHoverText from "./interactive-hover-text";
 
 interface HeroCardProps {
     index: number;
@@ -169,14 +170,17 @@ const Hero = () => {
                 </motion.div>
 
                 {/* Headline */}
-                <motion.h1
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                    className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl mx-auto leading-[1.1] text-neutral-950 dark:text-white"
+                    className="mb-6 max-w-4xl mx-auto"
                 >
-                    Make beautiful websites regardless of your color experience
-                </motion.h1>
+                    <InteractiveHoverText
+                        text="Make beautiful websites regardless of your color experience"
+                        className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-neutral-950 dark:text-white"
+                    />
+                </motion.div>
 
                 {/* Subheadline */}
                 <motion.p
