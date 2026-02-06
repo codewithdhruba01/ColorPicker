@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { ExportPaletteDialog } from "@/components/home/export-palette-dialog"
 import { useUser, useClerk } from "@clerk/nextjs"
+import { motion, useScroll, useTransform } from "framer-motion"
 
 export function InstantColorPicker() {
   const { isSignedIn } = useUser()
@@ -22,6 +23,16 @@ export function InstantColorPicker() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 200px", "end start"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   const rgb = hexToRgb(selectedColor) || { r: 0, g: 0, b: 0 };
   const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
@@ -73,7 +84,11 @@ export function InstantColorPicker() {
       </div>
 
       {/* Main Card */}
-      <div className="bg-white dark:bg-[#0a0a0a] rounded-3xl border border-neutral-200 dark:border-white/10 p-6 md:p-8 relative shadow-xl dark:shadow-2xl overflow-hidden">
+      <motion.div
+        ref={containerRef}
+        style={{ opacity, scale, y }}
+        className="bg-white dark:bg-[#0a0a0a] rounded-3xl border border-neutral-200 dark:border-white/10 p-6 md:p-8 relative shadow-xl dark:shadow-2xl overflow-hidden"
+      >
         {/* Resize Icon */}
         <button
           onClick={() => setIsFullScreen(true)}
@@ -236,7 +251,7 @@ export function InstantColorPicker() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <Dialog open={isFullScreen} onOpenChange={setIsFullScreen}>
         <DialogContent className="max-w-[95vw] md:max-w-5xl h-[60vh] md:h-[85vh] w-full p-0 bg-black/95 border-none rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl [&>button]:hidden duration-500 data-[state=open]:duration-500 data-[state=closed]:duration-500">
@@ -266,7 +281,7 @@ export function InstantColorPicker() {
         onOpenChange={setIsExportOpen}
         colors={extractedColors}
       />
-    </div>
+    </div >
   );
 }
 
