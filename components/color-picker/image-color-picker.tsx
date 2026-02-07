@@ -162,15 +162,17 @@ export default function ImageColorPicker({
                 onClick={() => fileInputRef.current?.click()}
                 className="w-full relative group cursor-pointer"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 rounded-2xl -z-10 group-hover:opacity-100 opacity-0 transition-opacity duration-500" />
-                <div className="border-2 border-dashed border-muted-foreground/20 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300 rounded-2xl p-16 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-background shadow-lg flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
-                    <Upload className="w-7 h-7 text-primary/80" />
+                <div className="border-2 border-dashed border-border/40 hover:border-primary/50 hover:bg-muted/30 transition-all duration-300 rounded-2xl flex flex-col items-center justify-center min-h-[220px] p-8 text-center space-y-5 relative overflow-hidden bg-muted/5">
+                  <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03] pointer-events-none" />
+
+                  <div className="w-14 h-14 rounded-2xl bg-background shadow-sm border border-border/50 flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 z-10">
+                    <Upload className="w-6 h-6 text-primary" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-semibold text-foreground">Upload an Image</h3>
-                    <p className="text-muted-foreground text-sm max-w-xs mx-auto">
-                      Drag and drop or click to browse. We support JPG, PNG, and WebP.
+
+                  <div className="space-y-1.5 z-10">
+                    <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">Upload Image</h3>
+                    <p className="text-muted-foreground text-xs sm:text-sm max-w-[240px] mx-auto leading-relaxed">
+                      Drag & drop or click to browse. <br className="hidden sm:block" /> Supports JPG, PNG, and WebP.
                     </p>
                   </div>
                 </div>
