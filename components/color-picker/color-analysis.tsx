@@ -5,7 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Copy, Check } from "lucide-react";
+import {
+  Copy,
+  Check,
+  RefreshCcw,
+  Sparkles,
+  ArrowLeftRight,
+  Grid,
+  FlaskConical,
+  Eye,
+  Palette
+} from "lucide-react";
 import {
   hexToRgb,
   rgbToHsl,
@@ -62,98 +72,104 @@ export default function ColorAnalysis({ color }: ColorAnalysisProps) {
     setTimeout(() => setCopiedValue(null), 2000);
   };
 
+  const tabs = [
+    { value: "formats", label: "Color Conversion", icon: RefreshCcw },
+    { value: "variations", label: "Variations", icon: Sparkles },
+    { value: "combinations", label: "Color Combinations", icon: ArrowLeftRight },
+    { value: "contrast", label: "Contrast Analysis", icon: Grid },
+    { value: "analysis", label: "Color Analysis", icon: FlaskConical },
+    { value: "blindness", label: "Blindness Simulator", icon: Eye },
+  ];
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
       <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
         <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
-            {/* Tab List */}
-            <div className="flex justify-center">
-              <TabsList className="h-auto w-full max-w-4xl flex-wrap justify-center gap-2 bg-transparent p-0">
-                {[
-                  { value: "formats", label: "Formats" },
-                  { value: "variations", label: "Variations" },
-                  { value: "combinations", label: "Combos" },
-                  { value: "contrast", label: "Contrast" },
-                  { value: "analysis", label: "Analysis" },
-                  { value: "blindness", label: "Blindness" },
-                ].map((tab) => (
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="grid lg:grid-cols-[260px_1fr] gap-8 items-start">
+              {/* Sidebar Navigation */}
+              <TabsList className="flex flex-col h-auto bg-card/60 backdrop-blur-md border border-white/5 p-2 rounded-2xl gap-1.5 w-full">
+                {tabs.map((tab) => (
                   <TabsTrigger
                     key={tab.value}
                     value={tab.value}
-                    className="rounded-full px-5 py-2.5 text-sm font-medium border border-transparent data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary/20 hover:bg-muted/50 transition-all duration-300"
+                    className="w-full justify-start px-4 py-3.5 rounded-xl text-left font-medium text-sm transition-all flex items-center gap-3
+                             data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-none
+                             hover:bg-white/5 text-muted-foreground data-[state=active]:font-semibold"
                   >
+                    <tab.icon className="w-4 h-4" />
                     {tab.label}
                   </TabsTrigger>
                 ))}
               </TabsList>
-            </div>
 
-            <div className="relative min-h-[300px]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, x: -20, filter: "blur(5px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, x: 20, filter: "blur(5px)" }}
-                  transition={{ duration: 0.3, ease: "circOut" }}
-                >
-                  {activeTab === "formats" && (
-                    <FormatsTab
-                      color={color}
-                      rgb={rgb}
-                      hsl={hsl}
-                      hsv={hsv}
-                      cmyk={cmyk}
-                      copiedValue={copiedValue}
-                      copyToClipboard={copyToClipboard}
-                    />
-                  )}
+              {/* Content Area */}
+              <div className="relative min-h-[400px]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, x: 20, filter: "blur(5px)" }}
+                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, x: -20, filter: "blur(5px)" }}
+                    transition={{ duration: 0.3, ease: "circOut" }}
+                  >
+                    {activeTab === "formats" && (
+                      <FormatsTab
+                        color={color}
+                        rgb={rgb}
+                        hsl={hsl}
+                        hsv={hsv}
+                        cmyk={cmyk}
+                        copiedValue={copiedValue}
+                        copyToClipboard={copyToClipboard}
+                      />
+                    )}
 
-                  {activeTab === "variations" && (
-                    <VariationsTab
-                      shades={shades}
-                      tints={tints}
-                      tones={tones}
-                      copiedValue={copiedValue}
-                      copyToClipboard={copyToClipboard}
-                    />
-                  )}
+                    {activeTab === "variations" && (
+                      <VariationsTab
+                        shades={shades}
+                        tints={tints}
+                        tones={tones}
+                        copiedValue={copiedValue}
+                        copyToClipboard={copyToClipboard}
+                      />
+                    )}
 
-                  {activeTab === "combinations" && (
-                    <CombinationsTab
-                      color={color}
-                      complementary={complementary}
-                      analogous={analogous}
-                      triadic={triadic}
-                      tetradic={tetradic}
-                      copiedValue={copiedValue}
-                      copyToClipboard={copyToClipboard}
-                    />
-                  )}
+                    {activeTab === "combinations" && (
+                      <CombinationsTab
+                        color={color}
+                        complementary={complementary}
+                        analogous={analogous}
+                        triadic={triadic}
+                        tetradic={tetradic}
+                        copiedValue={copiedValue}
+                        copyToClipboard={copyToClipboard}
+                      />
+                    )}
 
-                  {activeTab === "contrast" && (
-                    <ContrastTab
-                      color={color}
-                      whiteContrast={whiteContrast}
-                      blackContrast={blackContrast}
-                    />
-                  )}
+                    {activeTab === "contrast" && (
+                      <ContrastTab
+                        color={color}
+                        whiteContrast={whiteContrast}
+                        blackContrast={blackContrast}
+                      />
+                    )}
 
-                  {activeTab === "analysis" && (
-                    <AnalysisTab colorName={colorName} hsl={hsl} hsv={hsv} />
-                  )}
+                    {activeTab === "analysis" && (
+                      <AnalysisTab colorName={colorName} hsl={hsl} hsv={hsv} />
+                    )}
 
-                  {activeTab === "blindness" && (
-                    <BlindnessTab
-                      color={color}
-                      protanopia={protanopia}
-                      deuteranopia={deuteranopia}
-                      tritanopia={tritanopia}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
+                    {activeTab === "blindness" && (
+                      <BlindnessTab
+                        color={color}
+                        protanopia={protanopia}
+                        deuteranopia={deuteranopia}
+                        tritanopia={tritanopia}
+                      />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </Tabs>
         </div>
