@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { InstantColorPicker } from "@/components/home/instant-color-picker";
 import Hero from "@/components/home/hero";
+import { Services } from "@/components/home/services";
 import { SocialProof } from "@/components/home/social-proof";
 import Image from "next/image";
 import { RatingBadge } from "@/components/foundations/rating-badge";
@@ -47,12 +48,16 @@ export default function Home() {
         <Hero />
         <SocialProof />
 
-        <div className="container mx-auto px-4 pt-12 md:pt-20 pb-20">
+        <div className="container mx-auto px-4 pt-12 md:pt-20 pb-10">
           {/* Instant Color Picker */}
           <motion.div className="mb-12 sm:mb-16" variants={itemVariants}>
             <InstantColorPicker />
           </motion.div>
+        </div>
 
+        <Services />
+
+        <div className="container mx-auto px-4 pt-10 pb-20">
           {/* Review + Info Section */}
           <motion.section
             className="w-full bg-transparent py-16 md:py-10 px-6 md:px-16 relative z-10"

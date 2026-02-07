@@ -58,13 +58,13 @@ export default function PrivacyPage() {
             <Card className="p-8 sm:p-10 bg-background/50 backdrop-blur-3xl border-green-500/20 shadow-2xl relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 transition-all duration-500 group-hover:from-green-500/10 group-hover:to-emerald-500/10" />
               <div className="relative">
-                <h2 className="text-2xl font-bold font-clash-grotesk mb-4 flex items-center gap-3">
+                <h2 className="text-2xl font-bold font-excon mb-4 flex items-center gap-3">
                   <Lock className="w-6 h-6 text-green-500" />
                   Our Privacy Commitment
                 </h2>
-                <p className="text-lg text-muted-foreground font-ranade leading-relaxed">
+                <p className="text-lg text-muted-foreground font-poppins font-semibold leading-relaxed">
                   At ColorKit, we take your privacy seriously. We believe in transparency and giving you control over your data.
-                  Unlike many other tools, <span className="text-foreground font-medium">we don't collect or store your personal data.</span>
+                  Unlike many other tools, <span className="text-foreground font-medium">we dont collect or store your personal data.</span>
                   Your creativity stays yours.
                 </p>
               </div>
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
-                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                  <h3 className="font-semibold font-excon text-lg flex items-center gap-2">
                     <Eye className="w-5 h-5 text-blue-400" /> Information You Provide
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -92,7 +92,7 @@ export default function PrivacyPage() {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-3">
-                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                  <h3 className="font-semibold font-excon text-lg flex items-center gap-2">
                     <Server className="w-5 h-5 text-purple-400" /> Auto-Collected Data
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -110,7 +110,7 @@ export default function PrivacyPage() {
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary text-sm font-bold">2</span>
                 How We Use Data
               </h2>
-              <div className="prose dark:prose-invert max-w-none text-muted-foreground font-ranade leading-relaxed">
+              <div className="prose dark:prose-invert max-w-none text-muted-foreground font-poppins font-semibold leading-relaxed">
                 <p>
                   We strictly use the minimal data we collect to provide and maintain the service. We do not sell, rent, or trade your personal information with any third parties.
                 </p>
@@ -136,7 +136,7 @@ export default function PrivacyPage() {
             {/* Section 3 & 4 */}
             <div className="grid md:grid-cols-2 gap-12">
               <section className="space-y-4">
-                <h2 className="text-xl font-bold font-clash-grotesk flex items-center gap-2">
+                <h2 className="text-xl font-bold font-excon flex items-center gap-2">
                   <Globe className="w-5 h-5 text-muted-foreground" /> Third-Party Services
                 </h2>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -145,11 +145,11 @@ export default function PrivacyPage() {
               </section>
 
               <section className="space-y-4">
-                <h2 className="text-xl font-bold font-clash-grotesk flex items-center gap-2">
+                <h2 className="text-xl font-bold font-excon flex items-center gap-2">
                   <Lock className="w-5 h-5 text-muted-foreground" /> Your Rights
                 </h2>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  You have the right to access, update, or delete your local preferences at any time. Since we don't store personal accounts, simply clearing your browser cache removes all local data.
+                  You have the right to access, update, or delete your local preferences at any time. Since we dont store personal accounts, simply clearing your browser cache removes all local data.
                 </p>
               </section>
             </div>
@@ -159,8 +159,8 @@ export default function PrivacyPage() {
               <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-2xl p-8 border border-primary/10">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold font-clash-grotesk">Still have questions?</h3>
-                    <p className="text-muted-foreground text-sm">We're happy to answer any questions about our privacy practices.</p>
+                    <h3 className="text-xl font-bold font-excon">Still have questions?</h3>
+                    <p className="text-muted-foreground text-sm">We are happy to answer any questions about our privacy practices.</p>
                   </div>
                   <a href="mailto:support@colorkit.com" className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity flex items-center gap-2 whitespace-nowrap">
                     <Mail className="w-4 h-4" /> Contact Support

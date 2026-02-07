@@ -47,7 +47,7 @@ export default function TermsPage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk tracking-tight">
                 Terms of Service
               </h1>
-              <p className="text-lg text-muted-foreground font-ranade">
+              <p className="text-lg text-muted-foreground font-satoshi font-semibold">
                 Last updated: <span className="text-foreground font-medium">October 28, 2025</span>
               </p>
             </div>
@@ -60,7 +60,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold font-clash-grotesk flex items-center justify-center gap-2">
                 <Scale className="w-6 h-6 text-primary" /> Acceptance of Terms
               </h2>
-              <p className="text-lg text-muted-foreground font-ranade leading-relaxed">
+              <p className="text-lg text-muted-foreground font-satoshi font-semibold leading-relaxed">
                 By accessing and using ColorKit, you accept and agree to be bound by these terms. If you do not agree, please do not use our service.
               </p>
             </section>
@@ -124,7 +124,7 @@ export default function TermsPage() {
                     </div>
                     <h4 className="font-bold">User Content</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Images processed locally. We don't claim ownership of your uploads.
+                      Images processed locally. We dont claim ownership of your uploads.
                     </p>
                   </div>
 
@@ -134,7 +134,7 @@ export default function TermsPage() {
                     </div>
                     <h4 className="font-bold">Disclaimer</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Service provided "AS IS". No warranties of any kind included.
+                      Service provided AS IS. No warranties of any kind included.
                     </p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default function TermsPage() {
             <div className="bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-transparent rounded-2xl p-8 border border-cyan-500/10">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold font-clash-grotesk">Questions about Terms?</h3>
+                  <h3 className="text-xl font-bold font-excon">Questions about Terms?</h3>
                   <p className="text-muted-foreground text-sm">Our support team is here to help clarify any points.</p>
                 </div>
                 <a href="mailto:legal@colorkit.com" className="px-6 py-3 rounded-xl bg-foreground text-background font-medium hover:opacity-90 transition-opacity flex items-center gap-2 whitespace-nowrap">
@@ -158,7 +158,7 @@ export default function TermsPage() {
 
           </Card>
 
-          <p className="text-center text-sm text-muted-foreground font-ranade">
+          <p className="text-center text-sm text-muted-foreground font-satoshi font-semibold">
             By using ColorKit, you acknowledge that you have read and agreed to these Terms.
           </p>
         </div>
