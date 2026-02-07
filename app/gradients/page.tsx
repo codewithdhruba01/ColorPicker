@@ -97,9 +97,9 @@ export default function GradientsPage() {
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <div className="flex flex-col-reverse gap-8 items-start lg:grid lg:grid-cols-2">
               {/* Left Panel: Controls */}
-              <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
+              <Card className="w-full p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
                 <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.7rem] p-6 sm:p-8 space-y-8 h-full">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold font-clash-grotesk tracking-wide flex items-center gap-2">
@@ -124,15 +124,15 @@ export default function GradientsPage() {
                             key={index}
                             className="flex items-center gap-3 p-2 rounded-xl bg-background/40 border border-white/5 hover:border-white/10 transition-colors group"
                           >
-                            <div className="flex items-center gap-3 flex-1">
+                            <div className="flex items-center gap-3 flex-1 overflow-hidden">
                               <span className="text-xs font-mono text-muted-foreground w-4 text-center">{index + 1}</span>
-                              <div className="h-8 w-px bg-white/10" />
+                              <div className="h-8 w-px bg-white/10 flex-shrink-0" />
 
                               <PopoverPicker
                                 color={color}
                                 onChange={(val) => updateColor(index, val)}
                                 trigger={
-                                  <button className="w-10 h-10 rounded-lg border border-white/10 shadow-sm cursor-pointer hover:scale-105 transition-transform" style={{ backgroundColor: color }} />
+                                  <button className="w-10 h-10 rounded-lg border border-white/10 shadow-sm cursor-pointer hover:scale-105 transition-transform flex-shrink-0" style={{ backgroundColor: color }} />
                                 }
                               />
 
@@ -143,7 +143,7 @@ export default function GradientsPage() {
                                   if (/^#[0-9A-F]{0,6}$/i.test(value))
                                     updateColor(index, value);
                                 }}
-                                className="font-mono bg-transparent border-none w-24 focus-visible:ring-0 px-0"
+                                className="font-mono bg-transparent border-none min-w-0 w-full focus-visible:ring-0 px-0"
                               />
                             </div>
 
@@ -152,7 +152,7 @@ export default function GradientsPage() {
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => removeColor(index)}
-                                className="text-muted-foreground hover:text-red-500 hover:bg-red-500/10"
+                                className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex-shrink-0"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -210,9 +210,9 @@ export default function GradientsPage() {
               </Card>
 
               {/* Right Panel: Preview */}
-              <div className="flex flex-col gap-6 sticky top-28">
+              <div className="flex flex-col gap-6 w-full lg:sticky lg:top-32">
                 <Card
-                  className="h-64 sm:h-80 md:h-96 rounded-[2rem] shadow-2xl relative overflow-hidden group border-white/10 cursor-pointer"
+                  className="h-64 sm:h-80 md:h-96 rounded-[2rem] shadow-2xl relative overflow-hidden group border-white/10 cursor-pointer w-full"
                   style={{ background: gradientCSS }}
                   onClick={() => setExpanded(true)}
                 >
@@ -228,7 +228,7 @@ export default function GradientsPage() {
                   </div>
                 </Card>
 
-                <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-lg rounded-[1.5rem] overflow-hidden">
+                <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-lg rounded-[1.5rem] overflow-hidden w-full">
                   <div className="bg-card/40 border border-white/10 dark:border-white/5 rounded-[1.3rem] p-5 flex items-center justify-between gap-4">
                     <div className="flex-1 font-mono text-xs sm:text-sm text-muted-foreground truncate px-2">
                       background: {gradientCSS};
@@ -236,7 +236,7 @@ export default function GradientsPage() {
                     <Button
                       size="sm"
                       onClick={copyCSS}
-                      className={`rounded-full px-6 transition-all ${copiedCss ? "bg-green-500 hover:bg-green-600 text-white" : ""
+                      className={`rounded-full px-6 transition-all shrink-0 ${copiedCss ? "bg-green-500 hover:bg-green-600 text-white" : ""
                         }`}
                     >
                       {copiedCss ? (

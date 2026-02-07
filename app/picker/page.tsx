@@ -69,16 +69,16 @@ export default function PickerPage() {
 
               <Tabs defaultValue="image" className="w-full">
                 <div className="flex justify-center mb-10">
-                  <TabsList className="bg-muted/50 dark:bg-white/5 backdrop-blur-xl border border-border/50 p-1.5 rounded-full">
+                  <TabsList className="bg-muted p-1 rounded-lg border border-border/50">
                     <TabsTrigger
                       value="image"
-                      className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                      className="rounded-md px-6 py-2 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                     >
                       Pick from Image
                     </TabsTrigger>
                     <TabsTrigger
                       value="manual"
-                      className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                      className="rounded-md px-6 py-2 text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
                     >
                       Manual Picker
                     </TabsTrigger>
