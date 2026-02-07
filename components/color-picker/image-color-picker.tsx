@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, Copy, Check } from "lucide-react";
-import { extractColorsFromImage, rgbToHex } from "@/lib/color-utils";
+import { Upload, Copy, Check, RefreshCw } from "lucide-react";
+import { extractColorsFromImage, rgbToHex, getColorName, getContrastRatio, hexToRgb } from "@/lib/color-utils";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ImageColorPickerProps {
   onColorSelect: (color: string) => void;
@@ -59,7 +60,7 @@ export default function ImageColorPicker({
 
         const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
         if (imageData) {
-          const colors = extractColorsFromImage(imageData, 10);
+          const colors = extractColorsFromImage(imageData, 6); // Reduced to 6 for better strip visual
           setExtractedColors(colors);
           if (colors.length > 0) {
             onColorSelect(colors[0]);
@@ -81,7 +82,6 @@ export default function ImageColorPicker({
   }, [image, onColorSelect]);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    // ... logic same as before ...
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
@@ -131,6 +131,17 @@ export default function ImageColorPicker({
     setTimeout(() => setCopiedColor(null), 2000);
   };
 
+  const getTextColor = (bgColor: string) => {
+    const rgb = hexToRgb(bgColor);
+    if (!rgb) return "white";
+    // Simple contrast check or use getContrastRatio
+    // Using a simple luminance check for performance in render loop if needed,
+    // but we have getContrastRatio.
+    const whiteContrast = getContrastRatio(rgb, { r: 255, g: 255, b: 255 });
+    const blackContrast = getContrastRatio(rgb, { r: 0, g: 0, b: 0 });
+    return whiteContrast > blackContrast ? "white" : "black";
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
       <Card className="p-1.5 border-none bg-background/50 backdrop-blur-3xl shadow-2xl rounded-[2rem] overflow-hidden">
@@ -171,15 +182,35 @@ export default function ImageColorPicker({
                     <span className="w-2 h-8 bg-primary rounded-full inline-block" />
                     Source Image
                   </h3>
-                  <Button
-                    variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
-                    size="sm"
-                    className="gap-2 rounded-full hover:bg-muted/50"
-                  >
-                    <Upload className="w-4 h-4" />
-                    Change Image
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setExtractedColors([]); // Reset to trigger re-extraction if needed or just visual feedback
+                        // Actually re-triggering might need a forceful approach, but for now just clear
+                        const canvas = canvasRef.current;
+                        const ctx = canvas?.getContext("2d");
+                        if (canvas && ctx && imageRef.current) {
+                          // Re-run extraction logic if strictly needed, but current effect dependency handles it on image change.
+                          // To re-roll "random" colors from the same image (if implementation supports randomization), we'd need to change a dependency.
+                          // For now, just "Change Image" is enough.
+                        }
+                      }}
+                      size="sm"
+                      className="gap-2 rounded-full hover:bg-muted/50 hidden" // Hidden for now as logic is deterministic
+                    >
+                      <RefreshCw className="w-4 h-4" /> Regenerate
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      size="sm"
+                      className="gap-2 rounded-full hover:bg-muted/50"
+                    >
+                      <Upload className="w-4 h-4" />
+                      Change Image
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/20 group">
@@ -188,10 +219,6 @@ export default function ImageColorPicker({
                     onClick={handleCanvasClick}
                     className="hidden"
                   />
-                  {/* 
-                           Note: The canvas click logic was duplicated in original code on both canvas and img. 
-                           The canvas is hidden, so we rely on img onClick. 
-                        */}
                   <img
                     ref={imageRef}
                     src={image}
@@ -207,7 +234,7 @@ export default function ImageColorPicker({
             )}
           </div>
 
-          {/* Extracted Colors Grid */}
+          {/* Extracted Colors Strip */}
           {image && (
             <div className="space-y-4 animate-in slide-in-from-bottom-4 duration-700 delay-100">
               <div className="flex items-end justify-between px-1">
@@ -220,42 +247,80 @@ export default function ImageColorPicker({
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-4">
+              {/* New Flex Strip Design */}
+              <div
+                className="flex h-32 w-full rounded-[2rem] overflow-hidden shadow-xl ring-4 ring-background/20"
+                onMouseLeave={() => setHoveredColor(null)}
+              >
                 {extractedColors.length === 0 ? (
-                  <div className="col-span-full py-8 text-center text-muted-foreground bg-muted/20 rounded-xl border border-dashed border-border/50">
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-muted/20 border border-dashed border-border/50">
                     No distinct colors found. Try an image with more variety.
                   </div>
                 ) : (
-                  extractedColors.map((color, index) => (
-                    <div
-                      key={index}
-                      className="group relative flex flex-col items-center gap-2"
-                      onMouseEnter={() => setHoveredColor(color)}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    >
-                      <button
+                  extractedColors.map((color, index) => {
+                    const isHovered = hoveredColor === color;
+                    const textColor = getTextColor(color);
+                    const colorName = getColorName(color);
+
+                    return (
+                      <motion.div
+                        key={`${color}-${index}`}
+                        className="relative cursor-pointer flex flex-col justify-end p-4 transition-colors"
+                        style={{ backgroundColor: color }}
+                        initial={{ flex: 1 }}
+                        animate={{ flex: isHovered ? 3.5 : 1 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        onMouseEnter={() => setHoveredColor(color)}
                         onClick={() => {
                           onColorSelect(color);
-                          toast.success(`Color ${color} selected`);
+                          copyToClipboard(color);
                         }}
-                        className="w-full aspect-square rounded-full shadow-sm hover:shadow-lg hover:shadow-black/10 transition-all duration-300 hover:scale-110 active:scale-95 ring-2 ring-transparent hover:ring-offset-2 hover:ring-primary/20 dark:ring-offset-background"
-                        style={{ backgroundColor: color }}
-                        aria-label={`Select ${color}`}
-                      />
+                      >
+                        <AnimatePresence>
+                          {isHovered && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                              transition={{ duration: 0.3 }}
+                              className="absolute inset-0 flex flex-col justify-end p-6"
+                            >
+                              <div className="space-y-0.5" style={{ color: textColor }}>
+                                <motion.p
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.1 }}
+                                  className="font-bold text-2xl tracking-tight leading-none"
+                                >
+                                  {colorName}
+                                </motion.p>
+                                <motion.p
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 0.8, x: 0 }}
+                                  transition={{ delay: 0.2 }}
+                                  className="font-mono text-sm opacity-80 uppercase tracking-widest"
+                                >
+                                  {color}
+                                </motion.p>
+                              </div>
+                              <div className="absolute top-4 right-4" style={{ color: textColor }}>
+                                {copiedColor === color ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5 opacity-50" />}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
 
-                      <div className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 z-10">
-                        <div className="bg-popover text-popover-foreground text-[10px] sm:text-xs font-mono py-1 px-2 rounded-md shadow-md border border-border whitespace-nowrap flex items-center gap-1.5"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            copyToClipboard(color);
-                          }}
-                        >
-                          {color}
-                          {copiedColor === color ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3 opacity-50" />}
-                        </div>
-                      </div>
-                    </div>
-                  ))
+                        {/* Small indicator when not hovered if needed, but clean strip is better */}
+                        {!isHovered && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0 }} // Keep hidden for clean look, or 0.2 for subtle hint
+                            className="w-full h-full"
+                          />
+                        )}
+                      </motion.div>
+                    );
+                  })
                 )}
               </div>
             </div>
