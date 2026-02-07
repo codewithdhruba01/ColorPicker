@@ -23,6 +23,69 @@ export default function ImageColorPicker({
   const imageRef = useRef<HTMLImageElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [magnifier, setMagnifier] = useState<{
+    x: number;
+    y: number;
+    mouseX: number;
+    mouseY: number;
+    color: string;
+  } | null>(null);
+  const [showMagnifier, setShowMagnifier] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    const container = e.currentTarget;
+    const imgEl = imageRef.current;
+
+    if (!canvas || !ctx || !imgEl || !image) return;
+
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Ensure accurate scaling between displayed size and natural size
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    // Clamp coordinates
+    const pX = Math.max(0, Math.min(canvas.width - 1, Math.floor(x * scaleX)));
+    const pY = Math.max(0, Math.min(canvas.height - 1, Math.floor(y * scaleY)));
+
+    try {
+      const pixel = ctx.getImageData(pX, pY, 1, 1).data;
+      const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
+
+      setMagnifier({
+        x: pX,
+        y: pY,
+        mouseX: x,
+        mouseY: y,
+        color: hex
+      });
+    } catch (err) {
+      // Ignore out of bounds errors
+    }
+  };
+
+  const handleMouseEnter = () => setShowMagnifier(true);
+  const handleMouseLeave = () => setShowMagnifier(false);
+
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (magnifier) {
+      const color = magnifier.color;
+      onColorSelect(color);
+
+      // Update Extracted Palette to prioritize the picked color
+      setExtractedColors(prev => {
+        const newColors = [color, ...prev.filter(c => c !== color)];
+        return newColors.slice(0, 8); // Keep max 8 colors
+      });
+
+      toast.success(`Color ${color} selected`);
+    }
+  };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -60,7 +123,7 @@ export default function ImageColorPicker({
 
         const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
         if (imageData) {
-          const colors = extractColorsFromImage(imageData, 6); // Reduced to 6 for better strip visual
+          const colors = extractColorsFromImage(imageData, 8); // Increased to 8 for better palette
           setExtractedColors(colors);
           if (colors.length > 0) {
             onColorSelect(colors[0]);
@@ -81,49 +144,6 @@ export default function ImageColorPicker({
     };
   }, [image, onColorSelect]);
 
-  const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = Math.floor((e.clientX - rect.left) * scaleX);
-    const y = Math.floor((e.clientY - rect.top) * scaleY);
-
-    try {
-      const pixel = ctx.getImageData(x, y, 1, 1).data;
-      const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
-      onColorSelect(hex);
-      toast.success(`Color ${hex} selected`);
-    } catch (err) {
-      console.error("pixel read error:", err);
-    }
-  };
-
-  const handleImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    const imgEl = imageRef.current;
-    if (!canvas || !ctx || !imgEl) return;
-
-    const rect = imgEl.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = Math.floor((e.clientX - rect.left) * scaleX);
-    const y = Math.floor((e.clientY - rect.top) * scaleY);
-
-    try {
-      const pixel = ctx.getImageData(x, y, 1, 1).data;
-      const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
-      onColorSelect(hex);
-      toast.success(`Color ${hex} selected`);
-    } catch (err) {
-      console.error("pixel read error:", err);
-    }
-  };
-
   const copyToClipboard = (color: string) => {
     navigator.clipboard.writeText(color);
     setCopiedColor(color);
@@ -134,9 +154,6 @@ export default function ImageColorPicker({
   const getTextColor = (bgColor: string) => {
     const rgb = hexToRgb(bgColor);
     if (!rgb) return "white";
-    // Simple contrast check or use getContrastRatio
-    // Using a simple luminance check for performance in render loop if needed,
-    // but we have getContrastRatio.
     const whiteContrast = getContrastRatio(rgb, { r: 255, g: 255, b: 255 });
     const blackContrast = getContrastRatio(rgb, { r: 0, g: 0, b: 0 });
     return whiteContrast > blackContrast ? "white" : "black";
@@ -188,18 +205,14 @@ export default function ImageColorPicker({
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setExtractedColors([]); // Reset to trigger re-extraction if needed or just visual feedback
-                        // Actually re-triggering might need a forceful approach, but for now just clear
-                        const canvas = canvasRef.current;
-                        const ctx = canvas?.getContext("2d");
-                        if (canvas && ctx && imageRef.current) {
-                          // Re-run extraction logic if strictly needed, but current effect dependency handles it on image change.
-                          // To re-roll "random" colors from the same image (if implementation supports randomization), we'd need to change a dependency.
-                          // For now, just "Change Image" is enough.
-                        }
+                        // Trigger re-extraction logic if strictly needed
+                        // Currently simplified to just allow re-upload or picking
+                        const img = new Image();
+                        img.src = image; // Just to trigger a reload effect if we reset state
+                        // But for now, user can pick manually
                       }}
                       size="sm"
-                      className="gap-2 rounded-full hover:bg-muted/50 hidden" // Hidden for now as logic is deterministic
+                      className="gap-2 rounded-full hover:bg-muted/50 hidden"
                     >
                       <RefreshCw className="w-4 h-4" /> Regenerate
                     </Button>
@@ -215,22 +228,62 @@ export default function ImageColorPicker({
                   </div>
                 </div>
 
-                <div className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/20 group">
-                  <canvas
-                    ref={canvasRef}
-                    onClick={handleCanvasClick}
-                    className="hidden"
-                  />
+                <div
+                  className="relative rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-black/20 group cursor-none"
+                  onMouseMove={handleMouseMove}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={handleContainerClick}
+                >
+                  <canvas ref={canvasRef} className="hidden" />
                   <img
                     ref={imageRef}
                     src={image}
                     alt="Uploaded"
-                    className="w-full h-auto max-h-[500px] object-contain bg-[url('/checkboard.svg')] bg-repeat cursor-crosshair transition-transform duration-500"
-                    onClick={handleImageClick}
+                    className="w-full h-auto max-h-[500px] object-contain bg-[url('/checkboard.svg')] bg-repeat pointer-events-none"
                   />
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                    Click anywhere to pick color
-                  </div>
+
+                  {/* Default Overlay Hint */}
+                  {!showMagnifier && (
+                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      Hover to magnify
+                    </div>
+                  )}
+
+                  {/* Magnifying Glass */}
+                  {showMagnifier && magnifier && (
+                    <div
+                      className="absolute w-32 h-32 rounded-full border-4 shadow-2xl overflow-hidden pointer-events-none z-50 bg-background"
+                      style={{
+                        left: magnifier.mouseX - 64, // Center - width/2
+                        top: magnifier.mouseY - 64,  // Center - height/2
+                        borderColor: magnifier.color,
+                      }}
+                    >
+                      {/* Zoomed Image Background */}
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          backgroundImage: `url(${image})`,
+                          backgroundPosition: `${-(magnifier.mouseX * 2 - 64)}px ${-(magnifier.mouseY * 2 - 64)}px`,
+                          backgroundSize: `${imageRef.current?.width ? imageRef.current.width * 2 : 0}px ${imageRef.current?.height ? imageRef.current.height * 2 : 0}px`,
+                        }}
+                      />
+
+                      {/* Crosshair */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-1 h-4 bg-white/50 absolute" />
+                        <div className="w-4 h-1 bg-white/50 absolute" />
+                        <div className="w-0.5 h-3 bg-black/50 absolute" />
+                        <div className="w-3 h-0.5 bg-black/50 absolute" />
+                      </div>
+
+                      {/* Hex Code Badge */}
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md text-white text-[10px] font-mono px-2 py-0.5 rounded-full whitespace-nowrap">
+                        {magnifier.color}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
