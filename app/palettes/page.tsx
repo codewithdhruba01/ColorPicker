@@ -84,7 +84,7 @@ export default function PalettesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-stone-950 flex flex-col font-sans selection:bg-primary/20">
+    <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/20">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
@@ -104,10 +104,10 @@ export default function PalettesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk text-foreground dark:text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-clash-grotesk text-foreground tracking-tight">
                 Color Palettes
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground font-ranade dark:text-white/60 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-foreground font-ranade max-w-2xl mx-auto leading-relaxed">
                 Explore thousands of beautiful color combinations for your next project, curated for rapid inspiration.
               </p>
 
@@ -131,7 +131,7 @@ export default function PalettesPage() {
                         w-full h-14 px-6 pr-12 rounded-2xl
                         text-base bg-background/60 backdrop-blur-xl
                         text-foreground
-                        border border-white/10 shadow-lg
+                        border border-border/50 shadow-sm hover:shadow-md
                         transition-all duration-300
                         focus:border-primary/50 focus:ring-0
                         placeholder-transparent
@@ -179,7 +179,7 @@ export default function PalettesPage() {
                       onClick={() => setSearchQuery("")}
                       className="
                           absolute right-14 top-1/2 -translate-y-1/2
-                          text-muted-foreground hover:text-red-500
+                          text-muted-foreground hover:text-destructive
                           transition-colors p-1
                         "
                     >
@@ -205,7 +205,7 @@ export default function PalettesPage() {
                         onClick={() => setSelectedCategory(category.id)}
                         className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-3 group relative overflow-hidden ${selectedCategory === category.id
                           ? "bg-primary text-primary-foreground shadow-md"
-                          : "hover:bg-white/5 text-muted-foreground hover:text-foreground"
+                          : "hover:bg-muted text-muted-foreground hover:text-foreground"
                           }`}
                       >
                         {selectedCategory === category.id && (
@@ -233,7 +233,7 @@ export default function PalettesPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedCategory === category.id
                       ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-background/50 backdrop-blur-md border-white/10 text-muted-foreground"
+                      : "bg-background/50 backdrop-blur-md border-border/50 text-muted-foreground"
                       }`}
                   >
                     {getCategoryIcon(category.id)}
@@ -249,8 +249,8 @@ export default function PalettesPage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 {filteredPalettes.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center p-12 text-center space-y-4 rounded-3xl border border-dashed border-white/10 bg-white/5">
-                    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
+                  <div className="flex flex-col items-center justify-center p-12 text-center space-y-4 rounded-3xl border border-dashed border-border/50 bg-muted/20">
+                    <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
                       <Search className="w-6 h-6 text-muted-foreground" />
                     </div>
                     <p className="text-muted-foreground font-medium">
@@ -268,7 +268,7 @@ export default function PalettesPage() {
                         transition={{ duration: 0.4, delay: idx * 0.05 }}
                       >
                         <div
-                          className="group relative bg-card/40 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                          className="group relative bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                           onClick={() => setSelectedPalette(palette)}
                         >
                           <div className="grid grid-cols-4 h-40 group-hover:h-44 transition-all duration-300">
@@ -285,24 +285,24 @@ export default function PalettesPage() {
 
                           <div className="p-4 space-y-3">
                             <div className="flex items-start justify-between gap-2">
-                              <h3 className="font-semibold text-base font-clash-grotesk truncate pr-2">
+                              <h3 className="font-semibold text-base font-clash-grotesk truncate pr-2 text-foreground">
                                 {palette.name}
                               </h3>
                               <Badge
                                 variant="secondary"
-                                className="text-[10px] uppercase tracking-wider font-semibold opacity-70 bg-white/10 hover:bg-white/20"
+                                className="text-[10px] uppercase tracking-wider font-semibold opacity-70 bg-muted hover:bg-muted/80 text-muted-foreground"
                               >
                                 {palette.category}
                               </Badge>
                             </div>
 
-                            <div className="flex items-center justify-between text-sm text-muted-foreground pt-1 border-t border-white/5">
+                            <div className="flex items-center justify-between text-sm text-muted-foreground pt-1 border-t border-border/50">
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   toggleLike(palette.id);
                                 }}
-                                className="flex items-center gap-1.5 hover:text-red-500 transition-colors group/like"
+                                className="flex items-center gap-1.5 hover:text-destructive transition-colors group/like"
                               >
                                 <Heart
                                   className={`w-4 h-4 transition-transform group-hover/like:scale-110 ${likedPalettes.has(palette.id)
@@ -336,14 +336,14 @@ export default function PalettesPage() {
         open={!!selectedPalette}
         onOpenChange={() => setSelectedPalette(null)}
       >
-        <DialogContent className="max-w-sm sm:max-w-2xl p-0 overflow-hidden border-none bg-zinc-900/90 backdrop-blur-2xl shadow-2xl">
+        <DialogContent className="max-w-sm sm:max-w-2xl p-0 overflow-hidden border-none bg-background/95 backdrop-blur-2xl shadow-2xl border border-border/50">
           {selectedPalette && (
             <div className="flex flex-col">
               <div className="p-6 pb-2">
                 <DialogHeader>
-                  <DialogTitle className="text-xl sm:text-2xl font-clash-grotesk flex items-center justify-between">
+                  <DialogTitle className="text-xl sm:text-2xl font-clash-grotesk flex items-center justify-between text-foreground">
                     <span>{selectedPalette.name}</span>
-                    <Badge variant="outline" className="text-xs font-normal font-sans opacity-60">{selectedPalette.category}</Badge>
+                    <Badge variant="outline" className="text-xs font-normal font-sans opacity-60 border-border text-muted-foreground">{selectedPalette.category}</Badge>
                   </DialogTitle>
                 </DialogHeader>
               </div>
@@ -363,7 +363,7 @@ export default function PalettesPage() {
                 ))}
               </div>
 
-              <div className="p-6 space-y-6 bg-background/40">
+              <div className="p-6 space-y-6 bg-muted/30">
                 <div className="space-y-3">
                   <h3 className="font-semibold text-sm sm:text-base text-muted-foreground uppercase tracking-wider">
                     Full Palette
@@ -371,14 +371,14 @@ export default function PalettesPage() {
                   {selectedPalette.colors.map((color, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-4 p-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors group"
+                      className="flex items-center gap-4 p-3 rounded-xl border border-border/50 bg-background/50 hover:bg-background transition-colors group"
                     >
                       <div
-                        className="w-12 h-12 rounded-lg shadow-sm flex-shrink-0 ring-1 ring-inset ring-black/10"
+                        className="w-12 h-12 rounded-lg shadow-sm flex-shrink-0 ring-1 ring-inset ring-black/10 dark:ring-white/10"
                         style={{ backgroundColor: color }}
                       />
                       <div className="flex-1">
-                        <p className="font-mono font-bold text-sm sm:text-base tracking-wide">
+                        <p className="font-mono font-bold text-sm sm:text-base tracking-wide text-foreground">
                           {color.toUpperCase()}
                         </p>
                         <p className="text-xs text-muted-foreground font-mono mt-0.5">
@@ -392,23 +392,23 @@ export default function PalettesPage() {
                         variant="ghost"
                         size="icon"
                         onClick={() => copyToClipboard(color)}
-                        className="opacity-50 group-hover:opacity-100 hover:bg-white/10"
+                        className="opacity-50 group-hover:opacity-100 hover:bg-muted"
                       >
                         {copiedColor === color ? (
                           <Check className="w-4 h-4 text-green-500" />
                         ) : (
-                          <Copy className="w-4 h-4" />
+                          <Copy className="w-4 h-4 text-muted-foreground" />
                         )}
                       </Button>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border/50">
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     <button
                       onClick={() => toggleLike(selectedPalette.id)}
-                      className="flex items-center gap-2 hover:text-red-500 transition-colors"
+                      className="flex items-center gap-2 hover:text-destructive transition-colors"
                     >
                       <Heart className={`w-5 h-5 ${likedPalettes.has(selectedPalette.id) ? "fill-red-500 text-red-500" : ""}`} />
                       <span className="font-medium">{selectedPalette.likes + (likedPalettes.has(selectedPalette.id) ? 1 : 0)} Likes</span>
