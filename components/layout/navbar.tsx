@@ -60,7 +60,7 @@ export function Navbar() {
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
                     ${isActive
                       ? "bg-[#df7709]/10 text-[#df7709]"
-                      : "text-gray-600 dark:text-gray-300 hover:bg-[#f07f08]/10 hover:text-[#00DC82]"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-[#f07f08]/10 hover:text-[#df7709]"
                     }`}
                 >
                   {link.text}
@@ -100,7 +100,7 @@ export function Navbar() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-gray-600 dark:text-gray-200 hover:text-[#00DC82] dark:hover:text-[#00DC82] transition"
+              className="md:hidden text-gray-600 dark:text-gray-200 hover:text-[#df7709] dark:hover:text-[#df7709] transition"
               aria-label="Toggle Menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -121,8 +121,8 @@ export function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={`block rounded-md px-4 py-2 text-sm font-medium transition-all duration-300
                   ${pathname === link.href
-                    ? "bg-[#00DC82]/10 text-[#00DC82]"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-[#00DC82]/10 hover:text-[#00DC82]"
+                    ? "bg-[#df7709]/10 text-[#df7709]"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-[#df7709]/10 hover:text-[#df7709]"
                   }`}
                 style={{
                   transitionDelay: isOpen ? `${index * 50}ms` : "0ms",
